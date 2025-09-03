@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,6 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         'email',
         'password',
         'profile_photo_path',
+        'telefono',
+        'is_active',
         'access_panel',
     ];
 
