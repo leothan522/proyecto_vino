@@ -2,15 +2,25 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Models\User;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Support\Enums\Width;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTable
 {
@@ -19,26 +29,77 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
+                    ->label(__('email'))
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('telefono')
-                    ->searchable(),
-                IconColumn::make('is_active')
-                    ->boolean(),
-                IconColumn::make('access_panel')
-                    ->boolean(),
+                    ->label('Teléfono')
+                    ->searchable()
+                    ->visibleFrom('md')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('email_verified_at')
+                    ->label('Verificado')
+                    ->default(false)
+                    ->boolean()
+                    ->falseIcon(Heroicon::OutlinedClock)
+                    ->falseColor('gray')
+                    ->alignCenter()
+                    ->visibleFrom('md'),
+                ImageColumn::make('profile_photo_path')
+                    ->label(__('Image'))
+                    ->disk('public')
+                    ->circular()
+                    ->defaultImageUrl(verImagen(null, true))
+                    ->alignCenter()
+                    ->visibleFrom('md'),
+                TextColumn::make('roles.name')
+                    ->label(__('Role'))
+                    ->alignCenter(),
+                ToggleColumn::make('is_active')
+                    ->label('Activo')
+                    ->alignCenter(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label(__('Created'))
+                    ->since()
+                    ->visibleFrom('md')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                EditAction::make(),
+                ActionGroup::make([
+                    Action::make('reset_password')
+                        ->label(__('Reset Password'))
+                        ->icon(Heroicon::OutlinedKey)
+                        ->schema([
+                            TextInput::make('new_password')
+                                ->label(__('New Password'))
+                                ->password()
+                                ->revealable()
+                                ->minLength(8)
+                                ->required(),
+                        ])
+                        ->action(function (array $data, User $record): void {
+                            $record->password = Hash::make($data['new_password']);
+                            $record->save();
+                        })
+                        ->modalWidth(Width::Small),
+                    Action::make('validar_email')
+                        ->label('Verificar Email')
+                        ->icon(Heroicon::CheckCircle)
+                        ->action(function (User $record): void {
+                            $record->email_verified_at = now();
+                            $record->save();
+                        })
+                        ->requiresConfirmation()
+                        ->hidden(fn(User $record): bool => !is_null($record->email_verified_at)),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
