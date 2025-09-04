@@ -15,8 +15,10 @@ class RoleSeeder extends Seeder
     {
         //Rol admin
         DB::table('roles')->insert([
-           'name' => 'admin',
-           'guard_name' => 'web'
+            'name' => 'admin',
+            'guard_name' => 'web',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

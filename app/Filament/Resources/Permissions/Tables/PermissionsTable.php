@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Roles\Tables;
+namespace App\Filament\Resources\Permissions\Tables;
 
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -10,7 +10,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class RolesTable
+class PermissionsTable
 {
     public static function configure(Table $table): Table
     {
@@ -20,8 +20,7 @@ class RolesTable
                     ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('guard_name')
-                    ->searchable()
-                    ->alignCenter(),
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()
@@ -33,13 +32,13 @@ class RolesTable
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
-                    DeleteAction::make()
+                    DeleteAction::make(),
                 ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make()
-                        ->authorizeIndividualRecords('delete'),
+                    ->authorizeIndividualRecords('delete'),
                 ]),
             ]);
     }

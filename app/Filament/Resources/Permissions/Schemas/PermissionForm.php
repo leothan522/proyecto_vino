@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\Roles\Schemas;
+namespace App\Filament\Resources\Permissions\Schemas;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
-class RoleForm
+class PermissionForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -27,12 +27,11 @@ class RoleForm
                                 'api' => 'api'
                             ])
                             ->required(),
-                        Select::make('permissions')
-                            ->label(__('Permissions'))
+                        Select::make('roles')
                             ->multiple()
                             ->relationship(titleAttribute: 'name')
-                            ->columnSpanFull()
-                            ->preload(),
+                            ->preload()
+                            ->columnSpanFull(),
                     ])
                     ->columns()
                     ->columnSpanFull()
