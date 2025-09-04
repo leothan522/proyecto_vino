@@ -51,7 +51,7 @@ class UserForm
                         Select::make('roles')
                             ->label(__('Role'))
                             ->relationship(name: 'roles', titleAttribute: 'name')
-                            ->requiredWith('access_panel'),
+                            ->requiredIf('access_panel', true),
                     ])
                     ->columns(2)
                     ->columnSpanFull()

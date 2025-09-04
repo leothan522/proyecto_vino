@@ -182,3 +182,14 @@ function qrCodeGenerateFPDF(string $content = null, int $size = null, int $margi
     }
 }
 
+function isAdmin():bool
+{
+    $response = false;
+    $is_root = auth()->user()->is_root;
+    $is_admin = auth()->user()->hasRole('admin');
+    if ($is_admin || $is_root){
+        $response= true;
+    }
+    return $response;
+}
+

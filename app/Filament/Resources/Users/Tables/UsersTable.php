@@ -60,7 +60,8 @@ class UsersTable
                     ->alignCenter(),
                 ToggleColumn::make('is_active')
                     ->label('Activo')
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->disabled(fn(User $record): bool => (auth()->id() == $record->id) || !isAdmin() || $record->is_root),
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()
@@ -87,7 +88,8 @@ class UsersTable
                             $record->password = Hash::make($data['new_password']);
                             $record->save();
                         })
-                        ->modalWidth(Width::Small),
+                        ->modalWidth(Width::Small)
+                        ->disabled(fn(User $record): bool => (auth()->id() == $record->id) || !isAdmin() || $record->is_root),
                     Action::make('validar_email')
                         ->label('Verificar Email')
                         ->icon(Heroicon::CheckCircle)
@@ -96,15 +98,18 @@ class UsersTable
                             $record->save();
                         })
                         ->requiresConfirmation()
-                        ->hidden(fn(User $record): bool => !is_null($record->email_verified_at)),
+                        ->hidden(fn(User $record): bool => !is_null($record->email_verified_at))
+                        ->disabled(fn(User $record): bool => (auth()->id() == $record->id) || !isAdmin() || $record->is_root),
                     EditAction::make(),
                     DeleteAction::make(),
                 ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->authorizeIndividualRecords('delete'),
+                    ForceDeleteBulkAction::make()
+                        ->authorizeIndividualRecords('forceDelete'),
                     RestoreBulkAction::make(),
                 ]),
             ]);
