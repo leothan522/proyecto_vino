@@ -16,6 +16,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true)->after('telefono');
             $table->boolean('access_panel')->default(false)->after('is_active');
             $table->boolean('is_root')->default(false)->after('access_panel');
+            $table->unsignedInteger('login_count')->default(0)->after('is_root');
             $table->softDeletes()->after('updated_at');
         });
     }

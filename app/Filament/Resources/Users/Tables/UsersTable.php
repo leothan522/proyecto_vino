@@ -54,10 +54,17 @@ class UsersTable
                     ->circular()
                     ->defaultImageUrl(verImagen(null, true))
                     ->alignCenter()
-                    ->visibleFrom('md'),
+                    ->visibleFrom('md')
+                    ->toggleable(),
                 TextColumn::make('roles.name')
                     ->label(__('Role'))
                     ->alignCenter(),
+                TextColumn::make('login_count')
+                    ->label('Visitas')
+                    ->numeric(decimalPlaces: 0)
+                    ->alignEnd()
+                    ->visibleFrom('md')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 ToggleColumn::make('is_active')
                     ->label('Activo')
                     ->alignCenter()

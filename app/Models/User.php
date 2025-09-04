@@ -38,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         'telefono',
         'is_active',
         'access_panel',
+        'login_count',
     ];
 
     /**
