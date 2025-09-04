@@ -40,7 +40,7 @@ class UserForm
                             ->tel()
                             ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
                     ])
-                    ->columns(2)
+                    ->columns()
                     ->columnSpanFull()
                     ->compact(),
                 Section::make('Permisos')
@@ -53,7 +53,7 @@ class UserForm
                             ->relationship(name: 'roles', titleAttribute: 'name')
                             ->requiredIf('access_panel', true),
                     ])
-                    ->columns(2)
+                    ->columns()
                     ->columnSpanFull()
                     ->compact(),
             ]);
