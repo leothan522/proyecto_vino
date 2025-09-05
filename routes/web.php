@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('web.home.index');
 })->name('web.index');
 
 Route::middleware([

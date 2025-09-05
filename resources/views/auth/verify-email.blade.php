@@ -1,4 +1,5 @@
 <x-guest-layout>
+    @section('title', __('Verify Email Address'))
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
