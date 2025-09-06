@@ -1,5 +1,7 @@
 @extends('web.layouts.master')
 
+@section('title', 'Contacto')
+
 @section('content')
 
     @include('web.layouts.hero-wrap-2')

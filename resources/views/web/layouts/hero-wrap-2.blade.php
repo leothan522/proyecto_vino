@@ -5,11 +5,45 @@
             <div class="col-md-9 ftco-animate mb-5 text-center">
                 <p class="breadcrumbs mb-0">
                     <span class="mr-2">
-                        <a href="index.html">Home <i class="fa fa-chevron-right"></i></a>
+                        <a href="{{ route('web.index') }}">Inicio <i class="fa fa-chevron-right"></i></a>
                     </span>
-                    <span>About us <i class="fa fa-chevron-right"></i></span>
+                    @if(Route::currentRouteName() == 'web.single')
+                        <span class="mr-2">
+                        <a href="{{ route('web.products') }}">Productos <i class="fa fa-chevron-right"></i></a>
+                    </span>
+                    @endif
+                    <span>
+                        @php
+                            echo match (Route::currentRouteName()){
+                                'web.about' => 'Acerca de',
+                                'web.products' => 'Productos',
+                                'web.single' => 'Ver Producto',
+                                'web.cart' => 'Carrito',
+                                'web.checkout' => 'Caja',
+                                'web.home' => 'Mi Cuenta',
+                                'web.blog' => 'Blog',
+                                'web.contact' => 'Contacto',
+                                default => 'Inicio',
+                            }
+                        @endphp
+                        <i class="fa fa-chevron-right"></i>
+                    </span>
                 </p>
-                <h2 class="mb-0 bread">About Us</h2>
+                <h2 class="mb-0 bread">
+                    @php
+                        echo match (Route::currentRouteName()){
+                            'web.about' => 'Acerca de',
+                            'web.products' => 'Productos',
+                            'web.single' => 'Ver Producto',
+                            'web.cart' => 'Carrito',
+                            'web.checkout' => 'Caja',
+                            'web.home' => 'Mi Cuenta',
+                            'web.blog' => 'Blog',
+                            'web.contact' => 'Contacto',
+                            default => 'Inicio',
+                        }
+                    @endphp
+                </h2>
             </div>
         </div>
     </div>

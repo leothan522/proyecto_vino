@@ -10,18 +10,29 @@
             <div class="col-md-6 d-flex justify-content-md-end">
                 <div class="social-media mr-4">
                     <p class="mb-0 d-flex">
-                        <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-                        <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center">
+                            <span class="fa fa-facebook"><i class="sr-only">Facebook</i></span>
+                        </a>
+                        <a href="#" class="d-flex align-items-center justify-content-center">
+                            <span class="fa fa-instagram"><i class="sr-only">Instagram</i></span>
+                        </a>
                     </p>
                 </div>
                 <div class="reg">
-                    <p class="mb-0"><a href="{{ route('register') }}" class="mr-2">Sign Up</a> <a href="{{ route('login') }}">Log In</a></p>
+                    @if(Route::has('login'))
+                        @auth
+                            <p class="mb-0">
+                                <a href="{{ route('profile.show') }}" class="mr-2">{{ auth()->user()->name }}</a>
+                            </p>
+                        @else
+                            <p class="mb-0">
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="mr-2 d-none d-md-inline">{{ __('Register') }}</a>
+                                @endif
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </p>
+                        @endauth
+                    @endif
                 </div>
             </div>
         </div>

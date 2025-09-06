@@ -24,7 +24,7 @@ class AccessPanel
                     'timer' => null,
                     'showCloseButton' => true,
                 ]);
-                return redirect()->route('home');
+                return redirect()->route('web.home');
             }
         }
         return $next($request);
