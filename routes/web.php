@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WebController::class, 'index'])->name('web.index');
 Route::get('/about', [WebController::class, 'about'])->name('web.about');
-Route::get('/blog', [WebController::class, 'blog'])->name('web.blog');
+Route::get('/gallery', [WebController::class, 'blog'])->name('web.blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('web.contact');
 Route::get('/products', [WebController::class, 'products'])->name('web.products');
 Route::get('/products/{id}/single', [WebController::class, 'single'])->name('web.single');

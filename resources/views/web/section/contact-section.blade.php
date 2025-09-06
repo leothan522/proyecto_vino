@@ -40,7 +40,7 @@
                                     <span class="fa fa-globe"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>Sitio web</span> <a href="{{ route('web.index') }}">vinoguariqueño.com</a></p>
+                                    <p><span>Sitio web</span> <a href="{{ route('web.index') }}">vinosguarico.com</a></p>
                                 </div>
                             </div>
                         </div>

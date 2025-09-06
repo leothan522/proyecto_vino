@@ -21,7 +21,7 @@
                                 'web.cart' => 'Carrito',
                                 'web.checkout' => 'Caja',
                                 'web.home' => 'Mi Cuenta',
-                                'web.blog' => 'Blog',
+                                'web.blog' => 'Galería',
                                 'web.contact' => 'Contacto',
                                 default => 'Inicio',
                             }
@@ -38,7 +38,7 @@
                             'web.cart' => 'Carrito',
                             'web.checkout' => 'Caja',
                             'web.home' => 'Mi Cuenta',
-                            'web.blog' => 'Blog',
+                            'web.blog' => 'Galería',
                             'web.contact' => 'Contacto',
                             default => 'Inicio',
                         }

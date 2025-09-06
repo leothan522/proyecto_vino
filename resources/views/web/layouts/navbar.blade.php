@@ -27,7 +27,7 @@
                         <a class="dropdown-item" href="checkout.html">Checkout</a>
                     </div>
                 </li>--}}
-                <li class="nav-item @if(Route::currentRouteName() == 'web.blog') active @endif"><a href="{{ route('web.blog') }}" class="nav-link">Blog</a></li>
+                <li class="nav-item @if(Route::currentRouteName() == 'web.blog') active @endif"><a href="{{ route('web.blog') }}" class="nav-link">Galería</a></li>
                 <li class="nav-item @if(Route::currentRouteName() == 'web.contact') active @endif"><a href="{{ route('web.contact') }}" class="nav-link">Contacto</a></li>
             </ul>
         </div>
