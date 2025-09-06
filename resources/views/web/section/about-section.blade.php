@@ -1,22 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center"
-             style="background-image: url({{ asset('vendor/liquorstore/images/about.jpg') }});">
+             style="background-image: url({{ asset('img/web/about.jpg') }});background-size: contain;background-position: center;background-repeat: no-repeat;">
         </div>
         <div class="col-md-6 wrap-about pl-md-5 ftco-animate py-5">
             <div class="heading-section">
-                <span class="subheading">Since 1905</span>
-                <h2 class="mb-4">Desire Meets A New Taste</h2>
+                <span class="subheading">Desde 2005</span>
+                <h2 class="mb-4">UPF Bodega de Vino Artesanal Don Juan Espinoza</h2>
 
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                    is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
-                    would have been rewritten a thousand times and everything that was left from its origin would be
-                    the word "and" and the Little Blind Text should turn around and return to its own, safe
-                    country.</p>
+                <p class="text-justify"><strong style="color: #b7472a">Visión:</strong> Con esfuerzo, pasión y dedicación aplicando las técnicas ancestrales de la vinicultura, para, producir los mejores Vinos de Venezuela. Y ser reconocidos en nuestro país como una Bodega productora de vinos de muy buena calidad en Guárico.</p>
+                <p class="text-justify"><strong style="color: #b7472a">Misión:</strong> Explicar y motivar al sector publico y privado, de que el cultivo de la Uva en clima tropical, es rentable, generador de empleo directo e indirecto y es altamente productivo, de acuerdo a los estudios realizados por la Universidad Lisandro Alvarado del Estado Lara. Al desarrollar este cultivo en el estado Guárico se abrirán las puertas al mundo de la vinicultura en el país.</p>
                 <p class="year">
-                    <strong class="number" data-number="115">0</strong>
-                    <span>Years of Experience In Business</span>
+                    <strong class="number" data-number="20">0</strong>
+                    <span>Años de experiencia en Vinos</span>
                 </p>
             </div>
 

@@ -1,9 +1,10 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row d-flex">
+
             <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
                 <div class="blog-entry d-md-flex">
-                    <a href="blog-single.html" class="block-20 img"
+                    <a href="#" class="block-20 img"
                        style="background-image: url('{{ asset('vendor/liquorstore/images/image_2.jpg') }}');">
                     </a>
                     <div class="text p-4 bg-light">
@@ -13,11 +14,12 @@
                         <h3 class="heading mb-3"><a href="#">The Recipe from a Winemaker’s Restaurent</a></h3>
                         <p>A small river named Duden flows by their place and supplies it with the necessary
                             regelialia.</p>
-                        <a href="#" class="btn-custom">Continue <span class="fa fa-long-arrow-right"></span></a>
+                        <a href="#" class="btn-custom d-none">Continue <span class="fa fa-long-arrow-right"></span></a>
 
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6 d-flex align-items-stretch ftco-animate">
                 <div class="blog-entry d-md-flex">
                     <a href="blog-single.html" class="block-20 img"
@@ -104,6 +106,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row mt-5">
             <div class="col text-center">
                 <div class="block-27">
@@ -119,5 +122,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>

@@ -1,94 +1,89 @@
 <section class="ftco-section">
     <div class="container">
+
         <div class="row justify-content-center pb-5">
             <div class="col-md-7 heading-section text-center ftco-animate">
-                <span class="subheading">Our Delightful offerings</span>
-                <h2>Tastefully Yours</h2>
+                <span class="subheading">Nuestras Deliciosas Ofertas en</span>
+                <h2>Juan German Roscio</h2>
             </div>
         </div>
+
         <div class="row">
+
+            {{--En oferta--}}
             <div class="col-md-3 d-flex">
                 <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url({{ asset('vendor/liquorstore/images/prod-1.jpg') }});">
+                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ asset('vendor/liquorstore/images/prod-1.jpg') }});">
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-visibility"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                             </p>
                         </div>
                     </div>
                     <div class="text text-center">
-                        <span class="sale">Sale</span>
+                        <span class="sale">En Oferta</span>
                         <span class="category">Brandy</span>
                         <h2>Bacardi 151</h2>
-                        <p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">$49.00</span>
+                        <p class="mb-0">
+                            <span class="price price-sale">$69.00</span> <span class="price">$49.00</span>
                         </p>
                     </div>
                 </div>
             </div>
+
+            {{--Superventas--}}
             <div class="col-md-3 d-flex">
                 <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url({{ asset('vendor/liquorstore/images/prod-2.jpg') }});">
+                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ asset('vendor/liquorstore/images/prod-2.jpg') }});">
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-visibility"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                             </p>
                         </div>
                     </div>
                     <div class="text text-center">
-                        <span class="seller">Best Seller</span>
+                        <span class="seller">Superventas</span>
                         <span class="category">Gin</span>
                         <h2>Jim Beam Kentucky Straight</h2>
                         <span class="price">$69.00</span>
                     </div>
                 </div>
             </div>
+
+            {{--Recién llegados--}}
             <div class="col-md-3 d-flex">
                 <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url({{ asset('vendor/liquorstore/images/prod-3.jpg') }});">
+                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ asset('vendor/liquorstore/images/prod-3.jpg') }});">
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-visibility"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                             </p>
                         </div>
                     </div>
                     <div class="text text-center">
-                        <span class="new">New Arrival</span>
+                        <span class="new">Recién llegados</span>
                         <span class="category">Rum</span>
                         <h2>Citadelle</h2>
                         <span class="price">$69.00</span>
                     </div>
                 </div>
             </div>
+
+            {{--Normal--}}
             <div class="col-md-3 d-flex">
                 <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url({{ asset('vendor/liquorstore/images/prod-4.jpg') }});">
+                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ asset('vendor/liquorstore/images/prod-4.jpg') }});">
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                        class="flaticon-visibility"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                             </p>
                         </div>
                     </div>
@@ -188,12 +183,14 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <a href="product.html" class="btn btn-primary d-block">View All Products <span
-                        class="fa fa-long-arrow-right"></span></a>
+                <a href="{{ route('web.products') }}" class="btn btn-primary d-block">Ver Todos los Productos <span class="fa fa-long-arrow-right"></span></a>
             </div>
         </div>
+
     </div>
 </section>

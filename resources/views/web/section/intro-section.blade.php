@@ -7,9 +7,8 @@
                         <span class="flaticon-support"></span>
                     </div>
                     <div class="text">
-                        <h2>Online Support 24/7</h2>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary
-                            regelialia.</p>
+                        <h2>Promotores de Ventas</h2>
+                        <p>Contamos con promotores que viven en el municipio para ayudarlos con sus compras.</p>
                     </div>
                 </div>
             </div>
@@ -19,9 +18,8 @@
                         <span class="flaticon-cashback"></span>
                     </div>
                     <div class="text">
-                        <h2>Money Back Guarantee</h2>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary
-                            regelialia.</p>
+                        <h2>Garantía de Precios bajos</h2>
+                        <p>Trabajamos para asegurar la mejor calidad y ofrecer los mejores precios del mercado.</p>
                     </div>
                 </div>
             </div>
@@ -31,9 +29,8 @@
                         <span class="flaticon-free-delivery"></span>
                     </div>
                     <div class="text">
-                        <h2>Free Shipping &amp; Return</h2>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary
-                            regelialia.</p>
+                        <h2>Envío Gratis</h2>
+                        <p>Los envios dentro del municipio no tienen consto adicional.</p>
                     </div>
                 </div>
             </div>

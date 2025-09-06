@@ -5,31 +5,31 @@
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
                         <strong class="number" data-number="3000">0</strong>
-                        <span>Our Satisfied Customers</span>
+                        <span>Clientes Satisfechos</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="115">0</strong>
-                        <span>Years of Experience</span>
+                        <strong class="number" data-number="20">0</strong>
+                        <span>Años de experiencia</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="100">0</strong>
-                        <span>Kinds of Liquor</span>
+                        <strong class="number" data-number="5">0</strong>
+                        <span>Tipos de Vinos</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="40">0</strong>
-                        <span>Our Branches</span>
+                        <strong class="number" data-number="1">0</strong>
+                        <span>Nuestras Sucursales</span>
                     </div>
                 </div>
             </div>

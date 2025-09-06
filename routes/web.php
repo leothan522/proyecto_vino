@@ -9,6 +9,7 @@ Route::get('/blog', [WebController::class, 'blog'])->name('web.blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('web.contact');
 Route::get('/products', [WebController::class, 'products'])->name('web.products');
 Route::get('/products/{id}/single', [WebController::class, 'single'])->name('web.single');
+Route::get('/cart', [WebController::class, 'cart'])->name('web.cart');
 
 Route::middleware([
     'auth:sanctum',
@@ -16,7 +17,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/home', [WebController::class, 'home'])->name('web.home');
-    Route::get('/cart', [WebController::class, 'cart'])->name('web.cart');
     Route::get('/checkout', [WebController::class, 'checkout'])->name('web.checkout');
 });
 
