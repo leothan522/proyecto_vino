@@ -309,7 +309,7 @@
                     <div class="categories">
                         <h3>Bodegas</h3>
                         <ul class="p-0">
-                            <li><a href="#" style="color: #b7472a;">Juan German Roscio <span class="fa fa-check"></span></a></li>
+                            <li><a href="#" class="color-active">Juan German Roscio <span class="fa fa-check"></span></a></li>
                             {{--<li><a href="#">Gin <span class="fa fa-chevron-right"></span></a></li>
                             <li><a href="#">Rum <span class="fa fa-chevron-right"></span></a></li>
                             <li><a href="#">Tequila <span class="fa fa-chevron-right"></span></a></li>

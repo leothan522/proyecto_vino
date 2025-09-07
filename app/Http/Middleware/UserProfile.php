@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccessPanel
+class UserProfile
 {
     /**
      * Handle an incoming request.
@@ -19,8 +19,8 @@ class AccessPanel
         if (Auth::check()){
             if (!isAdmin() && !Auth::user()->access_panel){
                 sweetAlert2([
-                    'icon' => 'info',
-                    'text' => 'No tienes acceso al Panel',
+                    'icon' => 'success',
+                    'text' => 'Foto Guardada Correctamente',
                     'timer' => 3000,
                     'showCloseButton' => true,
                 ]);

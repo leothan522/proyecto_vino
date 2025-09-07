@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 
 Route::get('/', [WebController::class, 'index'])->name('web.index');
 Route::get('/about', [WebController::class, 'about'])->name('web.about');
@@ -16,7 +17,13 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home', [WebController::class, 'home'])->name('web.home');
+    Route::get('/home/{verPedidos?}', [WebController::class, 'home'])->name('web.home');
     Route::get('/checkout', [WebController::class, 'checkout'])->name('web.checkout');
 });
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    \App\Http\Middleware\UserProfile::class,
+])->get('user/profile', [UserProfileController::class, 'show'])->name('profile.show');
 

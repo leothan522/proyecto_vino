@@ -99,7 +99,7 @@
                                 <label>Monto</label>
                                 <input type="text" name="optradio" class="form-control" placeholder="Bs.">
                             </div>
-                            <p><a href="{{ route('web.home') }}" class="btn btn-primary py-3 px-4">Hacer un Pedido</a></p>
+                            <p><a href="{{ route('web.home', 'mis-pedidos') }}" class="btn btn-primary py-3 px-4">Hacer un Pedido</a></p>
                         </div>
                     </div>
                 </div>

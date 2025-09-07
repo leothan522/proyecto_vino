@@ -17,9 +17,10 @@ class WebController extends Controller
         return view('web.about.index');
     }
 
-    public function home()
+    public function home($verPedidos = null)
     {
-        return view('dashboard');
+        return view('web.home.index')
+            ->with('verPedidos', $verPedidos);
     }
 
     public function blog()
