@@ -1,6 +1,6 @@
 @extends('web.layouts.master')
 
-@section('title', 'Carrito')
+@section('title', 'Mi Carrito')
 
 @section('content')
 

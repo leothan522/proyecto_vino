@@ -1,26 +1,27 @@
 <section class="ftco-section">
     <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-xl-10 ftco-animate">
                 <form action="#" class="billing-form">
-                    <h3 class="mb-4 billing-heading">Billing Details</h3>
+                    <h3 class="mb-4 billing-heading">Detalles de Facturación</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="firstname">Firt Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="emailaddress">Cédula</label>
+                                <input type="text" class="form-control" placeholder="Cédula">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="lastname">Last Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="firstname">Nombre Completo</label>
+                                <input type="text" class="form-control" placeholder="Nombre Completo">
                             </div>
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="country">State / Country</label>
+                                <label for="country">Parroquia</label>
                                 <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                     <select name="" id="" class="form-control">
@@ -34,73 +35,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="streetaddress">Street Address</label>
-                                <input type="text" class="form-control" placeholder="House number and street name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
+                                <label for="phone">Teléfono</label>
+                                <input type="text" class="form-control" placeholder="Teléfono">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="towncity">Town / City</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label for="streetaddress">Dirección</label>
+                                <input type="text" class="form-control" placeholder="Número de casa y nombre de la calle">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="postcodezip">Postcode / ZIP *</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="emailaddress">Email Address</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col-md-12">
-                            <div class="form-group mt-4">
-                                <div class="radio">
-                                    <label class="mr-3"><input type="radio" name="optradio"> Create an Account? </label>
-                                    <label><input type="radio" name="optradio"> Ship to different address</label>
-                                </div>
+                                <input type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)">
                             </div>
                         </div>
                     </div>
-                </form><!-- END -->
 
-
-
-                <div class="row mt-5 pt-3 d-flex">
+                    <div class="row mt-4 pt-3 d-flex">
                     <div class="col-md-6 d-flex">
                         <div class="cart-detail cart-total p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Cart Total</h3>
+                            <h3 class="billing-heading mb-4">Totales del Carrito</h3>
                             <p class="d-flex">
                                 <span>Subtotal</span>
                                 <span>$20.60</span>
                             </p>
                             <p class="d-flex">
-                                <span>Delivery</span>
+                                <span>Entrega</span>
                                 <span>$0.00</span>
-                            </p>
-                            <p class="d-flex">
-                                <span>Discount</span>
-                                <span>$3.00</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
@@ -111,40 +76,58 @@
                     </div>
                     <div class="col-md-6">
                         <div class="cart-detail p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Payment Method</h3>
+                            <h3 class="billing-heading mb-4">Método de pago</h3>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+                                        <label data-toggle="modal" data-target="#exampleModal"><input type="radio" name="optradio" class="mr-2"> Transferencia bancaria</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
+                                        <label data-toggle="modal" data-target="#exampleModal"><input type="radio" name="optradio" class="mr-2"> Pago Móvil</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
-                                    </div>
-                                </div>
+                                <label>Referencia</label>
+                                <input type="text" name="optradio" class="form-control" placeholder="#">
                             </div>
-                            <p><a href="#"class="btn btn-primary py-3 px-4">Place an order</a></p>
+                            <div class="form-group">
+                                <label>Monto</label>
+                                <input type="text" name="optradio" class="form-control" placeholder="Bs.">
+                            </div>
+                            <p><a href="{{ route('web.home') }}" class="btn btn-primary py-3 px-4">Hacer un Pedido</a></p>
                         </div>
                     </div>
                 </div>
+
+                </form><!-- END -->
             </div> <!-- .col-md-8 -->
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>

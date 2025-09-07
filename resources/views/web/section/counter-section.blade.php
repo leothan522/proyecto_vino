@@ -29,7 +29,7 @@
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
                         <strong class="number" data-number="1">0</strong>
-                        <span>Nuestras Sucursales</span>
+                        <span>Nuestras Bodegas</span>
                     </div>
                 </div>
             </div>

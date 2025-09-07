@@ -9,8 +9,13 @@
                     </span>
                     @if(Route::currentRouteName() == 'web.single')
                         <span class="mr-2">
-                        <a href="{{ route('web.products') }}">Productos <i class="fa fa-chevron-right"></i></a>
-                    </span>
+                            <a href="{{ route('web.products') }}">Productos <i class="fa fa-chevron-right"></i></a>
+                        </span>
+                    @endif
+                    @if(Route::currentRouteName() == 'web.checkout')
+                        <span class="mr-2">
+                            <a href="{{ route('web.cart') }}">Mi Carrito <i class="fa fa-chevron-right"></i></a>
+                        </span>
                     @endif
                     <span>
                         @php
@@ -18,7 +23,7 @@
                                 'web.about' => 'Acerca de',
                                 'web.products' => 'Productos',
                                 'web.single' => 'Ver Producto',
-                                'web.cart' => 'Carrito',
+                                'web.cart' => 'Mi Carrito',
                                 'web.checkout' => 'Caja',
                                 'web.home' => 'Mi Cuenta',
                                 'web.blog' => 'Galería',
@@ -35,7 +40,7 @@
                             'web.about' => 'Acerca de',
                             'web.products' => 'Productos',
                             'web.single' => 'Ver Producto',
-                            'web.cart' => 'Carrito',
+                            'web.cart' => 'Mi Carrito',
                             'web.checkout' => 'Caja',
                             'web.home' => 'Mi Cuenta',
                             'web.blog' => 'Galería',
