@@ -4,7 +4,7 @@
             <div class="col-md-6 d-flex align-items-center">
                 <p class="mb-0 phone pl-md-2">
                     <a href="tel:+584144938140" class="mr-2"><span class="fa fa-phone mr-1"></span> +58 414-4938140</a>
-                    <a href="#"><span class="fa fa-paper-plane mr-1"></span> espinozadiazjuliocesar287@gmail.com</a>
+                    <a href="mailto:espinozadiazjuliocesar287@gmail.com"><span class="fa fa-paper-plane mr-1"></span> espinozadiazjuliocesar287@gmail.com</a>
                 </p>
             </div>
             <div class="col-md-6 d-flex justify-content-md-end">

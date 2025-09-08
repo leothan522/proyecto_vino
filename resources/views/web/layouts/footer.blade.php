@@ -3,7 +3,7 @@
         <div class="row mb-5">
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2 logo"><a href="#">Vino <span>Guariqueño</span></a></h2>
+                    <h2 class="ftco-heading-2 logo"><a href="{{ route('web.index') }}">Vino <span>Guariqueño</span></a></h2>
                     <p class="d-none">Far far away, behind the word mountains, far from the countries.</p>
                     <ul class="ftco-footer-social list-unstyled mt-2">
                         <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -13,11 +13,11 @@
             </div>
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Mis Cuentas</h2>
+                    <h2 class="ftco-heading-2">Mi Cuenta</h2>
                     <ul class="list-unstyled">
                         @auth
-                            <li><a href="{{ route('profile.show')  }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Profile') }}</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Mi Pedido</a></li>
+                            <li><a href="{{ route('web.profile')  }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Profile') }}</a></li>
+                            <li><a href="{{ route('web.home') }}"><span class="fa fa-chevron-right mr-2"></span>Mis Pedidos</a></li>
                         @else
                             <li><a href="{{ route('register') }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Register') }}</a></li>
                             <li><a href="{{ route('login') }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Log In') }}</a></li>
@@ -30,7 +30,7 @@
                     <h2 class="ftco-heading-2">Información</h2>
                     <ul class="list-unstyled">
                         <li><a href=tel:+584144938140"><span class="icon fa fa-phone pr-4"></span><span class="text">+58 414-4938140</span></a></li>
-                        <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">espinozadiazjuliocesar287@gmail.com</span></a></li>
+                        <li><a href="mailto:espinozadiazjuliocesar287@gmail.com"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">espinozadiazjuliocesar287@gmail.com</span></a></li>
                     </ul>
                 </div>
             </div>

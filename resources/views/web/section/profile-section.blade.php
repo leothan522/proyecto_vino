@@ -5,7 +5,7 @@
             <div class="col-md-10 order-last">
 
                 {{--Profile--}}
-                <div class="" id="div_profile">
+                <div class="ftco-animate" id="div_profile">
                     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                         @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                             @livewire('profile.update-profile-information-form')

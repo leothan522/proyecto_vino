@@ -5,7 +5,7 @@
             <div class="col-md-10 order-last">
 
                 {{--Mis Pedidos--}}
-                <div class="" id="div_pedidos">
+                <div class="ftco-animate" id="div_pedidos">
 
                     {{--Lista de pedidos--}}
                     <div class="list-group">
