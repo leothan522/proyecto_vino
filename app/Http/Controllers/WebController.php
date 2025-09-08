@@ -17,10 +17,10 @@ class WebController extends Controller
         return view('web.about.index');
     }
 
-    public function home($verPedidos = null)
+    public function home($facturacion = null)
     {
         return view('web.home.index')
-            ->with('verPedidos', $verPedidos);
+            ->with('facturacion', $facturacion);
     }
 
     public function blog()
@@ -51,6 +51,11 @@ class WebController extends Controller
     public function checkout()
     {
         return view('web.checkout.index');
+    }
+
+    public function profile()
+    {
+        return view('web.profile.index');
     }
 
 }

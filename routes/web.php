@@ -11,13 +11,14 @@ Route::get('/contact', [WebController::class, 'contact'])->name('web.contact');
 Route::get('/products', [WebController::class, 'products'])->name('web.products');
 Route::get('/products/{id}/single', [WebController::class, 'single'])->name('web.single');
 Route::get('/cart', [WebController::class, 'cart'])->name('web.cart');
+Route::get('/profile', [WebController::class, 'profile'])->name('web.profile');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home/{verPedidos?}', [WebController::class, 'home'])->name('web.home');
+    Route::get('/home/{facturacion?}', [WebController::class, 'home'])->name('web.home');
     Route::get('/checkout', [WebController::class, 'checkout'])->name('web.checkout');
 });
 

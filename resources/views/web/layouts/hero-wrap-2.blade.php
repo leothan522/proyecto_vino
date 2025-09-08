@@ -1,4 +1,5 @@
-<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('img/web/hero.jpg') }}');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('img/web/hero.jpg') }}');"
+         data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -25,7 +26,7 @@
                                 'web.single' => 'Ver Producto',
                                 'web.cart' => 'Mi Carrito',
                                 'web.checkout' => 'Caja',
-                                'web.home' => 'Mi Cuenta',
+                                'web.home','web.profile' => 'Mi Cuenta',
                                 'web.blog' => 'Galería',
                                 'web.contact' => 'Contacto',
                                 default => 'Inicio',
@@ -42,7 +43,7 @@
                             'web.single' => 'Ver Producto',
                             'web.cart' => 'Mi Carrito',
                             'web.checkout' => 'Caja',
-                            'web.home' => 'Mi Cuenta',
+                            'web.home','web.profile' => 'Mi Cuenta',
                             'web.blog' => 'Galería',
                             'web.contact' => 'Contacto',
                             default => 'Inicio',
