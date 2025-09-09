@@ -11,6 +11,7 @@ use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
@@ -28,6 +29,9 @@ class TipoProductosTable
                     ->circular()
                     ->visibility('public')
                     ->defaultImageUrl(asset('img/placeholder.jpg'))
+                    ->alignCenter(),
+                ToggleColumn::make('is_active')
+                    ->label('Activo')
                     ->alignCenter(),
                 TextColumn::make('created_at')
                     ->label(__('Created'))

@@ -13,7 +13,7 @@
     </section>
 
     <section class="ftco-section ftco-no-pb">
-        @include('web.section.list-types-section')
+        <livewire:web.tipos-productos-component />
     </section>
 
     @include('web.section.recent-products-section')

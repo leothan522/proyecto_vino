@@ -12,7 +12,8 @@ class TipoProducto extends Model
     protected $table = 'tipos_productos';
     protected $fillable = [
         'nombre',
-        'imagen_path'
+        'imagen_path',
+        'is_active'
     ];
 
 }
