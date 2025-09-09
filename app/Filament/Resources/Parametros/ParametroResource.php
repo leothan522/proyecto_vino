@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Parametros;
 
 use App\Filament\Resources\Parametros\Pages\ManageParametros;
+use App\Filament\Resources\Parametros\Widgets\ParametrosWidget;
 use App\Models\Parametro;
 use BackedEnum;
 use Filament\Actions\ActionGroup;
@@ -25,7 +26,7 @@ class ParametroResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Configuración';
+    protected static string|UnitEnum|null $navigationGroup = 'Configuración';
 
     protected static ?int $navigationSort = 2;
 
@@ -52,12 +53,19 @@ class ParametroResource extends Resource
                 TextColumn::make('nombre')
                     ->searchable(),
                 TextColumn::make('valor_id')
+                    ->label('valor_id')
                     ->numeric()
-                    ->searchable(),
+                    ->searchable()
+                    ->visibleFrom('md'),
+                TextColumn::make('valor_texto')
+                    ->label('valor_texto')
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()
                     ->alignEnd()
+                    ->visibleFrom('md')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -80,6 +88,13 @@ class ParametroResource extends Resource
     {
         return [
             'index' => ManageParametros::route('/'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ParametrosWidget::class,
         ];
     }
 
