@@ -4,7 +4,7 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="3000">0</strong>
+                        <strong class="number" data-number="{{ getParametro('about_clientes', 'valor_id') }}">0</strong>
                         <span>Clientes Satisfechos</span>
                     </div>
                 </div>
@@ -12,7 +12,7 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="20">0</strong>
+                        <strong class="number" data-number="{{ \Carbon\Carbon::create(getParametro('about_desde', 'valor_id'))->age }}">0</strong>
                         <span>Años de experiencia</span>
                     </div>
                 </div>

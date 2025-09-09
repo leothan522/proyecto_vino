@@ -10,7 +10,7 @@
                                     <span class="fa fa-map-marker"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>Dirección:</span> Urbanización Rómulo Gallegos sector 2 vereda 15 casa número 8, San Juan de los Morros, Guárico, Venezuela</p>
+                                    <p><span>Dirección:</span> {{ getParametro('contact_direccion') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                                     <span class="fa fa-phone"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>Teléfono:</span> <a href="tel:+584144938140">+58 414-4938140</a></p>
+                                    <p><span>Teléfono:</span> <a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}">{{ getParametro('contact_telefono') }}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                     <span class="fa fa-paper-plane"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>Email:</span> <a href="mailto:espinozadiazjuliocesar287@gmail.com">espinozadiazjuliocesar287@gmail.com</a></p>
+                                    <p><span>Email:</span> <a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}">{{ Str::lower(getParametro('contact_email')) }}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                     <span class="fa fa-globe"></span>
                                 </div>
                                 <div class="text">
-                                    <p><span>Sitio web</span> <a href="{{ route('web.index') }}">vinosguarico.com</a></p>
+                                    <p><span>Sitio web</span> <a href="{{ route('web.index') }}">{{ getParametro('contact_web') }}</a></p>
                                 </div>
                             </div>
                         </div>

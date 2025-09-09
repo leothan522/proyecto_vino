@@ -6,8 +6,8 @@
                     <h2 class="ftco-heading-2 logo"><a href="{{ route('web.index') }}">Vino <span>Guariqueño</span></a></h2>
                     <p class="d-none">Far far away, behind the word mountains, far from the countries.</p>
                     <ul class="ftco-footer-social list-unstyled mt-2">
-                        <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                        <li class="ftco-animate"><a href="{{ Str::replace(' ', '', getParametro('social_facebook')) }}" target="_blank"><span class="fa fa-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="{{ Str::replace(' ', '', getParametro('social_instagram')) }}" target="_blank"><span class="fa fa-instagram"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">Información</h2>
                     <ul class="list-unstyled">
-                        <li><a href=tel:+584144938140"><span class="icon fa fa-phone pr-4"></span><span class="text">+58 414-4938140</span></a></li>
-                        <li><a href="mailto:espinozadiazjuliocesar287@gmail.com"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">espinozadiazjuliocesar287@gmail.com</span></a></li>
+                        <li><a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}"><span class="icon fa fa-phone pr-4"></span><span class="text">{{ getParametro('contact_telefono') }}</span></a></li>
+                        <li><a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">{{ Str::lower(getParametro('contact_email')) }}</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         <ul>
                             <li>
                                 <span class="icon fa fa-map marker"></span>
-                                <span class="text">Urbanización Rómulo Gallegos sector 2 vereda 15 casa número 8, San Juan de los Morros, Guárico, Venezuela</span>
+                                <span class="text">{{ getParametro('contact_direccion') }}</span>
                             </li>
                         </ul>
                     </div>
@@ -67,7 +67,7 @@
 
                     <p class="mb-0" style="color: rgba(255,255,255,.5);">
                         &copy;<script>document.write(new Date().getFullYear());</script>
-                        UPF Bodega de Vino Artesanal Don Juan Espinoza RIF J501051437
+                        {{ getParametro('contact_nombre') }} RIF {{ getParametro('contact_rif') }}
                         <span class="d-none d-md-inline float-right">
                             <i class="fa fa-heart color-danger" aria-hidden="true"></i> Dev.
                             <a href="https://t.me/Leothan" target="_blank">Yonathan Castillo</a>

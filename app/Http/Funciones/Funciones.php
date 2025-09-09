@@ -1,29 +1,20 @@
 <?php
 //Funciones Personalizadas para el Proyecto
 
-function cerosIzquierda($cantidad, $cantCeros = 2): int|string
-{
-    if ($cantidad == 0) {
-        return 0;
-    }
-    return str_pad($cantidad, $cantCeros, "0", STR_PAD_LEFT);
-}
-
-/*function numSizeCodigo(): int
-{
-    $num = 6;
-    $parametro = \App\Models\Parametro::where('nombre', 'size_codigo')->first();
-    if ($parametro){
-        if (!empty($parametro->valor_id) && $parametro->valor_id >= 1){
-            $num = intval($parametro->valor_id);
-        }
-    }
-    return $num;
-}*/
-
 function sweetAlert2(array $parametros = []): void
 {
     session()->flash('sweetAlert2', $parametros);
+}
+
+function isAdmin():bool
+{
+    $response = false;
+    $is_root = auth()->user()->is_root;
+    $is_admin = auth()->user()->hasRole('admin');
+    if ($is_admin || $is_root){
+        $response= true;
+    }
+    return $response;
 }
 
 function verImagen($path, $user = false): string
@@ -182,14 +173,46 @@ function qrCodeGenerateFPDF(string $content = null, int $size = null, int $margi
     }
 }
 
-function isAdmin():bool
+function cerosIzquierda($cantidad, $cantCeros = 2): int|string
 {
-    $response = false;
-    $is_root = auth()->user()->is_root;
-    $is_admin = auth()->user()->hasRole('admin');
-    if ($is_admin || $is_root){
-        $response= true;
+    if ($cantidad == 0) {
+        return 0;
+    }
+    return str_pad($cantidad, $cantCeros, "0", STR_PAD_LEFT);
+}
+
+function getParametro($nombre, $column = 'valor_texto'): string
+{
+    $data = [
+        'contact_nombre' => 'UPF Bodega de Vino Artesanal Don Juan Espinoza',
+        'contact_rif' => 'J501051437',
+        'contact_telefono' => '+58 414-4938140',
+        'contact_email' => 'espinozadiazjuliocesar287@gmail.com',
+        'contact_direccion' => 'Urbanización Rómulo Gallegos sector 2 vereda 15 casa número 8, San Juan de los Morros, Guárico, Venezuela',
+        'contact_web' => 'vinodonjuanespinoza.com',
+        'social_facebook' => '#',
+        'social_instagram' => '#',
+        'about_desde' => 2005,
+        'about_clientes' => 4000,
+    ];
+
+    $response = array_key_exists($nombre, $data) ? $data[$nombre] : 'Valor Default NO definido.';
+    $parametro = \App\Models\Parametro::where('nombre', $nombre)->first();
+    if ($parametro && !empty($parametro->$column)){
+        $response = $parametro->$column;
     }
     return $response;
 }
+
+/*function numSizeCodigo(): int
+{
+    $num = 6;
+    $parametro = \App\Models\Parametro::where('nombre', 'size_codigo')->first();
+    if ($parametro){
+        if (!empty($parametro->valor_id) && $parametro->valor_id >= 1){
+            $num = intval($parametro->valor_id);
+        }
+    }
+    return $num;
+}*/
 
