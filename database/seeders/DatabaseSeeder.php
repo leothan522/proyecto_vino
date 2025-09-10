@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Almacen;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TipoProductoSeeder::class,
             VenezuelaSeeder::class,
+            AlmacenSeeder::class,
         ]);
     }
 }
