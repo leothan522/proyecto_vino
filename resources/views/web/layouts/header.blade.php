@@ -22,7 +22,7 @@
                     @if(Route::has('login'))
                         @auth
                             <p class="mb-0">
-                                <a href="{{ isAdmin() ? uri('dashboard') : route('web.home') }}" class="mr-2">{{ auth()->user()->name }}</a>
+                                <a href="{{ isAdmin() ? route('filament.dashboard.pages.dashboard') : route('web.home') }}" class="mr-2">{{ auth()->user()->name }}</a>
                             </p>
                         @else
                             <p class="mb-0">

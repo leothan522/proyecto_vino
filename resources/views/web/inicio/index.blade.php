@@ -13,10 +13,12 @@
     </section>
 
     <section class="ftco-section ftco-no-pb">
-        <livewire:web.tipos-productos-component />
+        <livewire:web.tipos-productos-component/>
     </section>
 
-    @include('web.section.recent-products-section')
+    <section class="ftco-section">
+        <livewire:web.recent-products-component />
+    </section>
 
     @include('web.section.testimony-section')
 

@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Livewire\Web;
+
+use App\Models\Almacen;
+use App\Models\Producto;
+use App\Traits\WebTrait;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use Livewire\Component;
+
+class ProductSingleComponent extends Component
+{
+    use WebTrait;
+
+    public int $productos_id;
+    public int $almacenes_id;
+    public string $almacen;
+
+    public string $nombre;
+    public string $tipo;
+    public string $precio;
+    public string $descripcion;
+    public string $imagen;
+    protected bool $is_active;
+
+    public int $cantidad = 1;
+
+    public function mount($productos_id): void
+    {
+        $this->productos_id = $productos_id;
+    }
+
+    public function render()
+    {
+        $this->getAlmacen();
+        $this->getProducto();
+        return view('livewire.web.product-single-component');
+    }
+
+    public function show()
+    {
+        $this->disableFtcoAnimate();
+        LivewireAlert::title('Cantidad: '.$this->cantidad)
+        ->info()
+        ->show();
+    }
+
+    public function irCart()
+    {
+        $this->disableFtcoAnimate();
+        $this->redirectRoute('web.cart');
+    }
+
+    protected function getAlmacen(): void
+    {
+        if (session()->has('almacenes_id')){
+            $almacen = Almacen::find(session('almacenes_id'));
+        }else{
+            $almacen = Almacen::where('is_main', 1)->first();
+        }
+        if ($almacen){
+            $this->almacenes_id = $almacen->id;
+            $this->almacen = $almacen->nombre;
+        }else{
+            $this->redirectRoute('web.index');
+        }
+    }
+
+    protected function getProducto(): void
+    {
+        $producto = Producto::find($this->productos_id);
+        if ($producto && $producto->is_active){
+            $this->nombre = $producto->nombre;
+            $this->tipo = $producto->tipo->nombre;
+            $this->precio = formatoMillares($producto->precio);
+            $this->descripcion = $producto->descripcion;
+            $this->imagen = $producto->imagen_path;
+        }else{
+            $this->redirectRoute('web.index');
+        }
+    }
+
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +41,14 @@ class WebController extends Controller
 
     public function single($id)
     {
-        return view('web.products-single.index');
+        $producto = Producto::find($id);
+
+        if (!$producto || !$producto->is_active){
+            return redirect()->route('web.index');
+        }
+
+        return view('web.products-single.index')
+            ->with('productos_id', $id);
     }
 
     public function cart()
