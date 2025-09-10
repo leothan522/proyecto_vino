@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             UserSeeder::class,
-            TipoProductoSeeder::class
+            TipoProductoSeeder::class,
+            VenezuelaSeeder::class,
         ]);
     }
 }
