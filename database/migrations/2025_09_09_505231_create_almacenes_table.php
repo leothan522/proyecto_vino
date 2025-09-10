@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre')->unique();
             $table->bigInteger('id_municipio')->nullable();
+            $table->boolean('is_main')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

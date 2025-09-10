@@ -14,6 +14,7 @@ class Almacen extends Model
     protected $fillable = [
         'nombre',
         'id_municipio',
+        'is_main',
     ];
 
     public function municipio(): HasOne

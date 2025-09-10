@@ -6,6 +6,7 @@ use App\Filament\Resources\Almacens\Pages\ManageAlmacens;
 use App\Models\Almacen;
 use App\Models\Municipio;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -15,7 +16,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -62,15 +65,23 @@ class AlmacenResource extends Resource
             ->columns([
                 TextColumn::make('nombre')
                     ->searchable(),
+                IconColumn::make('is_main')
+                    ->label('Principal')
+                    ->boolean()
+                    ->falseIcon('')
+                    ->alignCenter(),
                 TextColumn::make('municipio.municipio')
-                    ->searchable(),
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()
+                    ->visibleFrom('md')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
                     ->label('Eliminado')
                     ->since()
+                    ->visibleFrom('md')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -78,7 +89,22 @@ class AlmacenResource extends Resource
             ])
             ->recordActions([
                 ActionGroup::make([
-                    EditAction::make(),
+                    Action::make('principal')
+                        ->label('Almacen Principal')
+                        ->icon(Heroicon::OutlinedCheckCircle)
+                        ->requiresConfirmation()
+                        ->hidden(fn(Almacen $record): bool => $record->is_main)
+                        ->action(function (Almacen $record): void {
+                            $almacenes = Almacen::where('is_main', 1)->get();
+                            foreach ($almacenes as $almacen) {
+                                $almacen->is_main = 0;
+                                $almacen->save();
+                            }
+                            $record->is_main = 1;
+                            $record->save();
+                        }),
+                    EditAction::make()
+                        ->modalWidth(Width::Small),
                     DeleteAction::make(),
                 ])
             ])

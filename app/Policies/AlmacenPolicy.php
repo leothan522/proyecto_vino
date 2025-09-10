@@ -45,7 +45,7 @@ class AlmacenPolicy
      */
     public function delete(User $user, Almacen $almacen): bool
     {
-        return $user->is_root;
+        return $user->is_root && !$almacen->is_main;
     }
 
     /**
@@ -61,6 +61,6 @@ class AlmacenPolicy
      */
     public function forceDelete(User $user, Almacen $almacen): bool
     {
-        return $user->is_root;
+        return $user->is_root && !$almacen->is_main;
     }
 }

@@ -16,6 +16,7 @@ class AlmacenSeeder extends Seeder
         Almacen::create([
            'nombre' => 'Juan Germán Roscio',
            'id_municipio' => 134,
+            'is_main' => 1
         ]);
     }
 }
