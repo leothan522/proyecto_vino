@@ -13,8 +13,6 @@ class ProductSingleComponent extends Component
     use WebTrait;
 
     public int $productos_id;
-    public int $almacenes_id;
-    public string $almacen;
 
     public string $nombre;
     public string $tipo;
