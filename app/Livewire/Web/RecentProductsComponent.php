@@ -12,22 +12,11 @@ class RecentProductsComponent extends Component
 {
     use WebTrait;
 
-    public int $almacenes_id;
-    public string $almacen;
-    public $productos;
-
     public function render()
     {
         $this->getAlmacen();
         $this->getProductos();
         return view('livewire.web.recent-products-component');
-    }
-
-    public function show($id): void
-    {
-        $this->disableFtcoAnimate();
-        session(['almacenes_id' => $this->almacenes_id]);
-        $this->redirectRoute('web.single', $id);
     }
 
     protected function getAlmacen(): void

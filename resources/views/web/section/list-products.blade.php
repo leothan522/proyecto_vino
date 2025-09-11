@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+
+    @foreach($productos as $producto)
+
+        {{--Normal--}}
+        <div class="col-md-3 d-flex">
+            <div class="product position-relative @if($ftco_animate) ftco-animate @endif">
+                <div class="img d-flex align-items-center justify-content-center"
+                     style="background-image: url({{ verImagen($producto->imagen_path) }});">
+                    <div class="desc">
+                        <p class="meta-prod d-flex">
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                            <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                            <a href="#" wire:click.prevent="productShow({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="text text-center">
+                    <span class="category">{{ $producto->tipo->nombre }}</span>
+                    <h2>{{ $producto->nombre }}</h2>
+                    <span class="price">${{ formatoMillares($producto->precio) }}</span>
+                </div>
+                <!-- Spinner overlay -->
+                <div wire:loading wire:target="productShow({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+            </div>
+        </div>
+
+    @endforeach
+
+</div>
