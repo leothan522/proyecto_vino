@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class WebController extends Controller
 {
+
+    public function __construct()
+    {
+        if (!session()->has('rowquid')){
+            session(['rowquid' => Str::random()]);
+        }
+    }
+
     public function index()
     {
         return view('web.inicio.index');

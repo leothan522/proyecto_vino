@@ -9,7 +9,13 @@
                      style="background-image: url({{ verImagen($producto->imagen_path) }});">
                     <div class="desc">
                         <p class="meta-prod d-flex">
-                            <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                            <a href="#" wire:click.prevent="productAddCart({{ $producto->id }})" class="d-flex align-items-center justify-content-center">
+                                @if($this->productInCart($producto->id))
+                                    <span class="fa fa-shopping-bag text-warning"></span>
+                                @else
+                                    <span class="flaticon-shopping-bag"></span>
+                                @endif
+                            </a>
                             <a href="#" wire:click.prevent="productAddFavorite({{ $producto->id }})" class="d-flex align-items-center justify-content-center">
                                 @if($this->productIsFavorite($producto->id))
                                     <span class="fa fa-heart text-danger"></span>
@@ -32,6 +38,9 @@
                     <div class="spinner-border color-active" role="status"></div>
                 </div>
                 <div wire:loading wire:target="productAddFavorite({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+                <div wire:loading wire:target="productAddCart({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
                     <div class="spinner-border color-active" role="status"></div>
                 </div>
             </div>

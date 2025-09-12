@@ -54,7 +54,7 @@ class ModalLoginComponent extends Component
                     ]);
                 }
 
-                $this->dispatch('actualizar');
+                $this->dispatch('productRefresh');
 
                 LivewireAlert::title('Agregado a Favoritos')
                     ->toast()

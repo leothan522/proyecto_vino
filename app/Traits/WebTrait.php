@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Carrito;
 use App\Models\Favorito;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
@@ -70,8 +71,42 @@ trait WebTrait
         return $response;
     }
 
-    #[On('actualizar')]
-    public function actualizar()
+    public function productAddCart($id): void
+    {
+        $this->disableFtcoAnimate();
+        $rowquid = session('rowquid');
+        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->first();
+        if ($carrito) {
+            $carrito->cantidad++;
+            $carrito->save();
+        } else {
+            $carrito = Carrito::create([
+                'rowquid' => $rowquid,
+                'productos_id' => $id,
+                'cantidad' => 1
+            ]);
+        }
+        $cantidad = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
+        LivewireAlert::title('Agregado 01 al Carrito')
+            ->text("Llevas $cantidad en Total")
+            ->toast()
+            ->position('top')
+            ->success()
+            ->show();
+    }
+
+    public function productInCart($id): bool
+    {
+        $response = false;
+        $rowquid = session('rowquid');
+        if (Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->exists()){
+            $response = true;
+        }
+        return $response;
+    }
+
+    #[On('productRefresh')]
+    public function productRefresh()
     {
         //Actualizar
     }

@@ -3,8 +3,10 @@
 namespace App\Livewire\Web;
 
 use App\Models\Almacen;
+use App\Models\Carrito;
 use App\Models\Producto;
 use App\Traits\WebTrait;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -23,7 +25,7 @@ class RecentProductsComponent extends Component
     protected function getAlmacen(): void
     {
         $almacen = Almacen::where('is_main', 1)->first();
-        if ($almacen){
+        if ($almacen) {
             $this->almacenes_id = $almacen->id;
             $this->almacen = $almacen->nombre;
         }
@@ -35,5 +37,7 @@ class RecentProductsComponent extends Component
             ->limit(8)
             ->get();
     }
+
+
 
 }
