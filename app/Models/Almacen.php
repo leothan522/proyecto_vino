@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,4 +22,10 @@ class Almacen extends Model
     {
         return $this->hasOne(Municipio::class, 'id', 'id_municipio');
     }
+
+    public function promotores(): HasMany
+    {
+        return $this->hasMany(Promotor::class, 'almacenes_id', 'id');
+    }
+
 }

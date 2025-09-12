@@ -38,7 +38,8 @@ class UserForm
                         TextInput::make('telefono')
                             ->label('Teléfono')
                             ->tel()
-                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/'),
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            ->required(),
                     ])
                     ->columns()
                     ->columnSpanFull()
