@@ -87,6 +87,7 @@ trait WebTrait
             ]);
         }
         $cantidad = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
+        $this->dispatch('orderLastRefresh');
         LivewireAlert::title('Agregado 01 al Carrito')
             ->text("Llevas $cantidad en Total")
             ->toast()

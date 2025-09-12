@@ -38,6 +38,4 @@ class RecentProductsComponent extends Component
             ->get();
     }
 
-
-
 }
