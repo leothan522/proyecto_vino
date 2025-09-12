@@ -6,6 +6,7 @@ use App\Models\Almacen;
 use App\Models\Producto;
 use App\Traits\WebTrait;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class RecentProductsComponent extends Component

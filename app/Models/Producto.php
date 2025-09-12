@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
@@ -24,6 +25,11 @@ class Producto extends Model
     public function tipo(): BelongsTo
     {
         return $this->belongsTo(TipoProducto::class, 'tipos_id', 'id');
+    }
+
+    public function favoritos(): HasMany
+    {
+        return $this->hasMany(Favorito::class, 'productos_id', 'id');
     }
 
 }

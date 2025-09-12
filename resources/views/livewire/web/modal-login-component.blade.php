@@ -9,7 +9,7 @@
             <div class="modal-content">
                 <form wire:submit="login" class="billing-form">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ __('Login') }} {{ $productos_id }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ __('Login') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

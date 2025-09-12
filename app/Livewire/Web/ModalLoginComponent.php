@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Web;
 
+use App\Models\Favorito;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -44,6 +46,16 @@ class ModalLoginComponent extends Component
                 $this->dispatch('cerrarModalLoginFast', url: $url, name: $user->name);
 
                 //Agrega a Favoritos
+                $user = Auth::id();
+                if (!Favorito::where('users_id', $user)->where('productos_id', $this->productos_id)->exists()) {
+                    Favorito::create([
+                        'users_id' => $user,
+                        'productos_id' => $this->productos_id
+                    ]);
+                }
+
+                $this->dispatch('actualizar');
+
                 LivewireAlert::title('Agregado a Favoritos')
                     ->toast()
                     ->success()

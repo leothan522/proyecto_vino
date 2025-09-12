@@ -10,7 +10,13 @@
                     <div class="desc">
                         <p class="meta-prod d-flex">
                             <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                            <a href="#" wire:click.prevent="productAddFavorite({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                            <a href="#" wire:click.prevent="productAddFavorite({{ $producto->id }})" class="d-flex align-items-center justify-content-center">
+                                @if($this->productIsFavorite($producto->id))
+                                    <span class="fa fa-heart text-danger"></span>
+                                @else
+                                    <span class="fa fa-heart-o"></span>
+                                @endif
+                            </a>
                             <button id="buttonModalLoginFast_{{ $producto->id }}" type="button" class="d-none" data-toggle="modal" data-target="#modalLoginFast">Modal Login Fast</button>
                             <a href="#" wire:click.prevent="productShow({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                         </p>
