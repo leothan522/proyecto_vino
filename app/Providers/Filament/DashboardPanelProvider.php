@@ -65,6 +65,7 @@ class DashboardPanelProvider extends PanelProvider
                 'profile' => fn(Action $action) => $action
                     ->label(auth()->user()->name)
                     ->url(fn(): string => url('user/profile'))
-            ]);
+            ])
+            ->favicon(asset('img/web/wine-bottle-and-glass.png'));
     }
 }
