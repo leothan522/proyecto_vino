@@ -10,7 +10,8 @@
                     <div class="desc">
                         <p class="meta-prod d-flex">
                             <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                            <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                            <a href="#" wire:click.prevent="productAddFavorite({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                            <button id="buttonModalLoginFast_{{ $producto->id }}" type="button" class="d-none" data-toggle="modal" data-target="#modalLoginFast">Modal Login Fast</button>
                             <a href="#" wire:click.prevent="productShow({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                         </p>
                     </div>
@@ -22,6 +23,9 @@
                 </div>
                 <!-- Spinner overlay -->
                 <div wire:loading wire:target="productShow({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+                <div wire:loading wire:target="productAddFavorite({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
                     <div class="spinner-border color-active" role="status"></div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
                         </a>
                     </p>
                 </div>
-                <div class="reg">
+                <div id="headerInformacionLogin" class="reg">
                     @if(Route::has('login'))
                         @auth
                             <p class="mb-0">

@@ -14,7 +14,7 @@
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">Mi Cuenta</h2>
-                    <ul class="list-unstyled">
+                    <ul id="footerInformacionLogin" class="list-unstyled">
                         @auth
                             <li><a href="{{ route('web.profile')  }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Profile') }}</a></li>
                             <li><a href="{{ route('web.home') }}"><span class="fa fa-chevron-right mr-2"></span>Mis Pedidos</a></li>
