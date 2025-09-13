@@ -6,7 +6,9 @@
 
     @include('web.layouts.hero-wrap-2')
 
-    @include('web.section.contact-section')
+    <section class="ftco-section bg-light">
+        <livewire:web.contact-component />
+    </section>
 
 @endsection
 

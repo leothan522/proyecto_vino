@@ -93,4 +93,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         return $this->hasOne(Promotor::class, 'users_id', 'id');
     }
 
+    public function mensajes(): HasMany
+    {
+        return $this->hasMany(Mensaje::class, 'users_id', 'id');
+    }
+
 }
