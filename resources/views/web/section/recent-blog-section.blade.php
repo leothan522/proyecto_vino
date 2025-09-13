@@ -1,5 +1,4 @@
-<section class="ftco-section">
-    <div class="container">
+<div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 heading-section text-center ftco-animate">
                 <span class="subheading">Galería</span>
@@ -72,6 +71,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-</section>
+

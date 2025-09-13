@@ -204,6 +204,18 @@ function getParametro($nombre, $column = 'valor_texto'): string
     return $response;
 }
 
+// Obtener la fecha en español
+function fechaEnLetras($fecha, $isoFormat = null): string
+{
+    // dddd => Nombre del DIA ejemplo: lunes
+    // MMMM => nombre del mes ejemplo: febrero
+    $format = "dddd D [de] MMMM [de] YYYY"; // fecha completa
+    if (!is_null($isoFormat)){
+        $format = $isoFormat;
+    }
+    return \Carbon\Carbon::parse($fecha)->isoFormat($format);
+}
+
 /*function numSizeCodigo(): int
 {
     $num = 6;
