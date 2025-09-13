@@ -6,6 +6,8 @@
 
     @include('web.layouts.hero-wrap-2')
 
-    @include('web.section.blog-section')
+    <section class="ftco-section">
+        <livewire:web.blog-component />
+    </section>
 
 @endsection
