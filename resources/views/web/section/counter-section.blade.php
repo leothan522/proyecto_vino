@@ -20,7 +20,7 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="5">0</strong>
+                        <strong class="number" data-number="{{ \App\Models\TipoProducto::where('is_active', 1)->count() }}">0</strong>
                         <span>Tipos de Vinos</span>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
                 <div class="block-18 py-4 mb-4">
                     <div class="text align-items-center">
-                        <strong class="number" data-number="1">0</strong>
+                        <strong class="number" data-number="{{ \App\Models\Almacen::count() }}">0</strong>
                         <span>Nuestras Bodegas</span>
                     </div>
                 </div>

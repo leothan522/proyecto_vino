@@ -8,7 +8,7 @@
                 {{--Section Filtro--}}
                 <div class="row mb-4">
                     <div class="col-md-12 d-flex justify-content-between align-items-center">
-                        <h4 class="product-select">Seleccionar Tipo de Productos</h4>
+                        <h4 class="product-select">Seleccionar Tipo</h4>
                         <select class="selectpicker" multiple title="Nada seleccionado">
                             <option>Brandy</option>
                             <option>Gin</option>
