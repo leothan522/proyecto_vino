@@ -25,6 +25,8 @@ class UserResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Configuración';
 
+    protected static ?int $navigationSort = 95;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = 'Usuario';
