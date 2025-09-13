@@ -18,22 +18,24 @@ class RecentProductsComponent extends Component
     public function render()
     {
         $this->getAlmacen();
-        $this->getProductos();
-        return view('livewire.web.recent-products-component');
+        return view('livewire.web.recent-products-component')
+            ->with('productos', $this->getProductos());
     }
 
     protected function getAlmacen(): void
     {
         $almacen = Almacen::where('is_main', 1)->first();
         if ($almacen) {
+            session(['almacenes_id' => $almacen->id]);
             $this->almacenes_id = $almacen->id;
             $this->almacen = $almacen->nombre;
         }
     }
 
-    protected function getProductos(): void
+    protected function getProductos(): mixed
     {
-        $this->productos = Producto::where('is_active', 1)
+        return Producto::where('is_active', 1)
+            ->whereRelation('tipo', 'is_active', true)
             ->limit(8)
             ->get();
     }

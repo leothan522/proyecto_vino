@@ -23,11 +23,4 @@ class BlogComponent extends Component
         return Galeria::orderBy('fecha', 'desc')->paginate(6);
     }
 
-    public function updatingPage($page): void
-    {
-        // Runs before the page is updated for this component...
-        $this->disableFtcoAnimate();
-    }
-
-
 }

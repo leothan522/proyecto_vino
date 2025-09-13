@@ -13,7 +13,8 @@ trait WebTrait
     public bool $ftco_animate = true;
     public int $almacenes_id;
     public string $almacen;
-    public mixed $productos;
+
+    public int $col = 3;
 
     public function disableFtcoAnimate(): void
     {
@@ -75,7 +76,7 @@ trait WebTrait
     {
         $this->disableFtcoAnimate();
         $rowquid = session('rowquid');
-        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->first();
+        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->first();
         if ($carrito) {
             $carrito->cantidad++;
             $carrito->save();
@@ -83,6 +84,7 @@ trait WebTrait
             $carrito = Carrito::create([
                 'rowquid' => $rowquid,
                 'productos_id' => $id,
+                'almacenes_id' => $this->almacenes_id,
                 'cantidad' => 1
             ]);
         }
@@ -100,7 +102,7 @@ trait WebTrait
     {
         $response = false;
         $rowquid = session('rowquid');
-        if (Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->exists()){
+        if (Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->exists()){
             $response = true;
         }
         return $response;
@@ -110,6 +112,12 @@ trait WebTrait
     public function productRefresh()
     {
         //Actualizar
+    }
+
+    public function updatingPage($page): void
+    {
+        // Runs before the page is updated for this component...
+        $this->disableFtcoAnimate();
     }
 
 }

@@ -28,4 +28,9 @@ class Almacen extends Model
         return $this->hasMany(Promotor::class, 'almacenes_id', 'id');
     }
 
+    public function carrito(): HasMany
+    {
+        return $this->hasMany(Carrito::class, 'almacenes_id', 'id');
+    }
+
 }

@@ -3,7 +3,7 @@
     @foreach($productos as $producto)
 
         {{--Normal--}}
-        <div class="col-md-3 d-flex">
+        <div class="col-md-{{ $col }} d-flex">
             <div class="product position-relative @if($ftco_animate) ftco-animate @endif">
                 <div class="img d-flex align-items-center justify-content-center"
                      style="background-image: url({{ verImagen($producto->imagen_path) }});">

@@ -11,12 +11,19 @@ class Carrito extends Model
     protected $fillable = [
         'rowquid',
         'productos_id',
-        'cantidad'
+        'almacenes_id',
+        'cantidad',
+        'checkout'
     ];
 
     public function producto() : BelongsTo
     {
         return $this->belongsTo(Producto::class, 'productos_id', 'id');
+    }
+
+    public function almacen(): BelongsTo
+    {
+        return $this->belongsTo(Almacen::class, 'almacenes_id', 'id');
     }
 
 }

@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('rowquid');
             $table->bigInteger('productos_id')->unsigned();
+            $table->bigInteger('almacenes_id')->unsigned();
             $table->integer('cantidad');
+            $table->boolean('checkout')->default(false);
             $table->foreign('productos_id')->references('id')->on('productos')->cascadeOnDelete();
+            $table->foreign('almacenes_id')->references('id')->on('almacenes')->cascadeOnDelete();
             $table->timestamps();
         });
     }

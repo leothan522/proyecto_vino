@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,9 +52,10 @@ class WebController extends Controller
     public function single($id)
     {
         $producto = Producto::find($id);
+        $carrito = Carrito::where('rowquid', session('rowquid'))->where('productos_id', $id)->exists();
 
-        if (!$producto || !$producto->is_active){
-            return redirect()->route('web.index');
+        if (!$producto || (!$producto->is_active && !$carrito)){
+            //return redirect()->route('web.index');
         }
 
         return view('web.products-single.index')

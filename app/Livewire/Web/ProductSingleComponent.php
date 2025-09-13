@@ -3,6 +3,7 @@
 namespace App\Livewire\Web;
 
 use App\Models\Almacen;
+use App\Models\Carrito;
 use App\Models\Producto;
 use App\Traits\WebTrait;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
@@ -67,7 +68,8 @@ class ProductSingleComponent extends Component
     protected function getProducto(): void
     {
         $producto = Producto::find($this->productos_id);
-        if ($producto && $producto->is_active){
+        $carrito = Carrito::where('rowquid', session('rowquid'))->where('productos_id', $this->productos_id)->exists();
+        if ($producto && ($producto->is_active || $carrito)){
             $this->nombre = $producto->nombre;
             $this->tipo = $producto->tipo->nombre;
             $this->precio = formatoMillares($producto->precio);
