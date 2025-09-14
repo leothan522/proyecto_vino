@@ -33,6 +33,8 @@ class BancosPagoMovilResource extends Resource
 
     protected static ?int $navigationSort = 96;
 
+    protected static ?string $slug = 'bancos-pago-movil';
+
     protected static ?string $modelLabel = 'pago móvil';
 
     protected static ?string $pluralModelLabel = 'pago móvil';
