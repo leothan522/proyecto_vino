@@ -16,6 +16,7 @@ class ProductSingleComponent extends Component
     public int $productos_id;
 
     public string $nombre;
+    public int $tipos_id;
     public string $tipo;
     public string $precio;
     public string $descripcion;
@@ -50,6 +51,13 @@ class ProductSingleComponent extends Component
         $this->redirectRoute('web.cart');
     }
 
+    public function showTiposProductos(): void
+    {
+        $this->disableFtcoAnimate();
+        session(['tipos_id' => $this->tipos_id]);
+        $this->redirectRoute('web.products');
+    }
+
     protected function getAlmacen(): void
     {
         if (session()->has('almacenes_id')){
@@ -71,6 +79,7 @@ class ProductSingleComponent extends Component
         $carrito = Carrito::where('rowquid', session('rowquid'))->where('productos_id', $this->productos_id)->exists();
         if ($producto && ($producto->is_active || $carrito)){
             $this->nombre = $producto->nombre;
+            $this->tipos_id = $producto->tipos_id;
             $this->tipo = $producto->tipo->nombre;
             $this->precio = formatoMillares($producto->precio);
             $this->descripcion = $producto->descripcion;

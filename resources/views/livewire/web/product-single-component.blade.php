@@ -19,17 +19,17 @@
             {{--Tipo--}}
             <div class="rating d-flex">
                 <p class="text-left mr-4">
-                    <a href="#" class="mr-2">{{ $tipo }}</a>
+                    <a href="#" wire:click.prevent="showTiposProductos" class="mr-2">{{ $tipo }}</a>
                 </p>
             </div>
 
             {{--Bodega y cantidad de vendidos--}}
             <div class="rating d-flex">
                 <p class="text-left mr-4">
-                    <a href="#" class="mr-2">{{ $almacen }}</a>
+                    <a href="#" onclick="return false" class="mr-2" style="cursor: text;">{{ $almacen }}</a>
                 </p>
                 <p class="text-left">
-                    <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Vendido(s)</span></a>
+                    <a href="#" onclick="return false" class="mr-2" style="color: #000; cursor: text;">500 <span style="color: #bbb;">Vendido(s)</span></a>
                 </p>
             </div>
 
@@ -61,7 +61,7 @@
                     </span>
 
                     <!-- Spinner overlay -->
-                    <div wire:loading wire:target="show, irCart" class="spinner-overlay align-content-center text-center">
+                    <div wire:loading wire:target="show, irCart, showTiposProductos" class="spinner-overlay align-content-center text-center">
                         <div class="spinner-border color-active" role="status"></div>
                     </div>
 
