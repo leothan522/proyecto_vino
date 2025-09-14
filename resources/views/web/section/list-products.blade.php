@@ -30,6 +30,9 @@
                 </div>
                 <div class="text text-center">
                     <span class="category">{{ $producto->tipo->nombre }}</span>
+                    @if($this->productIsAgotado($producto->id))
+                        <span class="sale">Agotado</span>
+                    @endif
                     <h2>{{ $producto->nombre }}</h2>
                     <span class="price">${{ formatoMillares($producto->precio) }}</span>
                 </div>

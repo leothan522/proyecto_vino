@@ -7,7 +7,7 @@
     @include('web.layouts.hero-wrap-2')
 
     <section class="ftco-section">
-        @include('web.section.cart-section')
+        <livewire:web.cart-component />
     </section>
 
 @endsection
@@ -25,4 +25,15 @@
             -moz-appearance: textfield;
         }
     </style>
+@endsection
+
+@section('js')
+    <script !src="" type="application/javascript">
+        Livewire.on('setCantidad', ({ cantidad, id, original}) => {
+            let input = document.querySelector('#input_cantidad_item_' + id);
+            if (cantidad < 0){
+                input.value = original;
+            }
+        });
+    </script>
 @endsection

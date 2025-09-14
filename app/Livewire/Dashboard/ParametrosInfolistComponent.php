@@ -33,6 +33,7 @@ class ParametrosInfolistComponent extends Component implements HasSchemas
                     'social_instagram' => 'valor_id = null, valor_texto = string',
                     'about_desde' => 'valor_id = integer, valor_texto = null',
                     'about_clientes' => 'valor_id = integer, valor_texto = null',
+                    'precio_delivery' => 'valor_id = null, valor_texto = float',
                 ]
             ])
             ->components([

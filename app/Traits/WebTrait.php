@@ -76,6 +76,7 @@ trait WebTrait
     public function productAddCart($id, $input = null): void
     {
         $this->disableFtcoAnimate();
+        revertirDisponibles();
         $stock = $this->getStock($this->almacenes_id, $id);
         $max = $stock ? $stock->disponibles : 0;
 
@@ -137,10 +138,14 @@ trait WebTrait
         return $response;
     }
 
-    #[On('productRefresh')]
-    public function productRefresh()
+    public function productIsAgotado($id): bool
     {
-        //Actualizar
+        $response = true;
+        $stock = $this->getStock($this->almacenes_id, $id);
+        if ($stock){
+            $response = is_null($stock->disponibles) || $stock->disponibles < 1;
+        }
+        return $response;
     }
 
     public function updatingPage($page): void
@@ -152,6 +157,12 @@ trait WebTrait
     protected function getStock($almacenes_id, $productos_id): ?Stock
     {
         return Stock::where('almacenes_id', $almacenes_id)->where('productos_id', $productos_id)->first();
+    }
+
+    #[On('productRefresh')]
+    public function productRefresh()
+    {
+        //Actualizar
     }
 
 }

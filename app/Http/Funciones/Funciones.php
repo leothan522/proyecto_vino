@@ -3,6 +3,14 @@
 
 function sweetAlert2(array $parametros = []): void
 {
+    /*
+     sweetAlert2([
+                    'icon' => 'warning',
+                    'text' => 'Usuario Inactivo',
+                    'timer' => null,
+                    'showCloseButton' => true
+                ]);
+     */
     session()->flash('sweetAlert2', $parametros);
 }
 
@@ -194,6 +202,7 @@ function getParametro($nombre, $column = 'valor_texto'): string
         'social_instagram' => '#',
         'about_desde' => 2005,
         'about_clientes' => 4000,
+        'precio_delivery' => 0
     ];
 
     $response = array_key_exists($nombre, $data) ? $data[$nombre] : 'Valor Default NO definido.';
@@ -214,6 +223,27 @@ function fechaEnLetras($fecha, $isoFormat = null): string
         $format = $isoFormat;
     }
     return \Carbon\Carbon::parse($fecha)->isoFormat($format);
+}
+
+function revertirDisponibles(): void
+{
+    $rowquid = session('rowquid');
+    $items = \App\Models\Carrito::where('rowquid', $rowquid)->get();
+    if ($items->isNotEmpty()){
+        foreach ($items as $item){
+            if ($item->checkout){
+                $item->checkout = false;
+                $item->save();
+                //revierto el stock disponible
+                $stock = \App\Models\Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
+                if ($stock){
+                    $stock->disponibles = $stock->disponibles + $item->cantidad;
+                    $stock->comprometidos = $stock->comprometidos - $item->cantidad;
+                    $stock->save();
+                }
+            }
+        }
+    }
 }
 
 /*function numSizeCodigo(): int

@@ -3,6 +3,7 @@
 namespace App\Livewire\Web;
 
 use App\Models\Carrito;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -10,6 +11,17 @@ class OrderLastComponent extends Component
 {
     public int $total;
     public mixed $items;
+
+    public function mount(): void
+    {
+        if (session()->has('livewireAlert_flast')) {
+            LivewireAlert::title(session('livewireAlert_flast.title'))
+                ->toast()
+                ->position('top')
+                ->info()
+                ->show();
+        }
+    }
 
     public function render()
     {

@@ -46,28 +46,8 @@
             </div>
 
             {{--Menu Home--}}
-            <div class="col-md-2">
+            <livewire:web.home-menu-component />
 
-                <div class="sidebar-box ftco-animate">
-                    <div class="categories">
-                        <h3>Gestionar</h3>
-                        <ul class="p-0">
-                            <li><a href="{{ route('web.home') }}">Mis Pedidos <span class="fa fa-chevron-right"></span></a></li>
-                            <li><a href="{{ route('web.home', 'datos-facturacion') }}">Datos de Facturación <span class="fa fa-chevron-right"></span></a></li>
-                            <li><a href="{{ route('web.profile') }}" class="color-active">{{ __('Profile') }} <span class="fa fa-chevron-right color-active"></span></a></li>
-                            <li>
-                                <a href="#" onclick="document.getElementById('form_logout').submit(); return false">
-                                    {{ __('Logout') }} <span class="fa fa-chevron-right"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <form method="POST" action="{{ route('logout') }}" id="form_logout">
-                    @csrf
-                </form>
-
-            </div>
         </div>
     </div>
 </section>
