@@ -15,9 +15,6 @@ class CartComponent extends Component
     public bool $ocultar = false;
 
     public mixed $items;
-    public mixed $subtotal;
-    public mixed $total;
-    public mixed $entrega;
 
     public function render()
     {

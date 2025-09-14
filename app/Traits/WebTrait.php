@@ -14,8 +14,10 @@ trait WebTrait
     public bool $ftco_animate = true;
     public int $almacenes_id;
     public string $almacen;
-
     public int $col = 3;
+    public mixed $subtotal;
+    public mixed $total;
+    public mixed $entrega;
 
     public function disableFtcoAnimate(): void
     {

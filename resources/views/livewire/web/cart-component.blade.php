@@ -69,23 +69,7 @@
             <div class="col col-lg-5 col-md-6 mt-5 cart-wrap @if($ftco_animate) ftco-animate @endif">
                 <div class="cart-total mb-3">
                     <h3>Totales del Carrito</h3>
-                    <p class="d-flex">
-                        <span>Subtotal</span>
-                        <span>${{ formatoMillares($subtotal) }}</span>
-                    </p>
-                    <p class="d-flex">
-                        <span>Entrega</span>
-                        <span>${{ formatoMillares($entrega) }}</span>
-                    </p>
-                    {{--<p class="d-flex">
-                        <span>Descuento</span>
-                        <span>$3.00</span>
-                    </p>--}}
-                    <hr>
-                    <p class="d-flex total-price">
-                        <span>Total</span>
-                        <span>${{ formatoMillares($total) }}</span>
-                    </p>
+                    @include('web.section.totales-carrito')
                 </div>
                 <p class="text-center">
                     <button wire:click="checkOut" x-show="!$wire.ocultar" type="button" class="btn btn-primary py-3 px-4">

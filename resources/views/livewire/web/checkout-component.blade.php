@@ -1,7 +1,8 @@
 <div class="container">
+    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
 
     <div class="row justify-content-center">
-        <div class="col-xl-10 ftco-animate">
+        <div class="col-xl-10 @if($ftco_animate) ftco-animate @endif">
             <form action="#" class="billing-form">
 
                 {{--Detalles de Facturación--}}
@@ -59,25 +60,11 @@
                 <div class="row mt-4 pt-3 d-flex">
 
                     <div class="col-md-6 d-flex">
-
                         {{--Totales del Carrito--}}
                         <div class="cart-detail cart-total p-3 p-md-4">
                             <h3 class="billing-heading mb-4">Totales del Carrito</h3>
-                            <p class="d-flex">
-                                <span>Subtotal</span>
-                                <span>$20.60</span>
-                            </p>
-                            <p class="d-flex">
-                                <span>Entrega</span>
-                                <span>$0.00</span>
-                            </p>
-                            <hr>
-                            <p class="d-flex total-price">
-                                <span>Total</span>
-                                <span>$17.60</span>
-                            </p>
+                            @include('web.section.totales-carrito')
                         </div>
-
                     </div>
 
                     <div class="col-md-6">
@@ -146,5 +133,5 @@
         </div>
     </div>
 
-</div>
 
+</div>
