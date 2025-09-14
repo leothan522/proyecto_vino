@@ -112,6 +112,9 @@ class AlmacenResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                Action::make('actualizar')
+                    ->icon(Heroicon::ArrowPath)
+                    ->iconButton(),
             ]);
     }
 

@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\Roles\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -41,6 +43,9 @@ class RolesTable
                     DeleteBulkAction::make()
                         ->authorizeIndividualRecords('delete'),
                 ]),
+                Action::make('actualizar')
+                    ->icon(Heroicon::ArrowPath)
+                    ->iconButton(),
             ]);
     }
 }

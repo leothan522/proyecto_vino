@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Promotors\Tables;
 
 use App\Models\Promotor;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -14,6 +15,7 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Toggle;
 use Filament\Pages\Dashboard\Actions\FilterAction;
 use Filament\Support\Enums\Width;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -84,6 +86,9 @@ class PromotorsTable
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
+                Action::make('actualizar')
+                    ->icon(Heroicon::ArrowPath)
+                    ->iconButton(),
             ]);
     }
 }

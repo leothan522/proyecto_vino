@@ -6,6 +6,7 @@ use App\Filament\Resources\Parametros\Pages\ManageParametros;
 use App\Filament\Resources\Parametros\Widgets\ParametrosWidget;
 use App\Models\Parametro;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -81,6 +82,9 @@ class ParametroResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+                Action::make('actualizar')
+                    ->icon(Heroicon::ArrowPath)
+                    ->iconButton(),
             ]);
     }
 

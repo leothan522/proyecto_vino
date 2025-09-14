@@ -122,6 +122,9 @@ class UsersTable
                         ->authorizeIndividualRecords('forceDelete'),
                     RestoreBulkAction::make(),
                 ]),
+                Action::make('actualizar')
+                    ->icon(Heroicon::ArrowPath)
+                    ->iconButton(),
             ]);
     }
 }
