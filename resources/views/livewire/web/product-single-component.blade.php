@@ -29,7 +29,7 @@
                     <a href="#" onclick="return false" class="mr-2" style="cursor: text;">{{ $almacen }}</a>
                 </p>
                 <p class="text-left">
-                    <a href="#" onclick="return false" class="mr-2" style="color: #000; cursor: text;">500 <span style="color: #bbb;">Vendido(s)</span></a>
+                    <a href="#" onclick="return false" class="mr-2 @if(!$vendidos) d-none @endif" style="color: #000; cursor: text;">{{ $vendidos }} <span style="color: #bbb;">Vendido(s)</span></a>
                 </p>
             </div>
 
@@ -55,13 +55,13 @@
 
                     {{--Boton Mas--}}
                     <span class="input-group-btn ml-2">
-                        <button x-on:click="$wire.cantidad < 80 ? $wire.cantidad++ : $wire.cantidad = 80" type="button" class="btn">
+                        <button x-on:click="$wire.cantidad < $wire.max ? $wire.cantidad++ : $wire.cantidad = $wire.max" type="button" class="btn" @if(!$max) disabled @endif>
                          <i class="fa fa-plus"></i>
                         </button>
                     </span>
 
                     <!-- Spinner overlay -->
-                    <div wire:loading wire:target="show, irCart, showTiposProductos" class="spinner-overlay align-content-center text-center">
+                    <div wire:loading wire:target="addCart, showCart, showTiposProductos" class="spinner-overlay align-content-center text-center">
                         <div class="spinner-border color-active" role="status"></div>
                     </div>
 
@@ -72,17 +72,17 @@
 
                 {{--Stock Disponible--}}
                 <div class="col-md-12">
-                    <p style="color: #000;">80 piezas disponibles</p>
+                    <p style="color: #000;">{{ $disponibles }} piezas disponibles</p>
                 </div>
 
             </div>
 
             {{--Botones del Carrito--}}
             <p>
-                <a href="#" wire:click.prevent="show" class="btn btn-primary py-3 px-5 mr-2 mt-2" wire:loading.class="disabled" wire:target="show">
+                <a href="#" wire:click.prevent="addCart" class="btn btn-primary py-3 px-5 mr-2 mt-2" wire:loading.class="disabled" wire:target="show">
                     Añadir al Carrito
                 </a>
-                <a href="#" wire:click.prevent="irCart" class="btn btn-primary py-3 px-5 mt-2" wire:loading.class="disabled" wire:target="irCart">
+                <a href="#" wire:click.prevent="showCart" class="btn btn-primary py-3 px-5 mt-2" wire:loading.class="disabled" wire:target="irCart">
                     Comprar Ahora
                 </a>
             </p>

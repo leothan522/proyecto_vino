@@ -37,4 +37,9 @@ class Producto extends Model
         return $this->hasMany(Carrito::class, 'productos_id', 'id');
     }
 
+    public function stock(): HasMany
+    {
+        return $this->hasMany(Stock::class, 'productos_id', 'id');
+    }
+
 }

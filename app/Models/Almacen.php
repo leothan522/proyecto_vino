@@ -33,4 +33,9 @@ class Almacen extends Model
         return $this->hasMany(Carrito::class, 'almacenes_id', 'id');
     }
 
+    public function stock(): HasMany
+    {
+        return $this->hasMany(Stock::class, 'almacenes_id', 'id');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Carrito;
 use App\Models\Favorito;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
@@ -36,14 +37,14 @@ trait WebTrait
         } else {
             $user = Auth::id();
             $favorito = Favorito::where('users_id', $user)->where('productos_id', $id)->first();
-            if ($favorito){
+            if ($favorito) {
                 $favorito->delete();
                 LivewireAlert::title('Eliminado de Favoritos')
                     ->toast()
                     ->info()
                     ->position('top')
                     ->show();
-            }else{
+            } else {
                 Favorito::create([
                     'users_id' => $user,
                     'productos_id' => $id
@@ -62,9 +63,9 @@ trait WebTrait
     {
         $response = false;
 
-        if (Auth::check()){
+        if (Auth::check()) {
             $user = Auth::id();
-            if (Favorito::where('users_id', $user)->where('productos_id', $id)->exists()){
+            if (Favorito::where('users_id', $user)->where('productos_id', $id)->exists()) {
                 $response = true;
             }
         }
@@ -72,37 +73,65 @@ trait WebTrait
         return $response;
     }
 
-    public function productAddCart($id): void
+    public function productAddCart($id, $input = null): void
     {
         $this->disableFtcoAnimate();
+        $stock = $this->getStock($this->almacenes_id, $id);
+        $max = $stock ? $stock->disponibles : 0;
+
         $rowquid = session('rowquid');
-        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->first();
+        $carrito = Carrito::where('rowquid', $rowquid)
+            ->where('productos_id', $id)
+            ->where('almacenes_id', $this->almacenes_id)
+            ->first();
         if ($carrito) {
-            $carrito->cantidad++;
-            $carrito->save();
+            if (is_null($input)){
+                $carrito->cantidad++;
+            }else{
+                $carrito->cantidad = $carrito->cantidad + $input;
+            }
+
         } else {
-            $carrito = Carrito::create([
-                'rowquid' => $rowquid,
-                'productos_id' => $id,
-                'almacenes_id' => $this->almacenes_id,
-                'cantidad' => 1
-            ]);
+            $carrito = new Carrito();
+            $carrito->rowquid = $rowquid;
+            $carrito->productos_id = $id;
+            $carrito->almacenes_id = $this->almacenes_id;
+            if (is_null($input)){
+                $carrito->cantidad = 1;
+            }else{
+                $carrito->cantidad = $input;
+            }
         }
-        $cantidad = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
-        $this->dispatch('orderLastRefresh');
-        LivewireAlert::title('Agregado 01 al Carrito')
-            ->text("Llevas $cantidad en Total")
-            ->toast()
-            ->position('top')
-            ->success()
-            ->show();
+
+        if ($carrito->cantidad <= $max) {
+            $carrito->save();
+            $cantidad = $input ? cerosIzquierda(formatoMillares($input, 0)) : '01';
+            $total = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
+            $this->dispatch('orderLastRefresh');
+            LivewireAlert::title("Agregado $cantidad al Carrito")
+                ->text("Llevas $total en Total")
+                ->toast()
+                ->position('top')
+                ->success()
+                ->show();
+        } else {
+            $total = $max > 0 ? cerosIzquierda(formatoMillares($max, 0)) : 0;
+            LivewireAlert::title('¡Limite Alcanzado!')
+                ->text("$total piezas disponibles")
+                ->info()
+                ->withConfirmButton('Ok')
+                ->timer(5000)
+                ->show();
+        }
+
+
     }
 
     public function productInCart($id): bool
     {
         $response = false;
         $rowquid = session('rowquid');
-        if (Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->exists()){
+        if (Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->exists()) {
             $response = true;
         }
         return $response;
@@ -118,6 +147,11 @@ trait WebTrait
     {
         // Runs before the page is updated for this component...
         $this->disableFtcoAnimate();
+    }
+
+    protected function getStock($almacenes_id, $productos_id): ?Stock
+    {
+        return Stock::where('almacenes_id', $almacenes_id)->where('productos_id', $productos_id)->first();
     }
 
 }
