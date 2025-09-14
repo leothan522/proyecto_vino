@@ -70,15 +70,20 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                             ->schema([
                                 TextEntry::make('fecha')
                                     ->date()
-                                    ->copyable(),
+                                    ->copyable()
+                                    ->color('primary'),
                                 TextEntry::make('asunto')
-                                    ->copyable(),
+                                    ->copyable()
+                                    ->color('primary'),
                                 TextEntry::make('nombre')
-                                    ->copyable(),
+                                    ->copyable()
+                                    ->color('primary'),
                                 TextEntry::make('email')
-                                    ->copyable(),
+                                    ->copyable()
+                                    ->color('primary'),
                                 TextEntry::make('mensaje')
                                     ->copyable()
+                                    ->color('primary')
                                     ->columnSpanFull(),
                             ])
                             ->compact()
