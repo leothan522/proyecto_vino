@@ -25,7 +25,9 @@ class PromotorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Promotores';
+    protected static string|UnitEnum|null $navigationGroup = 'Web';
+
+    protected static ?int $navigationSort = 90;
 
     protected static ?string $slug = 'promotores';
 

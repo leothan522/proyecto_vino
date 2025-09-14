@@ -9,6 +9,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -66,6 +67,11 @@ class DashboardPanelProvider extends PanelProvider
                     ->label(auth()->user()->name)
                     ->url(fn(): string => url('user/profile'))
             ])
-            ->favicon(asset('img/web/wine-bottle-and-glass.png'));
+            ->favicon(asset('img/web/wine-bottle-and-glass.png'))
+            ->navigationGroups([
+                NavigationGroup::make('Roles y Permisos')
+                    ->collapsible()
+                    ->collapsed(),
+            ]);
     }
 }
