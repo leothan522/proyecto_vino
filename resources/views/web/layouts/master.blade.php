@@ -74,6 +74,7 @@
 <script src="{{ asset('vendor/liquorstore/js/scrollax.min.js') }}"></script>
 <script src="{{ asset('vendor/liquorstore/js/bootstrap-select.js') }}"></script>
 <script src="{{ asset('vendor/liquorstore/js/main.js') }}"></script>
+<script src="{{ asset('js/web/app.js') }}"></script>
 
 @include('layouts.sweetAlert2')
 @livewireScripts

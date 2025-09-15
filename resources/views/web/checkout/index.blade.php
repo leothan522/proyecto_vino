@@ -11,3 +11,14 @@
     </section>
 
 @endsection
+
+@if('js')
+    <script>
+        function modalPagoMovil() {
+            document.getElementById('triggerModalMetodosPagoMovil').click();
+        }
+        function modalTransferencias() {
+            document.getElementById('triggerModalMetodosTransferencias').click();
+        }
+    </script>
+@endif
