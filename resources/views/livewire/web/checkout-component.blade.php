@@ -33,13 +33,11 @@
                             <label for="country">Parroquia</label>
                             <div class="select-wrap">
                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select name="" id="" class="form-control">
-                                    <option value="">France</option>
-                                    <option value="">Italy</option>
-                                    <option value="">Philippines</option>
-                                    <option value="">South Korea</option>
-                                    <option value="">Hongkong</option>
-                                    <option value="">Japan</option>
+                                <select class="form-control">
+                                    <option value="">Seleccione</option>
+                                    @foreach($parroquias as $parroquia)
+                                        <option value="{{ $parroquia->parroquia }}">{{ $parroquia->parroquia }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

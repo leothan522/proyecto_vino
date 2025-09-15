@@ -60,6 +60,7 @@ class CartComponent extends Component
                     $pedido = Pedido::create([
                         'rowquid' => session('rowquid'),
                         'users_id' => auth()->id(),
+                        'almacenes_id' => session('order_almacenes_id'),
                     ]);
                     foreach ($checkout as $item) {
                         $item->checkout = true;
@@ -126,9 +127,7 @@ class CartComponent extends Component
             session()->forget('order_almacenes_id');
             $this->redirectRoute('web.index');
         }
-        $this->subtotal = $this->items->sum(function ($item) {
-            return $item->producto->precio * $item->cantidad;
-        });
+        $this->subtotal = $this->items->sum(fn($item) => $item->producto->precio * $item->cantidad);
         $parametro = getParametro('precio_delivery');
         $this->entrega = is_numeric($parametro) ? (float)$parametro : 0;
         $this->total = $this->subtotal + $this->entrega;

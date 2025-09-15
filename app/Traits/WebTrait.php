@@ -78,7 +78,7 @@ trait WebTrait
     public function productAddCart($id, $input = null): void
     {
         $this->disableFtcoAnimate();
-        revertirDisponibles();
+        //revertirDisponibles();
         $stock = $this->getStock($this->almacenes_id, $id);
         $max = $stock ? $stock->disponibles : 0;
 

@@ -225,27 +225,6 @@ function fechaEnLetras($fecha, $isoFormat = null): string
     return \Carbon\Carbon::parse($fecha)->isoFormat($format);
 }
 
-function revertirDisponibles(): void
-{
-    $rowquid = session('rowquid');
-    $items = \App\Models\Carrito::where('rowquid', $rowquid)->get();
-    if ($items->isNotEmpty()) {
-        foreach ($items as $item) {
-            if ($item->checkout) {
-                $item->checkout = false;
-                $item->save();
-                //revierto el stock disponible
-                $stock = \App\Models\Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
-                if ($stock) {
-                    $stock->disponibles = $stock->disponibles + $item->cantidad;
-                    $stock->comprometidos = $stock->comprometidos - $item->cantidad;
-                    $stock->save();
-                }
-            }
-        }
-    }
-}
-
 function numSizeCodigo(): int
 {
     $num = 6;

@@ -38,4 +38,9 @@ class Almacen extends Model
         return $this->hasMany(Stock::class, 'almacenes_id', 'id');
     }
 
+    public function pedidos(): HasMany
+    {
+        return $this->hasMany(Pedido::class, 'almacenes_id', 'id');
+    }
+
 }

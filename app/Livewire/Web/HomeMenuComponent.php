@@ -18,7 +18,6 @@ class HomeMenuComponent extends Component
     public function cerrarSesion(): void
     {
         $this->disableFtcoAnimate();
-        revertirDisponibles();
         Auth::guard('web')->logout();
         session()->flush();
         $this->redirectRoute('web.index');

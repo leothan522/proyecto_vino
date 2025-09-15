@@ -39,4 +39,9 @@ class Pedido extends Model
         return $this->hasMany(PedidoItem::class, 'pedidos_id', 'id');
     }
 
+    public function almacen(): BelongsTo
+    {
+        return $this->belongsTo(Almacen::class, 'almacenes_id', 'id');
+    }
+
 }

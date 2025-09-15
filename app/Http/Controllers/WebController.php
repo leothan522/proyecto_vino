@@ -67,7 +67,6 @@ class WebController extends Controller
 
     public function cart()
     {
-        revertirDisponibles();
         return view('web.cart.index');
     }
 

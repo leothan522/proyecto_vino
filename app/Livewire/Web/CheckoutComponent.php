@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Web;
 
-use App\Models\Carrito;
+use App\Models\Parroquia;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Traits\WebTrait;
@@ -25,7 +25,8 @@ class CheckoutComponent extends Component
     public function render()
     {
         $this->getItems();
-        return view('livewire.web.checkout-component');
+        return view('livewire.web.checkout-component')
+            ->with('parroquias', $this->getParroquias());
     }
 
     public function saveOrder(): void
@@ -52,9 +53,7 @@ class CheckoutComponent extends Component
             $this->redirectRoute('web.index');
         }
         $items = PedidoItem::where('pedidos_id', $pedido->id)->get();
-        $this->subtotal = $items->sum(function ($item) {
-            return $item->precio * $item->cantidad;
-        });
+        $this->subtotal = $items->sum(fn($item) => $item->precio * $item->cantidad);
         $parametro = getParametro('precio_delivery');
         $this->entrega = is_numeric($parametro) ? (float)$parametro : 0;
         $this->total = $this->subtotal + $this->entrega;
@@ -63,6 +62,17 @@ class CheckoutComponent extends Component
     protected function getPedido(): ?Pedido
     {
         return Pedido::where('rowquid', $this->rowquid)->where('users_id', auth()->id())->first();
+    }
+
+    protected function getParroquias(): mixed
+    {
+        $response = [];
+        $pedido = $this->getPedido();
+        if ($pedido){
+            $municipio = $pedido->almacen->id_municipio ?? -1;
+            $response = Parroquia::where('id_municipio', $municipio)->get();
+        }
+        return $response;
     }
 
 }
