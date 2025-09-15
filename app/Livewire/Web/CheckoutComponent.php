@@ -3,6 +3,8 @@
 namespace App\Livewire\Web;
 
 use App\Models\Carrito;
+use App\Models\Pedido;
+use App\Models\PedidoItem;
 use App\Traits\WebTrait;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
@@ -12,7 +14,13 @@ class CheckoutComponent extends Component
 {
     use WebTrait;
 
+    public string $rowquid;
     public string $cedula;
+
+    public function mount($rowquid): void
+    {
+        $this->rowquid = $rowquid;
+    }
 
     public function render()
     {
@@ -39,17 +47,22 @@ class CheckoutComponent extends Component
 
     protected function getItems(): void
     {
-        $rowquid = session('rowquid');
-        $carrito = Carrito::where('rowquid', $rowquid)->where('checkout', true)->get();
-        if ($carrito->isEmpty()) {
-            $this->redirectRoute('web.cart');
+        $pedido = $this->getPedido();
+        if (!$pedido) {
+            $this->redirectRoute('web.index');
         }
-        $this->subtotal = $carrito->sum(function ($item) {
-            return $item->producto->precio * $item->cantidad;
+        $items = PedidoItem::where('pedidos_id', $pedido->id)->get();
+        $this->subtotal = $items->sum(function ($item) {
+            return $item->precio * $item->cantidad;
         });
         $parametro = getParametro('precio_delivery');
         $this->entrega = is_numeric($parametro) ? (float)$parametro : 0;
         $this->total = $this->subtotal + $this->entrega;
+    }
+
+    protected function getPedido(): ?Pedido
+    {
+        return Pedido::where('rowquid', $this->rowquid)->where('users_id', auth()->id())->first();
     }
 
 }

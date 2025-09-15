@@ -45,22 +45,27 @@ class ModalLoginComponent extends Component
                 $url = isAdmin() ? route('filament.dashboard.pages.dashboard') : route('web.home');
                 $this->dispatch('cerrarModalLoginFast', url: $url, name: $user->name);
 
-                //Agrega a Favoritos
-                $user = Auth::id();
-                if (!Favorito::where('users_id', $user)->where('productos_id', $this->productos_id)->exists()) {
-                    Favorito::create([
-                        'users_id' => $user,
-                        'productos_id' => $this->productos_id
-                    ]);
+                if ($this->productos_id){
+                    //Agrega a Favoritos
+                    $user = Auth::id();
+                    if (!Favorito::where('users_id', $user)->where('productos_id', $this->productos_id)->exists()) {
+                        Favorito::create([
+                            'users_id' => $user,
+                            'productos_id' => $this->productos_id
+                        ]);
+                    }
+
+                    $this->dispatch('productRefresh');
+
+                    LivewireAlert::title('Agregado a Favoritos')
+                        ->toast()
+                        ->success()
+                        ->position('top')
+                        ->show();
+                }else{
+                    //Proceder al pago
+                    $this->dispatch('procesarPedido');
                 }
-
-                $this->dispatch('productRefresh');
-
-                LivewireAlert::title('Agregado a Favoritos')
-                    ->toast()
-                    ->success()
-                    ->position('top')
-                    ->show();
 
             } else {
                 $this->reset('password');
@@ -76,6 +81,12 @@ class ModalLoginComponent extends Component
 
     #[On('cerrarModalLoginFast')]
     public function cerrarModalLoginFast($url, $name)
+    {
+        //JS
+    }
+
+    #[On('procesarPedido')]
+    public function procesarPedido()
     {
         //JS
     }

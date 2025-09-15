@@ -8,6 +8,7 @@
 
     <section class="ftco-section">
         <livewire:web.cart-component />
+        <livewire:web.modal-login-component/>
     </section>
 
 @endsection
@@ -28,12 +29,19 @@
 @endsection
 
 @section('js')
+    @include('web.section.scripts-list-product')
     <script !src="" type="application/javascript">
+
+        Livewire.on('procesarPedido', () => {
+            document.getElementById('boton_procesar_pedido').click();
+        });
+
         Livewire.on('setCantidad', ({ cantidad, id, original}) => {
             let input = document.querySelector('#input_cantidad_item_' + id);
             if (cantidad < 0){
                 input.value = original;
             }
         });
+
     </script>
 @endsection

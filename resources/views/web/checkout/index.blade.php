@@ -7,7 +7,9 @@
     @include('web.layouts.hero-wrap-2')
 
     <section class="ftco-section">
-        <livewire:web.checkout-component />
+        <livewire:web.checkout-component
+            rowquid="{{ $rowquid }}"
+        />
     </section>
 
 @endsection

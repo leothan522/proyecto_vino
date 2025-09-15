@@ -70,7 +70,7 @@
                     @include('web.section.totales-carrito')
                 </div>
                 <p class="text-center">
-                    <button wire:click="checkOut" wire:loading.attr="disabled" wire:target="removeCart" type="button" class="btn btn-primary py-3 px-4" :disabled="cargando" >
+                    <button id="boton_procesar_pedido" wire:click="checkOut" wire:loading.attr="disabled" wire:target="removeCart, checkOut" type="button" class="btn btn-primary py-3 px-4" :disabled="cargando" >
                         Proceder al Pago
                     </button>
                 </p>
@@ -78,5 +78,7 @@
         </div>
 
     @endif
+
+    <button id="buttonModalLoginFast_0" type="button" class="d-none" data-toggle="modal" data-target="#modalLoginFast">Modal Login Fast</button>
 
 </div>

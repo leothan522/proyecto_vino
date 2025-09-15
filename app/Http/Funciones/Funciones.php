@@ -14,33 +14,33 @@ function sweetAlert2(array $parametros = []): void
     session()->flash('sweetAlert2', $parametros);
 }
 
-function isAdmin():bool
+function isAdmin(): bool
 {
     $response = false;
     $is_root = auth()->user()->is_root;
     $is_admin = auth()->user()->hasRole('admin');
-    if ($is_admin || $is_root){
-        $response= true;
+    if ($is_admin || $is_root) {
+        $response = true;
     }
     return $response;
 }
 
 function verImagen($path, $user = false): string
 {
-    if (!is_null($path)){
-        if (file_exists(public_path('storage/'.$path))){
-            return asset('storage/'.$path);
-        }else{
-            if ($user){
+    if (!is_null($path)) {
+        if (file_exists(public_path('storage/' . $path))) {
+            return asset('storage/' . $path);
+        } else {
+            if ($user) {
                 return asset('img/user_placeholder.png');
-            }else{
+            } else {
                 return asset('img/placeholder.jpg');
             }
         }
-    }else{
-        if ($user){
+    } else {
+        if ($user) {
             return asset('img/user_placeholder.png');
-        }else{
+        } else {
             return asset('img/placeholder.jpg');
         }
     }
@@ -95,7 +95,7 @@ function verUtf8($string, $safeNull = false): string
 
 function formatoMillares($cantidad, $decimal = 2): string
 {
-    if (!is_numeric($cantidad)){
+    if (!is_numeric($cantidad)) {
         $cantidad = 0;
     }
     return number_format($cantidad, $decimal, ',', '.');
@@ -106,7 +106,7 @@ function qrCodeGenerate(string $content = null, int $size = null, int $margin = 
     $content = $content ?? 'Hello World!';
     $size = $size ?? 400;
     $margin = $margin ?? 4;
-    $path = $path ? 'storage/'.$path.'/' : 'storage/images-qr/';
+    $path = $path ? 'storage/' . $path . '/' : 'storage/images-qr/';
     $filename = $filename ? \Illuminate\Support\Str::slug($filename) : 'qrcode';
     $encoding = $encoding ?? \BaconQrCode\Encoder\Encoder::DEFAULT_BYTE_MODE_ENCODING;
 
@@ -118,23 +118,23 @@ function qrCodeGenerate(string $content = null, int $size = null, int $margin = 
     $foregroundColorGreen = 0;
     $foregroundColorBlue = 0;
 
-    if (!empty($backgroundColor)){
+    if (!empty($backgroundColor)) {
         $backgroundColorRed = $backgroundColor[0] ?? $backgroundColorRed;
         $backgroundColorGreen = $backgroundColor[1] ?? $backgroundColorGreen;
         $backgroundColorBlue = $backgroundColor[2] ?? $backgroundColorBlue;
     }
 
-    if (!empty($foregroundColor)){
+    if (!empty($foregroundColor)) {
         $foregroundColorRed = $foregroundColor[0] ?? $foregroundColorRed;
         $foregroundColorGreen = $foregroundColor[1] ?? $foregroundColorGreen;
         $foregroundColorBlue = $foregroundColor[2] ?? $foregroundColorBlue;
     }
 
-    if (!extension_loaded('imagick')){
+    if (!extension_loaded('imagick')) {
         $imageBackEnd = new \BaconQrCode\Renderer\Image\SvgImageBackEnd();
         $extension = '.svg';
-    }else{
-        $imageBackEnd  = new \BaconQrCode\Renderer\Image\ImagickImageBackEnd();
+    } else {
+        $imageBackEnd = new \BaconQrCode\Renderer\Image\ImagickImageBackEnd();
         $extension = '.png';
     }
 
@@ -148,8 +148,8 @@ function qrCodeGenerate(string $content = null, int $size = null, int $margin = 
             $module,
             $eye,
             \BaconQrCode\Renderer\RendererStyle\Fill::uniformColor(
-                backgroundColor: new \BaconQrCode\Renderer\Color\Rgb($backgroundColorRed,$backgroundColorGreen,$backgroundColorBlue),
-                foregroundColor: new \BaconQrCode\Renderer\Color\Rgb($foregroundColorRed,$foregroundColorGreen, $foregroundColorBlue)
+                backgroundColor: new \BaconQrCode\Renderer\Color\Rgb($backgroundColorRed, $backgroundColorGreen, $backgroundColorBlue),
+                foregroundColor: new \BaconQrCode\Renderer\Color\Rgb($foregroundColorRed, $foregroundColorGreen, $foregroundColorBlue)
             )
         ),
         imageBackEnd: $imageBackEnd,
@@ -163,11 +163,11 @@ function qrCodeGenerate(string $content = null, int $size = null, int $margin = 
 
 function qrCodeGenerateFPDF(string $content = null, int $size = null, int $margin = null, string $filename = null, string $encoding = null, array $backgroundColor = null, array $foregroundColor = null, string $path = null): string
 {
-    if (!extension_loaded('imagick')){
+    if (!extension_loaded('imagick')) {
 
         $content = $content ?? 'Hello World!';
         $size = $size ?? 400;
-        $path = $path ? 'storage/'.$path.'/' : 'storage/images-qr/';
+        $path = $path ? 'storage/' . $path . '/' : 'storage/images-qr/';
         $filename = $filename ? \Illuminate\Support\Str::slug($filename) : 'qrcode';
 
         $renderer = new \BaconQrCode\Renderer\GDLibRenderer($size);
@@ -176,7 +176,7 @@ function qrCodeGenerateFPDF(string $content = null, int $size = null, int $margi
 
         return asset($path . $filename . '.png');
 
-    }else{
+    } else {
         return qrCodeGenerate($content, $size, $margin, $filename, $encoding, $backgroundColor, $foregroundColor, $path);
     }
 }
@@ -207,7 +207,7 @@ function getParametro($nombre, $column = 'valor_texto'): string
 
     $response = array_key_exists($nombre, $data) ? $data[$nombre] : 'Valor Default NO definido.';
     $parametro = \App\Models\Parametro::where('nombre', $nombre)->first();
-    if ($parametro && !empty($parametro->$column)){
+    if ($parametro && !empty($parametro->$column)) {
         $response = $parametro->$column;
     }
     return $response;
@@ -219,7 +219,7 @@ function fechaEnLetras($fecha, $isoFormat = null): string
     // dddd => Nombre del DIA ejemplo: lunes
     // MMMM => nombre del mes ejemplo: febrero
     $format = "dddd D [de] MMMM [de] YYYY"; // fecha completa
-    if (!is_null($isoFormat)){
+    if (!is_null($isoFormat)) {
         $format = $isoFormat;
     }
     return \Carbon\Carbon::parse($fecha)->isoFormat($format);
@@ -229,14 +229,14 @@ function revertirDisponibles(): void
 {
     $rowquid = session('rowquid');
     $items = \App\Models\Carrito::where('rowquid', $rowquid)->get();
-    if ($items->isNotEmpty()){
-        foreach ($items as $item){
-            if ($item->checkout){
+    if ($items->isNotEmpty()) {
+        foreach ($items as $item) {
+            if ($item->checkout) {
                 $item->checkout = false;
                 $item->save();
                 //revierto el stock disponible
                 $stock = \App\Models\Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
-                if ($stock){
+                if ($stock) {
                     $stock->disponibles = $stock->disponibles + $item->cantidad;
                     $stock->comprometidos = $stock->comprometidos - $item->cantidad;
                     $stock->save();
@@ -246,15 +246,48 @@ function revertirDisponibles(): void
     }
 }
 
-/*function numSizeCodigo(): int
+function numSizeCodigo(): int
 {
     $num = 6;
     $parametro = \App\Models\Parametro::where('nombre', 'size_codigo')->first();
-    if ($parametro){
-        if (!empty($parametro->valor_id) && $parametro->valor_id >= 1){
+    if ($parametro) {
+        if (!empty($parametro->valor_id) && $parametro->valor_id >= 1) {
             $num = intval($parametro->valor_id);
         }
     }
     return $num;
-}*/
+}
+
+function codigoPedidos(): string
+{
+    $num = 1;
+    $formato = '';
+    $parametro = \App\Models\Parametro::where('nombre', 'codigo_pedidos')->first();
+    if ($parametro) {
+        $formato = $parametro->valor_texto;
+        $num = $parametro->valor_id > 0 ? $parametro->valor_id : $num;
+    }
+    $i = 0;
+    do {
+        $num = $num + $i;
+        $codigo = $formato . cerosIzquierda($num, numSizeCodigo());
+        $existe = \App\Models\Pedido::where('codigo', $codigo)->exists();
+        $i++;
+    } while ($existe);
+    return $codigo;
+}
+
+function incrementarCodigoPedidos(): void
+{
+    $parametro = \App\Models\Parametro::where('nombre', 'codigo_pedidos')->first();
+    if ($parametro) {
+        $parametro->valor_id++;
+        $parametro->save();
+    } else {
+        \App\Models\Parametro::create([
+            'nombre' => 'codigo_pedidos',
+            'valor_id' => 1
+        ]);
+    }
+}
 

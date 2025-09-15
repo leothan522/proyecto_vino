@@ -98,4 +98,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         return $this->hasMany(Mensaje::class, 'users_id', 'id');
     }
 
+    public function pedidos(): HasMany
+    {
+        return $this->hasMany(Pedido::class, 'users_id', 'id');
+    }
+
 }

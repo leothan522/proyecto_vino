@@ -3,7 +3,11 @@
 namespace App\Livewire\Web;
 
 use App\Models\Carrito;
+use App\Models\Pedido;
+use App\Models\PedidoItem;
 use App\Traits\WebTrait;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -12,7 +16,7 @@ class CartComponent extends Component
 {
     use WebTrait;
 
-    public bool $ocultar = false;
+    //public bool $ocultar = false;
 
     public mixed $items;
 
@@ -27,34 +31,52 @@ class CartComponent extends Component
         $this->disableFtcoAnimate();
         $rowquid = session('rowquid');
         $items = Carrito::where('rowquid', $rowquid)->get();
-        $items->each(function ($item){
+        $items->each(function ($item) {
             $item->is_invalid = $this->isInvalidStock($item->almacenes_id, $item->productos_id, $item->cantidad);
         });
 
         $isInvalid = $items->contains(fn($item) => $item['is_invalid']);
 
-        if ($isInvalid){
+        if ($isInvalid) {
             LivewireAlert::title('¡Limite Alcanzado!')
                 ->text("Tienes cantidades que exceden las piezas disponibles")
                 ->info()
                 ->withConfirmButton('Ok')
                 ->timer(7000)
                 ->show();
-        }else{
-            $checkout = $items->transform(function ($item){
-               unset($item['is_invalid']) ;
-               return $item;
-            });
-            foreach ($checkout as $item){
-                $item->checkout = true;
-                $item->save();
-                //descuento el stock disponible
-                $stock = $this->getStock($item->almacenes_id, $item->productos_id);
-                $stock->disponibles = $stock->disponibles - $item->cantidad;
-                $stock->comprometidos = $stock->comprometidos + $item->cantidad;
-                $stock->save();
+        } else {
+
+            if (!Auth::check()) {
+                $this->dispatch('initModalLogin', id: 0);
+            }else{
+
+                $pedidoPendiente = Pedido::where('users_id', auth()->id())->where('is_process', true)->exists();
+
+                if (!$pedidoPendiente) {
+                    $checkout = $items->transform(function ($item){
+                        unset($item['is_invalid']) ;
+                        return $item;
+                    });
+                    $pedido = Pedido::create([
+                        'rowquid' => session('rowquid'),
+                        'users_id' => auth()->id(),
+                    ]);
+                    foreach ($checkout as $item) {
+                        $item->checkout = true;
+                        $item->save();
+                    }
+                    $this->redirectRoute('web.checkout', $pedido->rowquid);
+                } else {
+                    LivewireAlert::title('¡No se puede Procesar!')
+                        ->text("Tienes un pedido anterior incompleto, vaya a su cuenta y verifique.")
+                        ->info()
+                        ->withConfirmButton('Ok')
+                        ->timer(7000)
+                        ->show();
+                }
+
             }
-            $this->redirectRoute('web.checkout');
+
         }
     }
 
@@ -116,7 +138,7 @@ class CartComponent extends Component
     {
         $response = 0;
         $stock = $this->getStock($almacenes_id, $productos_id);
-        if ($stock){
+        if ($stock) {
             $response = $stock->disponibles > 0 ? $stock->disponibles : 0;
         }
         return cerosIzquierda(formatoMillares($response, 0));

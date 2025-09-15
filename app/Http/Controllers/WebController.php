@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Pedido;
+use App\Models\PedidoItem;
 use App\Models\Producto;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -14,7 +16,7 @@ class WebController extends Controller
 
     public function __construct()
     {
-        if (!session()->has('rowquid')){
+        if (!session()->has('rowquid')) {
             session(['rowquid' => Str::random()]);
         }
     }
@@ -55,7 +57,7 @@ class WebController extends Controller
         $producto = Producto::find($id);
         $carrito = Carrito::where('rowquid', session('rowquid'))->where('productos_id', $id)->exists();
 
-        if (!$producto || (!$producto->is_active && !$carrito)){
+        if (!$producto || (!$producto->is_active && !$carrito)) {
             //return redirect()->route('web.index');
         }
 
@@ -69,9 +71,45 @@ class WebController extends Controller
         return view('web.cart.index');
     }
 
-    public function checkout()
+    public function checkout($rowquid)
     {
-        return view('web.checkout.index');
+        $pedido = Pedido::where('rowquid', $rowquid)
+            ->where('users_id', auth()->id())
+            ->where('is_process', true)
+            ->first();
+        if (!$pedido) {
+            return redirect()->route('web.index');
+        }
+
+        $items = Carrito::where('rowquid', $rowquid)->get();
+        foreach ($items as $item) {
+            PedidoItem::create([
+                'pedidos_id' => $pedido->id,
+                'producto' => $item->producto->nombre,
+                'tipo' => $item->producto->tipo->nombre,
+                'precio' => $item->producto->precio,
+                'descripcion' => $item->producto->descripcion,
+                'imagen_path' => $item->producto->imagen_path,
+                'almacen' => $item->almacen->nombre,
+                'cantidad' => $item->cantidad,
+                'productos_id' => $item->productos_id,
+                'almacenes_id' => $item->almacenes_id,
+            ]);
+
+            //descuento el stock disponible
+            $stock = Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
+            if ($stock) {
+                $stock->disponibles = $stock->disponibles - $item->cantidad;
+                $stock->comprometidos = $stock->comprometidos + $item->cantidad;
+                $stock->save();
+            }
+            //Vacio el carrito
+            $item->delete();
+            session()->forget('rowquid');
+        }
+
+        return view('web.checkout.index')
+            ->with('rowquid', $rowquid);
     }
 
     public function profile()

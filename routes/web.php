@@ -19,7 +19,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/home/{facturacion?}', [WebController::class, 'home'])->name('web.home');
-    Route::get('/checkout', [WebController::class, 'checkout'])->name('web.checkout');
+    Route::get('/checkout/{rowquid}', [WebController::class, 'checkout'])->name('web.checkout');
 });
 
 Route::middleware([
