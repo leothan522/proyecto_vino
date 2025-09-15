@@ -2,25 +2,32 @@
     {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
 
     <div class="row justify-content-center">
-        <div class="col-xl-10 @if($ftco_animate) ftco-animate @endif">
-            <form action="#" class="billing-form">
+        <div x-data="{ cargando: false }" class="col-xl-10 @if($ftco_animate) ftco-animate @endif">
+            <form id="formCheckout" wire:submit="saveOrder" class="billing-form">
 
                 {{--Detalles de Facturación--}}
                 <h3 class="mb-4 billing-heading">Detalles de Facturación</h3>
                 <div class="row align-items-end">
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="emailaddress">Cédula</label>
-                            <input type="text" class="form-control" placeholder="Cédula">
+                            <label for="emailaddress">Cédula <small class="ml-2 text-danger">Ingrese primero la Cédula</small></label>
+                            <input type="text"
+                                   wire:model="cedula"
+                                   @change="if($event.target.value !== '') { cargando = true; setTimeout(() => cargando = false, 2000); Livewire.dispatch('getDatosFacturacion', { cedula: $event.target.value }); }"
+                                   class="form-control" placeholder="Cédula" autofocus/>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="firstname">Nombre Completo</label>
-                            <input type="text" class="form-control" placeholder="Nombre Completo">
+                            <input type="text" class="form-control" placeholder="Nombre Completo" disabled>
                         </div>
                     </div>
+
                     <div class="w-100"></div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="country">Parroquia</label>
@@ -37,24 +44,30 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
                             <input type="text" class="form-control" placeholder="Teléfono">
                         </div>
                     </div>
+
                     <div class="w-100"></div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="streetaddress">Dirección</label>
                             <input type="text" class="form-control" placeholder="Número de casa y nombre de la calle">
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)">
                         </div>
                     </div>
+
+                    {{--END DATOS--}}
                 </div>
 
                 <div class="row mt-4 pt-3 d-flex">
@@ -76,7 +89,7 @@
                                 <div class="col-md-12">
                                     <div class="radio">
                                         <label data-toggle="modal" data-target="#exampleModal">
-                                            <input type="radio" name="optradio" class="mr-2" />
+                                            <input type="radio" name="optradio" class="mr-2"/>
                                             Transferencia bancaria
                                         </label>
                                     </div>
@@ -101,19 +114,28 @@
                                 <input type="text" name="optradio" class="form-control" placeholder="Bs.">
                             </div>
                             <p>
-                                <a href="{{ route('web.home', 'mis-pedidos') }}" class="btn btn-primary py-3 px-4">Hacer un Pedido</a>
+                                <button type="submit" class="btn btn-primary py-3 px-4" :disabled="cargando">
+                                    Hacer un Pedido
+                                </button>
                             </p>
                         </div>
 
                     </div>
                 </div>
 
-            </form><!-- END -->
-        </div> <!-- .col-md-8 -->
+            </form>
+
+            <!-- Spinner overlay -->
+            <div x-show="cargando" class="spinner-overlay align-content-center text-center">
+                <div class="spinner-border color-active" role="status"></div>
+            </div>
+
+        </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

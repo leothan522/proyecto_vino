@@ -1,4 +1,4 @@
-<div class="container" x-data="{ deshabilitado: false }">
+<div class="container" x-data="{ cargando: false }">
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
 
     {{--Tabla Los Productos--}}
@@ -21,7 +21,7 @@
 
                     @foreach($items as $item)
 
-                        <tr>
+                        <tr class="alert" role="alert">
                             <td>
                                 <div class="img"
                                      style="background-image: url({{ verImagen($item->producto->imagen_path) }});"></div>
@@ -39,15 +39,13 @@
                                     <input type="number" name="quantity" id="input_cantidad_item_{{ $item->id }}"
                                            class="quantity form-control input-number @if($this->isInvalidStock($item->almacenes_id, $item->productos_id, $item->cantidad)) is-invalid @endif"
                                            value="{{ $item->cantidad }}"
-                                           @focus="$wire.ocultar = true"
-                                           {{--@blur="$wire.ocultar = false"--}}
-                                           @change="Livewire.dispatch('setCantidad', { cantidad: $event.target.value, id: '{{$item->id}}', original: '{{ $item->cantidad }}' })"/>
+                                           @change="cargando = true; setTimeout(() => cargando = false, 2000); if($event.target.value > 0){ Livewire.dispatch('setCantidad', { item_id: {{ $item->id }}, cantidad: $event.target.value }); }else{ $event.target.value = '{{ $item->cantidad }}' }"/>
                                     <small class="invalid-feedback text-danger">Excedido</small>
                                 </div>
                             </td>
                             <td>${{ formatoMillares($item->cantidad * $item->producto->precio) }}</td>
                             <td>
-                                <button type="button" wire:click="removeCart({{ $item->productos_id }})" class="close">
+                                <button type="button" wire:click="removeCart({{ $item->productos_id }})" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true"><i class="fa fa-close"></i></span>
                                 </button>
                             </td>
@@ -55,7 +53,7 @@
                     @endforeach
 
                     <!-- Spinner overlay -->
-                    <div wire:loading wire:target="removeCart, checkOut" class="spinner-overlay align-content-center text-center">
+                    <div wire:loading wire:target="checkOut" class="spinner-overlay align-content-center text-center">
                         <div class="spinner-border color-active" role="status"></div>
                     </div>
 
@@ -72,23 +70,8 @@
                     @include('web.section.totales-carrito')
                 </div>
                 <p class="text-center">
-                    <button wire:click="checkOut" x-show="!$wire.ocultar" type="button" class="btn btn-primary py-3 px-4">
+                    <button wire:click="checkOut" wire:loading.attr="disabled" wire:target="removeCart" type="button" class="btn btn-primary py-3 px-4" :disabled="cargando" >
                         Proceder al Pago
-                    </button>
-                    <button x-show="$wire.ocultar && !deshabilitado"
-                            @click="
-                                    deshabilitado = true;
-                                    setTimeout(() => {
-                                        $wire.ocultar = false
-                                        deshabilitado = false;
-                                    }, 2000)"
-                            type="button" class="btn btn-primary py-3 px-4">
-                        Recalcular
-                    </button>
-                    <button x-show="deshabilitado"
-                            @click="setTimeout(() => $wire.ocultar = false, 2000)"
-                            type="button" class="btn btn-primary py-3 px-4">
-                        Recalculando...
                     </button>
                 </p>
             </div>

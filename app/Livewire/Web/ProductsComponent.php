@@ -43,7 +43,8 @@ class ProductsComponent extends Component
     public function setAlmacen($id): void
     {
         $this->disableFtcoAnimate();
-        if (!Carrito::where('rowquid', session('rowquid'))->count()) {
+        session(['almacenes_id' => $id]);
+        /*if (!Carrito::where('rowquid', session('rowquid'))->count()) {
             session(['almacenes_id' => $id]);
         } else {
             LivewireAlert::title('¡Carrito Lleno!')
@@ -52,8 +53,7 @@ class ProductsComponent extends Component
                 ->timer(10000)
                 ->warning()
                 ->show();
-        }
-
+        }*/
     }
 
     protected function getAlmacen(): void

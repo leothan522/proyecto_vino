@@ -81,11 +81,11 @@ class CartComponent extends Component
     }
 
     #[On('setCantidad')]
-    public function setCantidad($cantidad, $id, $original): void
+    public function setCantidad($item_id, $cantidad): void
     {
         $this->disableFtcoAnimate();
-        $carrito = Carrito::find($id);
-        if ($carrito && $cantidad > 0) {
+        $carrito = Carrito::find($item_id);
+        if ($carrito) {
             $carrito->cantidad = $cantidad;
             $carrito->save();
             $this->dispatch('orderLastRefresh');
@@ -101,6 +101,7 @@ class CartComponent extends Component
             session()->flash('livewireAlert_flast', [
                 'title' => '¡Carrito Vacio!',
             ]);
+            session()->forget('order_almacenes_id');
             $this->redirectRoute('web.index');
         }
         $this->subtotal = $this->items->sum(function ($item) {

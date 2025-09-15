@@ -107,16 +107,31 @@ trait WebTrait
         }
 
         if ($carrito->cantidad <= $max) {
-            $carrito->save();
-            $cantidad = $input ? cerosIzquierda(formatoMillares($input, 0)) : '01';
-            $total = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
-            $this->dispatch('orderLastRefresh');
-            LivewireAlert::title("Agregado $cantidad al Carrito")
-                ->text("Llevas $total en Total")
-                ->toast()
-                ->position('top')
-                ->success()
-                ->show();
+
+            if (!session()->has('order_almacenes_id')){
+                session(['order_almacenes_id' => $this->almacenes_id]);
+            }
+
+            if (session('order_almacenes_id') == $this->almacenes_id){
+                $carrito->save();
+                $cantidad = $input ? cerosIzquierda(formatoMillares($input, 0)) : '01';
+                $total = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
+                $this->dispatch('orderLastRefresh');
+                LivewireAlert::title("Agregado $cantidad al Carrito")
+                    ->text("Llevas $total en Total")
+                    ->toast()
+                    ->position('top')
+                    ->success()
+                    ->show();
+            }else{
+                LivewireAlert::title('¡No se puede agregar!')
+                    ->text("Todos los productos del carrito deben ser de la misma Bodega")
+                    ->info()
+                    ->withConfirmButton('Ok')
+                    ->timer(5000)
+                    ->show();
+            }
+
         } else {
             $total = $max > 0 ? cerosIzquierda(formatoMillares($max, 0)) : 0;
             LivewireAlert::title('¡Limite Alcanzado!')

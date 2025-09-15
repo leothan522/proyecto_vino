@@ -26,7 +26,7 @@
             {{--Bodega y cantidad de vendidos--}}
             <div class="rating d-flex">
                 <p class="text-left mr-4">
-                    <a href="#" onclick="return false" class="mr-2" style="cursor: text;">{{ $almacen }}</a>
+                    <a href="#" wire:click.prevent="showAlmacen" class="mr-2">{{ $almacen }}</a>
                 </p>
                 <p class="text-left">
                     <a href="#" onclick="return false" class="mr-2 @if(!$vendidos) d-none @endif" style="color: #000; cursor: text;">{{ $vendidos }} <span style="color: #bbb;">Vendido(s)</span></a>
@@ -61,7 +61,7 @@
                     </span>
 
                     <!-- Spinner overlay -->
-                    <div wire:loading wire:target="addCart, showCart, showTiposProductos" class="spinner-overlay align-content-center text-center">
+                    <div wire:loading wire:target="addCart, showCart, showTiposProductos, showAlmacen" class="spinner-overlay align-content-center text-center">
                         <div class="spinner-border color-active" role="status"></div>
                     </div>
 

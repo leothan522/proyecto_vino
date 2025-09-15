@@ -65,6 +65,13 @@ class ProductSingleComponent extends Component
         $this->redirectRoute('web.products');
     }
 
+    public function showAlmacen(): void
+    {
+        $this->disableFtcoAnimate();
+        session()->forget('tipos_id');
+        $this->redirectRoute('web.products');
+    }
+
     protected function getAlmacen(): void
     {
         if (session()->has('almacenes_id')) {
