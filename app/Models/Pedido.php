@@ -26,9 +26,9 @@ class Pedido extends Model
         'rowquid',
         'is_process',
         'bodega',
+        'estatus',
         'users_id',
         'almacenes_id',
-        'estatus',
     ];
 
     public function user(): BelongsTo

@@ -81,9 +81,9 @@ class CheckoutComponent extends Component
             $pedido->direccion2 = $this->direccion2 ?? null;
             $pedido->subtotal = $this->subtotal;
             $pedido->entrega = $this->entrega;
+            $pedido->estatus = 1;
             $pedido->total = $this->total;
             $pedido->is_process = false;
-            $pedido->estatus = 1;
             $pedido->save();
             incrementarCodigoPedidos();
 

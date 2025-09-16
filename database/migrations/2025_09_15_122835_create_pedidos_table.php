@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('rowquid');
             $table->boolean('is_process')->default(true);
             $table->string('bodega')->nullable();
+            $table->integer('estatus')->default(0)->nullable();
             $table->bigInteger('users_id')->unsigned()->nullable();
             $table->bigInteger('almacenes_id')->unsigned()->nullable();
-            $table->integer('estatus')->nullable();
             $table->foreign('users_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('almacenes_id')->references('id')->on('almacenes')->nullOnDelete();
             $table->timestamps();
