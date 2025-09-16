@@ -103,4 +103,14 @@ class User extends Authenticatable implements MustVerifyEmail, HasAvatar
         return $this->hasMany(Pedido::class, 'users_id', 'id');
     }
 
+    public function clientes(): HasMany
+    {
+        return $this->hasMany(Cliente::class, 'users_id', 'id');
+    }
+
+    public function pagos(): HasMany
+    {
+        return $this->hasMany(PedidoPago::class, 'users_id', 'id');
+    }
+
 }

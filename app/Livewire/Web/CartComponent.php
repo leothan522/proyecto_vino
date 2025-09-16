@@ -16,8 +16,6 @@ class CartComponent extends Component
 {
     use WebTrait;
 
-    //public bool $ocultar = false;
-
     public mixed $items;
 
     public function render()

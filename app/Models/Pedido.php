@@ -44,4 +44,9 @@ class Pedido extends Model
         return $this->belongsTo(Almacen::class, 'almacenes_id', 'id');
     }
 
+    public function pagos(): HasMany
+    {
+        return $this->hasMany(PedidoPago::class, 'pedidos_id', 'id');
+    }
+
 }

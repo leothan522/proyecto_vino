@@ -12,17 +12,23 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="emailaddress">Cédula <small class="ml-2 text-danger">Ingrese primero la Cédula</small></label>
-                            <input type="text"
+                            <input type="number" step="1" min="0"
                                    wire:model="cedula"
                                    @change="if($event.target.value !== '') { cargando = true; setTimeout(() => cargando = false, 2000); Livewire.dispatch('getDatosFacturacion', { cedula: $event.target.value }); }"
                                    class="form-control" placeholder="Cédula" autofocus/>
+                            @error('cedula')
+                            <small class="text-primary">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="firstname">Nombre Completo</label>
-                            <input type="text" class="form-control" placeholder="Nombre Completo" disabled>
+                            <input wire:model="nombre" type="text" class="form-control" placeholder="Nombre Completo" @if($disableInput) disabled @endif>
+                            @error('nombre')
+                            <small class="text-primary">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -33,12 +39,15 @@
                             <label for="country">Parroquia</label>
                             <div class="select-wrap">
                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select class="form-control">
+                                <select wire:model="parroquias_id" class="form-control" @if($disableInput) disabled @endif>
                                     <option value="">Seleccione</option>
                                     @foreach($parroquias as $parroquia)
-                                        <option value="{{ $parroquia->parroquia }}">{{ $parroquia->parroquia }}</option>
+                                        <option value="{{ $parroquia->id }}">{{ $parroquia->parroquia }}</option>
                                     @endforeach
                                 </select>
+                                @error('parroquias_id')
+                                <small class="text-primary">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -46,7 +55,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control" placeholder="Teléfono">
+                            <input wire:model="telefono" type="text" class="form-control" placeholder="Teléfono" @if($disableInput) disabled @endif>
+                            @error('telefono')
+                            <small class="text-primary">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -55,13 +67,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="streetaddress">Dirección</label>
-                            <input type="text" class="form-control" placeholder="Número de casa y nombre de la calle">
+                            <input wire:model="direccion" type="text" class="form-control" placeholder="Número de casa y nombre de la calle" @if($disableInput) disabled @endif>
+                            @error('direccion')
+                            <small class="text-primary">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)">
+                            <input wire:model="direccion2" type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)" @if($disableInput) disabled @endif>
+                            @error('direccion')
+                            <small class="text-primary">&nbsp;</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -87,7 +105,7 @@
                                 <div class="col-md-12">
                                     <div class="radio">
                                         <label onclick="modalTransferencias()">
-                                            <input type="radio" name="optradio" class="mr-2"/>
+                                            <input type="radio" value="transferencias" wire:model="metodoPago" class="mr-2"/>
                                             Transferencia bancaria
                                         </label>
                                     </div>
@@ -97,19 +115,28 @@
                                 <div class="col-md-12">
                                     <div class="radio">
                                         <label onclick="modalPagoMovil()">
-                                            <input type="radio" name="optradio" class="mr-2">
+                                            <input type="radio" value="pagomovil" wire:model="metodoPago" class="mr-2">
                                             Pago Móvil
                                         </label>
                                     </div>
+                                    @error('metodoPago')
+                                    <small class="text-primary">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Referencia</label>
-                                <input type="text" name="optradio" class="form-control" placeholder="#">
+                                <input wire:model="referencia" type="text" class="form-control" placeholder="#">
+                                @error('referencia')
+                                <small class="text-primary">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Monto</label>
-                                <input type="text" name="optradio" class="form-control" placeholder="Bs.">
+                                <input wire:model="monto" type="number" step="0.01" min="0" class="form-control" placeholder="Bs.">
+                                @error('monto')
+                                <small class="text-primary">{{ $message }}</small>
+                                @enderror
                             </div>
                             <p>
                                 <button type="submit" class="btn btn-primary py-3 px-4" :disabled="cargando">
@@ -125,6 +152,11 @@
 
             <!-- Spinner overlay -->
             <div x-show="cargando" class="spinner-overlay align-content-center text-center">
+                <div class="spinner-border color-active" role="status"></div>
+            </div>
+
+            <!-- Spinner overlay -->
+            <div wire:loading wire:target="saveOrder" class="spinner-overlay align-content-center text-center">
                 <div class="spinner-border color-active" role="status"></div>
             </div>
 

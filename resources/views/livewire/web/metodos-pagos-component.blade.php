@@ -82,19 +82,20 @@
                         </div>
                     </div>
 
-                    @if($oficial)
 
-                        <div class="input-group mb-3">
-                            <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto"
-                                   aria-label="Monto" aria-describedby="button-addon6" readonly>
-                            <div class="input-group-append">
-                                <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"
-                                        type="button" id="button-addon6" data-container="body" data-toggle="popover"
-                                        data-placement="left" data-content="Copiado">Copiar
-                                </button>
-                            </div>
+
+                    <div class="input-group mb-3 @if(!$oficial) d-none @endif">
+                        <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto"
+                               aria-label="Monto" aria-describedby="button-addon6" readonly>
+                        <div class="input-group-append">
+                            <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"
+                                    type="button" id="button-addon6" data-container="body" data-toggle="popover"
+                                    data-placement="left" data-content="Copiado">Copiar
+                            </button>
                         </div>
+                    </div>
 
+                    @if($oficial)
                         <div class="input-group justify-content-between">
                             <small>Oficial USD: {{ formatoMillares($oficial) }}</small>
                             <small>Fecha Actualización: {{ $fecha }}</small>
@@ -174,18 +175,18 @@
                         </div>
                     </div>
 
-                    @if($oficial)
-                        <div class="input-group mb-3">
-                            <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto"
-                                   aria-label="Monto" aria-describedby="button-addon10" readonly>
-                            <div class="input-group-append">
-                                <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"
-                                        type="button" id="button-addon10" data-container="body" data-toggle="popover"
-                                        data-placement="left" data-content="Copiado">Copiar
-                                </button>
-                            </div>
+
+                    <div class="input-group mb-3 @if(!$oficial) d-none @endif">
+                        <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto"
+                               aria-label="Monto" aria-describedby="button-addon10" readonly>
+                        <div class="input-group-append">
+                            <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"
+                                    type="button" id="button-addon10" data-container="body" data-toggle="popover"
+                                    data-placement="left" data-content="Copiado">Copiar
+                            </button>
                         </div>
-                    @endif
+                    </div>
+
                     <button onclick="copiarContenido('{{ $smsPagoMovil }}')"
                             class="btn btn-outline-secondary btn-block mb-3" type="button" data-container="body"
                             data-toggle="popover" data-placement="top" data-content="Copiado">Copiar datos para SMS
