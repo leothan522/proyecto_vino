@@ -31,10 +31,9 @@ class WebController extends Controller
         return view('web.about.index');
     }
 
-    public function home($facturacion = null)
+    public function home()
     {
-        return view('web.home.index')
-            ->with('facturacion', $facturacion);
+        return view('web.home.index');
     }
 
     public function blog()
@@ -58,7 +57,7 @@ class WebController extends Controller
         $carrito = Carrito::where('rowquid', session('rowquid'))->where('productos_id', $id)->exists();
 
         if (!$producto || (!$producto->is_active && !$carrito)) {
-            //return redirect()->route('web.index');
+            return redirect()->route('web.index');
         }
 
         return view('web.products-single.index')

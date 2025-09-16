@@ -18,7 +18,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home/{facturacion?}', [WebController::class, 'home'])->name('web.home');
+    Route::get('/home', [WebController::class, 'home'])->name('web.home');
     Route::get('/checkout/{rowquid}', [WebController::class, 'checkout'])->name('web.checkout');
 });
 

@@ -6,7 +6,32 @@
 
     @include('web.layouts.hero-wrap-2')
 
-    @include('web.section.home-section')
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row" x-data="{ cargando: false }">
+
+                {{--Content home--}}
+                <div class="col-md-10 order-last position-relative">
+
+                    {{--Mis Pedidos--}}
+                    <livewire:web.home-pedidos-component />
+
+                    {{--Datos Facturacion--}}
+                    <livewire:web.home-datos-component />
+
+                    <!-- Spinner overlay -->
+                    <div x-show="cargando" class="spinner-overlay align-content-center">
+                        <div class="spinner-border color-active" role="status"></div>
+                    </div>
+
+                </div>
+
+                {{--Menu Home--}}
+                <livewire:web.home-menu-component />
+
+            </div>
+        </div>
+    </section>
 
 @endsection
 
@@ -25,9 +50,15 @@
             facturacion.classList.remove('d-none');
         }
 
-        @if($facturacion)
+        @if(session()->has('menu_home'))
             verFacturacion();
+        @else
+             verPedidos();
         @endif
+
+        Livewire.on('buttonModalPedidos', () => {
+            document.getElementById('buttonModalPedidos').click();
+        });
 
     </script>
 @endsection

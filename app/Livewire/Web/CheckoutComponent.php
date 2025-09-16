@@ -78,11 +78,12 @@ class CheckoutComponent extends Component
             $pedido->parroquia = $parroquia->parroquia;
             $pedido->telefono = $this->telefono;
             $pedido->direccion = $this->direccion;
-            $pedido->direccion2 = $this->direccion2;
+            $pedido->direccion2 = $this->direccion2 ?? null;
             $pedido->subtotal = $this->subtotal;
             $pedido->entrega = $this->entrega;
             $pedido->total = $this->total;
             $pedido->is_process = false;
+            $pedido->estatus = 1;
             $pedido->save();
             incrementarCodigoPedidos();
 
@@ -96,7 +97,7 @@ class CheckoutComponent extends Component
                         $cliente->telefono = $this->telefono;
                         $cliente->parroquias_id = $this->parroquias_id;
                         $cliente->direccion = $this->direccion;
-                        $cliente->direccion2 = $this->direccion2;
+                        $cliente->direccion2 = $this->direccion2 ?? null;
                         $cliente->save();
                     }
                 }
@@ -109,7 +110,7 @@ class CheckoutComponent extends Component
                         'telefono' => $this->telefono,
                         'parroquias_id' => $this->parroquias_id,
                         'direccion' => $this->direccion,
-                        'direccion2' => $this->direccion2,
+                        'direccion2' => $this->direccion2 ?? null,
                         'users_id' => auth()->id(),
                     ]);
                 }

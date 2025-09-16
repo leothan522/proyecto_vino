@@ -4,11 +4,27 @@
     <div class="sidebar-box @if($ftco_animate) ftco-animate @endif">
         <div class="categories position-relative">
             <h3>Gestionar</h3>
-            <ul class="p-0">
-                <li><a href="{{ route('web.home') }}">Mis Pedidos <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="{{ route('web.home') }}">Mis Favoritos <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="{{ route('web.home', 'datos-facturacion') }}">Datos de Facturación <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="{{ route('web.profile') }}" class="color-active">{{ __('Profile') }} <span class="fa fa-chevron-right color-active"></span></a></li>
+            <ul class="p-0" @click="cargando = true; setTimeout(() => cargando = false, 3000)" >
+                <li>
+                    <a href="#" wire:click.prevent="showPedidos" onclick="verPedidos()" class="@if($isPedidos) color-active @endif">
+                        Mis Pedidos <span class="fa fa-chevron-right @if($isPedidos) color-active @endif"></span>
+                    </a>
+                </li>
+                <li class="d-none">
+                    <a href="#" class="@if($isFavoritos) color-active @endif">
+                        Mis Favoritos <span class="fa fa-chevron-right @if($isFavoritos) color-active @endif"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" wire:click.prevent="showDatos" onclick="verFacturacion()" class="@if($isDatos) color-active @endif">
+                        Datos de Facturación <span class="fa fa-chevron-right @if($isDatos) color-active @endif"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" wire:click.prevent="showPerfil" class="@if($isPerfil) color-active @endif">
+                        {{ __('Profile') }} <span class="fa fa-chevron-right @if($isPerfil) color-active @endif"></span>
+                    </a>
+                </li>
                 <li>
                     <a href="#" wire:click.prevent="cerrarSesion">
                         {{ __('Logout') }} <span class="fa fa-chevron-right"></span>
