@@ -70,7 +70,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body position-relative">
+                    <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
 
                         <p class="mb-1">Cliente: <strong>{{ \Illuminate\Support\Str::upper($cliente) }}</strong></p>
                         <p class="mb-4">Teléfono: <strong>{{ $telefono }}</strong></p>
