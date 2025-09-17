@@ -7,8 +7,8 @@
                         <span class="flaticon-support"></span>
                     </div>
                     <div class="text">
-                        <h2>Promotores de Ventas</h2>
-                        <p>Contamos con promotores que viven en el municipio para ayudarlos con sus compras.</p>
+                        <h2>Atención al Cliente 24/7</h2>
+                        <p>Ofrecemos atención personalizada, por cualquiera de nuestros medios de contacto.</p>
                     </div>
                 </div>
             </div>
