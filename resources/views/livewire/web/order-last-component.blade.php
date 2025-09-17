@@ -1,4 +1,4 @@
-<div class="order-lg-last btn-group">
+<div class="order-lg-last btn-group mr-2">
     {{-- The Master doesn't talk, he acts. --}}
 
     {{--Icono Carrito--}}

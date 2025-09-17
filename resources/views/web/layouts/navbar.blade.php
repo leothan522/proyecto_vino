@@ -6,7 +6,7 @@
 
         <livewire:web.order-last-component />
 
-        <button class="navbar-toggler ml-3 mr-3" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             {{--<span class="oi oi-menu"></span> Menu--}}
             <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
