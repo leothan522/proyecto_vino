@@ -23,7 +23,7 @@
 
     <section class="ftco-section testimony-section img" style="background-image: url({{ asset('img/web/bg_promotores.jpg') }});">
         <div class="overlay"></div>
-        <livewire:web.testimony-component/>
+        {{--<livewire:web.testimony-component/>--}}
     </section>
 
     <section class="ftco-section d-none d-md-block">

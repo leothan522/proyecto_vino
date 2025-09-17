@@ -57,13 +57,16 @@
 
         .gradient-custom-2 {
             /* fallback for old browsers */
-            background: rgb(183, 71, 42);
+            /*background: rgb(183, 71, 42);*/
+            background: rgb(101, 23, 11);
 
             /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);
+            /*background: -webkit-linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);*/
+            background: -webkit-linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);
 
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);
+            /*background: linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);*/
+            background: linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);
         }
 
         @media (min-width: 768px) {
@@ -96,7 +99,7 @@
             left: 50%;
             width: 100px;
             height: 100px;
-            background: url('{{ asset('img/web/wine-bottle-and-glass.png') }}') no-repeat center center;
+            background: url('{{ asset('img/logo.jpg') }}') no-repeat center center;
             background-size: contain;
             transform: translate(-50%, -50%);
             animation: pulse 2s infinite;
@@ -153,7 +156,7 @@
                                 <div class="text-center @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') pt-5 @endif mt-5">
                                     <a href="{{ route('web.index') }}" onclick="verCargandoAuth(this)">
                                         <img class="img-fluid @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') mt-sm-5 @endif"
-                                            src="{{ asset('img/web/wine-bottle-and-glass.png') }}" style="width: 125px !important;"  alt="Logo">
+                                            src="{{ asset('img/logo.jpg') }}" style="width: 200px !important;"  alt="Logo">
                                     </a>
                                     <h5 class="mt-5 mb-5 pb-1 text_title">
                                         <strong>{{ mb_strtoupper(env('APP_NAME', 'Laravel')) }}</strong>

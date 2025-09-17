@@ -67,7 +67,7 @@ class DashboardPanelProvider extends PanelProvider
                     ->label(auth()->user()->name)
                     ->url(fn(): string => url('user/profile'))
             ])
-            ->favicon(asset('img/web/wine-bottle-and-glass.png'))
+            ->favicon(asset('img/logo.jpg'))
             ->navigationGroups([
                 NavigationGroup::make('Roles y Permisos')
                     ->collapsible()
