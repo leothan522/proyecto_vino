@@ -34,7 +34,7 @@
             </div>
 
             {{-- Precio --}}
-            <p class="price"><span>${{ $precio }}</span></p>
+            <p class="price"><span>BCV ${{ $precio }}</span></p>
 
             {{--Descripcion--}}
             <p>{{ $descripcion }}</p>
@@ -78,7 +78,7 @@
             </div>
 
             {{--Botones del Carrito--}}
-            <p>
+            <p class="d-flex">
                 <a href="#" wire:click.prevent="addCart" class="btn btn-primary py-3 px-5 mr-2 mt-2" wire:loading.class="disabled" wire:target="show">
                     Añadir al Carrito
                 </a>

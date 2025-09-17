@@ -8,43 +8,41 @@
                 <div class="row mb-5">
                     <div class="col-md-3">
                         <div class="dbox w-100 text-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div class="icon d-none d-md-flex align-items-center justify-content-center">
                                 <span class="fa fa-map-marker"></span>
                             </div>
                             <div class="text">
-                                <p><span>Dirección:</span> {{ getParametro('contact_direccion') }}</p>
+                                <p class="text-justify"><span>Dirección:</span> {{ getParametro('contact_direccion') }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="dbox w-100 text-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div class="icon d-none d-md-flex align-items-center justify-content-center">
                                 <span class="fa fa-phone"></span>
                             </div>
                             <div class="text">
-                                <p><span>Teléfono:</span> <a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}">{{ getParametro('contact_telefono') }}</a>
-                                </p>
+                                <p class="text-justify text-md-center"><span>Teléfono:</span> <a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}">{{ getParametro('contact_telefono') }}</a></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="dbox w-100 text-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div class="icon d-none d-md-flex align-items-center justify-content-center">
                                 <span class="fa fa-paper-plane"></span>
                             </div>
                             <div class="text">
-                                <p><span>Email:</span> <a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}">{{ Str::lower(getParametro('contact_email')) }}</a>
-                                </p>
+                                <p class="text-justify text-md-center"><span>Email:</span> <a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}">{{ Str::lower(getParametro('contact_email')) }}</a></p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="dbox w-100 text-center">
-                            <div class="icon d-flex align-items-center justify-content-center">
+                            <div class="icon d-none d-md-flex align-items-center justify-content-center">
                                 <span class="fa fa-globe"></span>
                             </div>
                             <div class="text">
-                                <p><span>Sitio web</span> <a href="{{ route('web.index') }}">{{ getParametro('contact_web') }}</a></p>
+                                <p class="text-justify text-md-center"><span>Sitio Web:</span> <a href="{{ route('web.index') }}">{{ getParametro('contact_web') }}</a></p>
                             </div>
                         </div>
                     </div>

@@ -4,8 +4,6 @@
 
 @section('content')
 
-    @include('web.layouts.hero-wrap-2')
-
     <section class="ftco-section bg-light">
         <livewire:web.contact-component />
     </section>

@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="carousel-testimony owl-carousel ftco-owl">
 
-                    @foreach($promotores as $promotor)
+                    {{--@foreach($promotores as $promotor)
                         <div class="item">
                             <div class="testimony-wrap py-4">
                                 <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach--}}
 
                 </div>
             </div>

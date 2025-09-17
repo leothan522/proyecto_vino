@@ -34,7 +34,7 @@
                         <span class="sale">Agotado</span>
                     @endif
                     <h2>{{ $producto->nombre }}</h2>
-                    <span class="price">${{ formatoMillares($producto->precio) }}</span>
+                    <span class="price">BCV ${{ formatoMillares($producto->precio) }}</span>
                 </div>
                 <!-- Spinner overlay -->
                 <div wire:loading wire:target="productShow({{ $producto->id }})" class="spinner-overlay align-content-center text-center">

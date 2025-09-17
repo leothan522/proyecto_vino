@@ -4,7 +4,7 @@
     {{--Tabla Los Productos--}}
     @if($items->isNotEmpty())
 
-        <div class="row">
+        <div class="row @if($ftco_animate) ftco-animate @endif">
             <div class="table-responsive">
                 <table class="table">
                     <thead class="thead-primary">

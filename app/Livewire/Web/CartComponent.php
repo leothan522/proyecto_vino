@@ -56,6 +56,7 @@ class CartComponent extends Component
                         return $item;
                     });
                     $pedido = Pedido::create([
+                        'total' => $this->total,
                         'rowquid' => session('rowquid'),
                         'users_id' => auth()->id(),
                         'almacenes_id' => session('order_almacenes_id'),

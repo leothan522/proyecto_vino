@@ -7,20 +7,17 @@
         <div class="list-group">
 
             <a class="list-group-item">
-                <p class="mb-1">Mis Pedidos</p>
+                <h5 class="font-italic color-active mb-1">Mis Pedidos</h5>
             </a>
 
             @foreach($pedidos as $pedido)
-                <a href="#" wire:click.prevent="show({{ $pedido->id }})" class="list-group-item list-group-item-action">
+                <a href="#" wire:click.prevent="show({{ $pedido->id }})" class="list-group-item list-group-item-action position-relative">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Pedido <span class="color-active">#{{ $pedido->codigo }}</span></h5>
-                        <small
-                            class="text-muted">{{ \Carbon\Carbon::parse($pedido->created_at)->diffForHumans() }}</small>
+                        <h5 class="mb-1">Pedido <span class="color-active">{{ $pedido->codigo ? '#'.$pedido->codigo : 'Incompleto' }}</span></h5>
+                        <small class="text-muted">{{ \Carbon\Carbon::parse($pedido->created_at)->diffForHumans() }}</small>
                     </div>
-                    <p class="mb-1">Cliente:
-                        <strong>{{ formatoMillares($pedido->cedula, 0) }} - {{ \Illuminate\Support\Str::upper($pedido->nombre) }}</strong></p>
-                    <p class="mb-1">{{ $pedido->bodega }} <strong
-                            class="float-right">${{ formatoMillares($pedido->total) }}</strong></p>
+                    <p class="mb-1 @if(!$pedido->cedula) d-none @endif">Cliente:<strong>{{ formatoMillares($pedido->cedula, 0) }} - {{ \Illuminate\Support\Str::upper($pedido->nombre) }}</strong></p>
+                    <p class="mb-1">{{ $pedido->bodega }} <strong class="float-right">${{ formatoMillares($pedido->total) }}</strong></p>
                     @switch($pedido->estatus)
                         @case(1)
                             <small class="text-muted">En proceso</small>
@@ -29,10 +26,10 @@
                             <small class="text-success">Entregado</small>
                             @break
                         @case(3)
-                            <small class="text-danger">Se require atención</small>
+                            <small class="text-danger">Pedido incompleto</small>
                             @break
                         @default
-                            <small class="text-primary">Pedido incompleto</small>
+                            <small class="text-primary">Se require atención</small>
                             @break
                     @endswitch
                     <!-- Spinner overlay -->

@@ -4,15 +4,11 @@
 
 @section('content')
 
-    @include('web.layouts.hero-wrap-2')
-
-    @include('web.section.intro-section')
-
     <section class="ftco-section ftco-no-pb">
         @include('web.section.about-section')
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section d-none d-md-block">
         <livewire:web.tipos-productos-component />
     </section>
 

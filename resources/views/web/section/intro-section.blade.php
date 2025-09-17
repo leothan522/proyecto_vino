@@ -1,4 +1,4 @@
-<section class="ftco-intro">
+<section class="ftco-intro d-none d-md-block">
     <div class="container">
         <div class="row no-gutters">
             <div class="col-md-4 d-flex">

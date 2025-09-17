@@ -25,7 +25,7 @@ class CheckoutComponent extends Component
     public string $telefono;
     public int $parroquias_id;
     public string $direccion;
-    public string $direccion2;
+    public mixed $direccion2;
     public int $clientes_id = 0;
     public bool $disableInput = false;
 
@@ -103,14 +103,14 @@ class CheckoutComponent extends Component
                 }
 
             } else {
-                if (!Cliente::where('cedula', $this->cedula)->exists()){
+                if (!Cliente::where('cedula', $this->cedula)->exists()) {
                     Cliente::create([
                         'cedula' => $this->cedula,
                         'nombre' => $this->nombre,
                         'telefono' => $this->telefono,
                         'parroquias_id' => $this->parroquias_id,
                         'direccion' => $this->direccion,
-                        'direccion2' => $this->direccion2 ?? null,
+                        'direccion2' => $this->direccion2,
                         'users_id' => auth()->id(),
                     ]);
                 }
@@ -123,21 +123,22 @@ class CheckoutComponent extends Component
                 $metodo = BancosPagoMovil::where('is_main', true)->first();
             }
 
+            $data = [];
             if ($metodo) {
-                PedidoPago::create([
-                    'pedidos_id' => $pedido->id,
-                    'metodo' => $this->metodoPago,
-                    'referencia' => $this->referencia,
-                    'monto' => $this->monto,
-                    'titular' => $this->metodoPago == 'transferencias' ? $metodo->titular : null,
-                    'cuenta' => $this->metodoPago == 'transferencias' ? $metodo->cuenta : null,
-                    'rif' => $metodo->rif,
-                    'tipo' => $this->metodoPago == 'transferencias' ? $metodo->tipo : null,
-                    'banco' => $metodo->banco,
-                    'codigo' => $this->metodoPago == 'transferencias' ? null : $metodo->codigo,
-                    'telefono' => $this->metodoPago == 'transferencias' ? null : $metodo->telefono,
-                ]);
+                $data['titular'] = $this->metodoPago == 'transferencias' ? $metodo->titular : null;
+                $data['cuenta'] = $this->metodoPago == 'transferencias' ? $metodo->cuenta : null;
+                $data['rif'] = $metodo->rif;
+                $data['tipo'] = $this->metodoPago == 'transferencias' ? $metodo->tipo : null;
+                $data['banco'] = $metodo->banco;
+                $data['codigo'] = $this->metodoPago == 'transferencias' ? null : $metodo->codigo;
+                $data['telefono'] = $this->metodoPago == 'transferencias' ? null : $metodo->telefono;
             }
+            $data['pedidos_id'] = $pedido->id;
+            $data['metodo'] = $this->metodoPago;
+            $data['referencia'] = $this->referencia;
+            $data['monto'] = $this->monto;
+            PedidoPago::create($data);
+
             $this->redirectRoute('web.home');
         }
 
@@ -163,7 +164,7 @@ class CheckoutComponent extends Component
             }
 
             $parroquias = $this->getParroquias();
-            if (!empty($parroquias)){
+            if (!empty($parroquias)) {
                 $idsValidos = $parroquias->pluck('id')->toArray();
                 // Si el valor actual no está en el listado, lo reseteamos
                 if (!in_array($this->parroquias_id, $idsValidos)) {

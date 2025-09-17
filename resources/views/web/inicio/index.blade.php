@@ -8,11 +8,11 @@
 
     @include('web.section.intro-section')
 
-    <section class="ftco-section ftco-no-pb">
+    <section class="ftco-section ftco-no-pb d-none d-md-block">
         @include('web.section.about-section')
     </section>
 
-    <section class="ftco-section ftco-no-pb">
+    <section class="ftco-section ftco-no-pb d-none d-md-block">
         <livewire:web.tipos-productos-component/>
     </section>
 
@@ -26,7 +26,7 @@
         <livewire:web.testimony-component/>
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section d-none d-md-block">
         <livewire:web.recent-blog-component />
     </section>
 

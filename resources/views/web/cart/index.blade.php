@@ -4,9 +4,8 @@
 
 @section('content')
 
-    @include('web.layouts.hero-wrap-2')
-
     <section class="ftco-section">
+        @include('web.layouts.slider-text')
         <livewire:web.cart-component />
         <livewire:web.modal-login-component/>
     </section>

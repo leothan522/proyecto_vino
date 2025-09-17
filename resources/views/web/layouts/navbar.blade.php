@@ -1,14 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+<nav id="ftco-navbar" class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light <!--ftco_navbar--> scrolled awake" >
     <div class="container">
         <a class="navbar-brand" href="{{ route('web.index') }}">
-            <div class="d-none d-md-block">Vino <span>Guariqueño</span></div>
-            <small class="d-md-none">Vino <span>Guariqueño</span></small>
+            <small>Vino <span>Don Juan Espinoza</span></small>
         </a>
 
         <livewire:web.order-last-component />
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+        <button class="navbar-toggler ml-3 mr-3" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            {{--<span class="oi oi-menu"></span> Menu--}}
+            <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
@@ -19,6 +19,7 @@
                 <li class="nav-item @if(Route::currentRouteName() == 'web.home') active @endif"><a href="{{ route('web.home') }}" class="nav-link">Mi Cuenta</a></li>
                 <li class="nav-item @if(Route::currentRouteName() == 'web.blog') active @endif"><a href="{{ route('web.blog') }}" class="nav-link">Galería</a></li>
                 <li class="nav-item @if(Route::currentRouteName() == 'web.contact') active @endif"><a href="{{ route('web.contact') }}" class="nav-link">Contacto</a></li>
+                <li class="nav-item d-md-none"><a href="{{ route('filament.dashboard.pages.dashboard') }}" class="nav-link">{{ __('Dashboard') }}</a></li>
             </ul>
         </div>
 

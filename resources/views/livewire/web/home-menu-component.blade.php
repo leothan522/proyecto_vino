@@ -1,7 +1,7 @@
 <div class="col-md-2">
     {{-- Care about people's approval and you will be their prisoner. --}}
 
-    <div class="sidebar-box @if($ftco_animate) ftco-animate @endif">
+    <div class="sidebar-box bg-transparent @if($ftco_animate) ftco-animate @endif">
         <div class="categories position-relative">
             <h3>Gestionar</h3>
             <ul class="p-0" @click="cargando = true; setTimeout(() => cargando = false, 3000)" >

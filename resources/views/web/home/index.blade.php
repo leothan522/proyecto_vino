@@ -4,9 +4,7 @@
 
 @section('content')
 
-    @include('web.layouts.hero-wrap-2')
-
-    <section class="ftco-section">
+    <section class="ftco-section bg-light">
         <div class="container">
             <div class="row" x-data="{ cargando: false }">
 
