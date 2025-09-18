@@ -30,8 +30,10 @@ class ProductsComponent extends Component
     {
         $this->getTipos();
         $this->getAlmacen();
+        $productos = $this->getProductos();
+        $this->getDatosCarrito($productos);
         return view('livewire.web.products-component')
-            ->with('productos', $this->getProductos());
+            ->with('productos', $productos);
     }
 
     public function updating($filtro): void
@@ -44,16 +46,6 @@ class ProductsComponent extends Component
     {
         $this->disableFtcoAnimate();
         session(['almacenes_id' => $id]);
-        /*if (!Carrito::where('rowquid', session('rowquid'))->count()) {
-            session(['almacenes_id' => $id]);
-        } else {
-            LivewireAlert::title('¡Carrito Lleno!')
-                ->text('Para cambiar de Bodega debes tener tu carrito vacio.')
-                ->withConfirmButton('Ok')
-                ->timer(10000)
-                ->warning()
-                ->show();
-        }*/
     }
 
     protected function getAlmacen(): void

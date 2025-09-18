@@ -126,6 +126,9 @@ trait WebTrait
                     ->toast()
                     ->position('top')
                     ->success()
+                    ->withOptions([
+                        'showCloseButton' => true,
+                    ])
                     ->show();
             }else{
                 LivewireAlert::title('¡No se puede agregar!')
@@ -181,9 +184,9 @@ trait WebTrait
         return Stock::where('almacenes_id', $almacenes_id)->where('productos_id', $productos_id)->first();
     }
 
-    protected function getDatosCarrito($productos): mixed
+    protected function getDatosCarrito($productos): void
     {
-        return $productos->each( function ($producto){
+        foreach ($productos as $producto){
             if (!isset($this->cantidadCarrito[$producto->id])){
                 $this->cantidadCarrito[$producto->id] = 1;
             }
@@ -191,7 +194,7 @@ trait WebTrait
             if ($stock) {
                 $this->maxCarrito[$producto->id] = $stock->disponibles > 0 ? $stock->disponibles : 0;
             }
-        });
+        }
     }
 
     public function addCartItem($id): bool

@@ -55,7 +55,15 @@ class ProductSingleComponent extends Component
     public function showCart(): void
     {
         $this->disableFtcoAnimate();
-        $this->redirectRoute('web.cart');
+        $response = true;
+        $rowquid = session('rowquid');
+        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $this->productos_id)->where('almacenes_id', $this->almacenes_id)->exists();
+        if (!$carrito){
+            $response = $this->productAddCart($this->productos_id, $this->cantidad);
+        }
+        if ($response){
+            $this->redirectRoute('web.cart');
+        }
     }
 
     public function showTiposProductos(): void

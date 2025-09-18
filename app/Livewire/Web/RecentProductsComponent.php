@@ -20,8 +20,10 @@ class RecentProductsComponent extends Component
     public function render()
     {
         $this->getAlmacen();
+        $productos = $this->getProductos();
+        $this->getDatosCarrito($productos);
         return view('livewire.web.recent-products-component')
-            ->with('productos', $this->getDatosCarrito($this->getProductos()));
+            ->with('productos',$productos);
     }
 
 
