@@ -1,7 +1,7 @@
 <div class="container">
     {{-- Because she competes with no one, no one can compete with her. --}}
 
-    @if($almacenes_id)
+    @if($almacenes_id && $productos->isNotEmpty())
 
         <div class="row justify-content-center pb-5">
             <div class="col-md-7 heading-section text-center @if($ftco_animate) ftco-animate @endif">

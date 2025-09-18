@@ -18,6 +18,8 @@ trait WebTrait
     public mixed $subtotal;
     public mixed $total;
     public mixed $entrega;
+    public array $cantidadCarrito = [];
+    public array $maxCarrito = [];
 
     public function disableFtcoAnimate(): void
     {
@@ -75,9 +77,10 @@ trait WebTrait
         return $response;
     }
 
-    public function productAddCart($id, $input = null): void
+    public function productAddCart($id, $input = null): bool
     {
         $this->disableFtcoAnimate();
+        $response = false;
         //revertirDisponibles();
         $stock = $this->getStock($this->almacenes_id, $id);
         $max = $stock ? $stock->disponibles : 0;
@@ -117,6 +120,7 @@ trait WebTrait
                 $cantidad = $input ? cerosIzquierda(formatoMillares($input, 0)) : '01';
                 $total = cerosIzquierda(formatoMillares($carrito->cantidad, 0));
                 $this->dispatch('orderLastRefresh');
+                $response = true;
                 LivewireAlert::title("Agregado $cantidad al Carrito")
                     ->text("Llevas $total en Total")
                     ->toast()
@@ -142,6 +146,7 @@ trait WebTrait
                 ->show();
         }
 
+        return $response;
 
     }
 
@@ -174,6 +179,43 @@ trait WebTrait
     protected function getStock($almacenes_id, $productos_id): ?Stock
     {
         return Stock::where('almacenes_id', $almacenes_id)->where('productos_id', $productos_id)->first();
+    }
+
+    protected function getDatosCarrito($productos): mixed
+    {
+        return $productos->each( function ($producto){
+            if (!isset($this->cantidadCarrito[$producto->id])){
+                $this->cantidadCarrito[$producto->id] = 1;
+            }
+            $stock = $this->getStock($this->almacenes_id, $producto->id);
+            if ($stock) {
+                $this->maxCarrito[$producto->id] = $stock->disponibles > 0 ? $stock->disponibles : 0;
+            }
+        });
+    }
+
+    public function addCartItem($id): bool
+    {
+        $response = false;
+        $this->disableFtcoAnimate();
+        if ($this->cantidadCarrito[$id] > 0){
+            $response = $this->productAddCart($id, $this->cantidadCarrito[$id]);
+        }
+        $this->cantidadCarrito[$id] = 1;
+        return $response;
+    }
+
+    public function showCartItem($id): void
+    {
+        $response = true;
+        $rowquid = session('rowquid');
+        $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->where('almacenes_id', $this->almacenes_id)->exists();
+        if (!$carrito){
+            $response = $this->addCartItem($id);
+        }
+        if ($response){
+            $this->redirectRoute('web.cart');
+        }
     }
 
     #[On('productRefresh')]

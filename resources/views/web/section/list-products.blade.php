@@ -52,8 +52,8 @@
                     <div class="spinner-border color-active" role="status"></div>
                 </div>
 
-
                 @if(!$this->productIsAgotado($producto->id))
+
                     <div class="col-12 product-details d-md-none p-0">
 
                         {{--Botones Cantidad--}}
@@ -62,25 +62,29 @@
 
                                 {{-- Boton Menos--}}
                                 <span class="input-group-btn mr-2">
-                                    <button {{--x-on:click="$wire.cantidad == 1 ? $wire.cantidad = 1 : $wire.cantidad--"--}} type="button"
-                                        class="btn" data-type="minus" data-field="">
+                                    <button x-on:click="$wire.cantidadCarrito[{{ $producto->id }}] == 1 ? $wire.cantidadCarrito[{{ $producto->id }}] = 1 : $wire.cantidadCarrito[{{ $producto->id }}]--" type="button"
+                                            class="btn" data-type="minus" data-field="">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </span>
 
                                 {{--Input Cantidad--}}
-                                <input {{--wire:model="cantidad"--}} type="number" name="quantity" class="quantity form-control input-number" min="1" max="100">
+                                <input type="number"  wire:model="cantidadCarrito.{{ $producto->id }}" class="quantity form-control input-number" min="1">
 
                                 {{--Boton Mas--}}
                                 <span class="input-group-btn ml-2">
-                                    <button {{--x-on:click="$wire.cantidad < $wire.max ? $wire.cantidad++ : $wire.cantidad = $wire.max"--}} type="button" class="btn"{{-- @if(!$max) disabled @endif--}}>
+                                    <button x-on:click="$wire.cantidadCarrito[{{ $producto->id }}] < $wire.maxCarrito[{{ $producto->id }}] ? $wire.cantidadCarrito[{{ $producto->id }}]++ : $wire.cantidadCarrito[{{ $producto->id }}] = $wire.maxCarrito[{{ $producto->id }}]" type="button" class="btn"{{-- @if(!$max) disabled @endif--}}>
                                      <i class="fa fa-plus"></i>
                                     </button>
                                 </span>
 
                                 <!-- Spinner overlay -->
-                                <div
-                                    {{--wire:loading wire:target="addCart, showCart, showTiposProductos, showAlmacen"--}} class="spinner-overlay align-content-center text-center">
+                                <div wire:loading wire:target="addCartItem({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
+                                    <div class="spinner-border color-active" role="status"></div>
+                                </div>
+
+                                <!-- Spinner overlay -->
+                                <div wire:loading wire:target="showCartItem({{ $producto->id }})" class="spinner-overlay align-content-center text-center">
                                     <div class="spinner-border color-active" role="status"></div>
                                 </div>
 
@@ -89,21 +93,24 @@
 
                         {{--Botones del Carrito--}}
                         <p class="d-flex">
-                            <a href="#" wire:click.prevent="addCart" class="btn btn-primary py-3 px-5 mr-2 mt-2"
+                            <a href="#" wire:click.prevent="addCartItem({{ $producto->id }})" class="btn btn-primary py-3 px-5 mr-2 mt-2"
                                wire:loading.class="disabled" wire:target="show">
                                 Añadir al Carrito
                             </a>
-                            <a href="#" wire:click.prevent="showCart" class="btn btn-primary py-3 px-5 mt-2"
+                            <a href="#" wire:click.prevent="showCartItem({{ $producto->id }})" class="btn btn-primary py-3 px-5 mt-2"
                                wire:loading.class="disabled" wire:target="irCart">
                                 Comprar Ahora
                             </a>
                         </p>
 
                     </div>
+
                 @endif
 
-
             </div>
+
+
+
         </div>
 
     @endforeach

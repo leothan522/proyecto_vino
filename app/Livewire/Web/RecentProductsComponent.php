@@ -15,12 +15,16 @@ class RecentProductsComponent extends Component
 {
     use WebTrait;
 
+
+
     public function render()
     {
         $this->getAlmacen();
         return view('livewire.web.recent-products-component')
-            ->with('productos', $this->getProductos());
+            ->with('productos', $this->getDatosCarrito($this->getProductos()));
     }
+
+
 
     protected function getAlmacen(): void
     {
