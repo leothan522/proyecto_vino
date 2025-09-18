@@ -5,12 +5,11 @@
         {{--Normal--}}
         <div class="col-md-{{ $col }} d-flex">
             <div class="product position-relative @if($ftco_animate) ftco-animate @endif">
-                <div class="img d-flex align-items-center justify-content-center"
-                     style="background-image: url({{ verImagen($producto->imagen_path) }});">
+                <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ verImagen($producto->imagen_path) }});">
                     <div class="desc">
                         <p class="meta-prod d-flex">
                             <a href="#" wire:click.prevent="productAddCart({{ $producto->id }})"
-                               class="d-flex align-items-center justify-content-center">
+                               class="d-none d-md-flex align-items-center justify-content-center">
                                 @if($this->productInCart($producto->id))
                                     <span class="fa fa-shopping-bag text-warning"></span>
                                 @else
@@ -25,12 +24,8 @@
                                     <span class="fa fa-heart-o"></span>
                                 @endif
                             </a>
-                            <button id="buttonModalLoginFast_{{ $producto->id }}" type="button" class="d-none"
-                                    data-toggle="modal" data-target="#modalLoginFast">Modal Login Fast
-                            </button>
-                            <a href="#" wire:click.prevent="productShow({{ $producto->id }})"
-                               class="d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-visibility"></span></a>
+                            <button id="buttonModalLoginFast_{{ $producto->id }}" type="button" class="d-none" data-toggle="modal" data-target="#modalLoginFast">Modal Login Fast</button>
+                            <a href="#" wire:click.prevent="productShow({{ $producto->id }})" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                         </p>
                     </div>
                 </div>
@@ -43,9 +38,74 @@
                     <span class="price">BCV ${{ formatoMillares($producto->precio) }}</span>
                 </div>
 
+                <!-- Spinner overlay -->
+                <div wire:loading wire:target="productShow({{ $producto->id }})"
+                     class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+                <div wire:loading wire:target="productAddFavorite({{ $producto->id }})"
+                     class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+                <div wire:loading wire:target="productAddCart({{ $producto->id }})"
+                     class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+
+
+                @if(!$this->productIsAgotado($producto->id))
+                    <div class="col-12 product-details d-md-none p-0">
+
+                        {{--Botones Cantidad--}}
+                        <div class="row">
+                            <div class="input-group col-md-6 d-flex mb-3 position-relative">
+
+                                {{-- Boton Menos--}}
+                                <span class="input-group-btn mr-2">
+                                    <button {{--x-on:click="$wire.cantidad == 1 ? $wire.cantidad = 1 : $wire.cantidad--"--}} type="button"
+                                        class="btn" data-type="minus" data-field="">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </span>
+
+                                {{--Input Cantidad--}}
+                                <input {{--wire:model="cantidad"--}} type="number" name="quantity" class="quantity form-control input-number" min="1" max="100">
+
+                                {{--Boton Mas--}}
+                                <span class="input-group-btn ml-2">
+                                    <button {{--x-on:click="$wire.cantidad < $wire.max ? $wire.cantidad++ : $wire.cantidad = $wire.max"--}} type="button" class="btn"{{-- @if(!$max) disabled @endif--}}>
+                                     <i class="fa fa-plus"></i>
+                                    </button>
+                                </span>
+
+                                <!-- Spinner overlay -->
+                                <div
+                                    {{--wire:loading wire:target="addCart, showCart, showTiposProductos, showAlmacen"--}} class="spinner-overlay align-content-center text-center">
+                                    <div class="spinner-border color-active" role="status"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {{--Botones del Carrito--}}
+                        <p class="d-flex">
+                            <a href="#" wire:click.prevent="addCart" class="btn btn-primary py-3 px-5 mr-2 mt-2"
+                               wire:loading.class="disabled" wire:target="show">
+                                Añadir al Carrito
+                            </a>
+                            <a href="#" wire:click.prevent="showCart" class="btn btn-primary py-3 px-5 mt-2"
+                               wire:loading.class="disabled" wire:target="irCart">
+                                Comprar Ahora
+                            </a>
+                        </p>
+
+                    </div>
+                @endif
+
+
             </div>
         </div>
-        
+
     @endforeach
 
 </div>

@@ -57,16 +57,16 @@
 
         .gradient-custom-2 {
             /* fallback for old browsers */
-            /*background: rgb(183, 71, 42);*/
-            background: rgb(101, 23, 11);
+            background: rgb(183, 71, 42);
+            /*background: rgb(101, 23, 11);*/
 
             /* Chrome 10-25, Safari 5.1-6 */
-            /*background: -webkit-linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);*/
-            background: -webkit-linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);
+            background: -webkit-linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);
+            /*background: -webkit-linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);*/
 
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            /*background: linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);*/
-            background: linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);
+            background: linear-gradient(90deg,rgba(26, 26, 26, 1) 0%, rgba(183, 71, 42, 1) 0%);
+            /*background: linear-gradient(90deg,rgba(101, 23, 11, 1) 0%, rgba(174, 59, 46, 1) 100%);*/
         }
 
         @media (min-width: 768px) {
