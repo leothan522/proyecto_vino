@@ -87,6 +87,13 @@ class CartComponent extends Component
         $carrito = Carrito::where('rowquid', $rowquid)->where('productos_id', $id)->first();
         $carrito?->delete();
         $this->dispatch('orderLastRefresh');
+        $carrito = Carrito::where('rowquid', $rowquid)->exists();
+        if (!$carrito){
+            session()->flash('livewireAlert_flast', [
+                'title' => '¡Carrito Vacio!',
+            ]);
+            $this->redirectRoute('web.index');
+        }
     }
 
     public function isInvalidStock($almacenes_id, $productos_id, $cantidad): bool

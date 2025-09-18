@@ -53,7 +53,7 @@
                     @endforeach
 
                     <!-- Spinner overlay -->
-                    <div wire:loading wire:target="checkOut" class="spinner-overlay align-content-center text-center">
+                    <div wire:loading wire:target="checkOut, removeCart" class="spinner-overlay align-content-center text-center">
                         <div class="spinner-border color-active" role="status"></div>
                     </div>
 

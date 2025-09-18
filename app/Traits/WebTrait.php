@@ -47,6 +47,9 @@ trait WebTrait
                     ->toast()
                     ->info()
                     ->position('top')
+                    ->withOptions([
+                        'showCloseButton' => true,
+                    ])
                     ->show();
             } else {
                 Favorito::create([
@@ -57,6 +60,9 @@ trait WebTrait
                     ->toast()
                     ->success()
                     ->position('top')
+                    ->withOptions([
+                        'showCloseButton' => true,
+                    ])
                     ->show();
             }
         }
