@@ -4,8 +4,6 @@
 
 @section('content')
 
-    @include('web.layouts.hero-wrap-2')
-
     @include('web.section.profile-section')
 
 @endsection

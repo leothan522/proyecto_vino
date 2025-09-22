@@ -6,7 +6,7 @@
 
     <section class="ftco-section bg-light">
         <div class="container">
-            <div class="row" x-data="{ cargando: false }">
+            <div class="row pt-3" x-data="{ cargando: false }">
 
                 {{--Content home--}}
                 <div class="col-md-10 order-last position-relative">
@@ -33,6 +33,21 @@
 
 @endsection
 
+@section('css')
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Para Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+@endsection
+
 @section('js')
     <script !src="" type="application/javascript">
         const pedidos = document.querySelector('#div_pedidos');
@@ -56,6 +71,10 @@
 
         Livewire.on('buttonModalPedidos', () => {
             document.getElementById('buttonModalPedidos').click();
+        });
+
+        Livewire.on('initModalShow', () => {
+            document.getElementById('buttonModalShowCliente').click();
         });
 
     </script>
