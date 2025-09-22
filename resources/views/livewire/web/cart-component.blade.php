@@ -64,66 +64,63 @@
             </div>
         </div>
 
-        <div class="row @if($ftco_animate) ftco-animate @endif d-md-none">
-            <div class="col-12 list-group">
-                @foreach($items as $item)
-                    <div class="list-group-item d-flex align-items-start alert" role="alert" href="#">
-                        <div class="p-2">
-                            <div class="img"
-                                 style="background-image: url({{ verImagen($item->producto->imagen_path) }}); min-width: 80px !important; min-height: 80px !important;">
-                                &nbsp;
-                            </div>
+        <ul class="list-group @if($ftco_animate) ftco-animate @endif d-md-none">
+            @foreach($items as $item)
+                <div class="list-group-item d-flex align-items-start alert" role="alert" href="#">
+                    <div class="p-2">
+                        <div class="img"
+                             style="background-image: url({{ verImagen($item->producto->imagen_path) }}); min-width: 80px !important; min-height: 80px !important;">
+                            &nbsp;
                         </div>
-                        <div class="text pl-3">
-                            <button type="button" wire:click="removeCart({{ $item->productos_id }})" class="close"
-                                    data-dismiss="alert" aria-label="Close">
-                                <span class="text-muted" aria-hidden="true"><i class="fa fa-close"></i></span>
-                            </button>
-                            <h4>{{ $item->producto->nombre }}</h4>
-                            <small>{{ $item->almacen->nombre }}</small>
-                            <p class="mb-2">
-                                <a href="{{ route('web.single', $item->productos_id) }}"
-                                   class="price">${{ formatoMillares($item->producto->precio) }}</a>
-                                <span
-                                    class="quantity ml-3">Disponible: {{ $this->getDisponibles($item->almacenes_id, $item->productos_id) }}</span>
-                            </p>
+                    </div>
+                    <div class="text pl-3">
+                        <button type="button" wire:click="removeCart({{ $item->productos_id }})" class="close" data-dismiss="alert" aria-label="Close">
+                            <span class="text-muted" aria-hidden="true"><i class="fa fa-close"></i></span>
+                        </button>
+                        <h4>{{ $item->producto->nombre }}</h4>
+                        <small>{{ $item->almacen->nombre }}</small>
+                        <p class="mb-2">
+                            <a href="{{ route('web.single', $item->productos_id) }}"
+                               class="price">${{ formatoMillares($item->producto->precio) }}</a>
+                            <span
+                                class="quantity ml-3">Disponible: {{ $this->getDisponibles($item->almacenes_id, $item->productos_id) }}</span>
+                        </p>
 
 
-                            <div class="col-12 product-details p-0 mb-2">
+                        <div class="col-12 product-details p-0 mb-2">
 
-                                {{--Botones Cantidad--}}
-                                <div class="row">
-                                    <div class="input-group col-md-6 d-flex mb-3 position-relative">
+                            {{--Botones Cantidad--}}
+                            <div class="row">
+                                <div class="input-group col-md-6 d-flex mb-3 position-relative">
 
-                                        {{-- Boton Menos--}}
-                                        <span class="input-group-btn mr-2 pt-1">
+                                    {{-- Boton Menos--}}
+                                    <span class="input-group-btn mr-2 pt-1">
                                             Cantidad:
                                         </span>
 
-                                        {{--Input Cantidad--}}
-                                        <input type="number"
-                                               class="quantity form-control input-number @if($this->isInvalidStock($item->almacenes_id, $item->productos_id, $item->cantidad)) is-invalid @endif"
-                                               value="{{ $item->cantidad }}"
-                                               @change="cargando = true; setTimeout(() => cargando = false, 2000); if($event.target.value > 0){ Livewire.dispatch('setCantidad', { item_id: {{ $item->id }}, cantidad: $event.target.value }); }else{ $event.target.value = '{{ $item->cantidad }}' }"/>
+                                    {{--Input Cantidad--}}
+                                    <input type="number"
+                                           class="quantity form-control input-number @if($this->isInvalidStock($item->almacenes_id, $item->productos_id, $item->cantidad)) is-invalid @endif"
+                                           value="{{ $item->cantidad }}"
+                                           @change="cargando = true; setTimeout(() => cargando = false, 2000); if($event.target.value > 0){ Livewire.dispatch('setCantidad', { item_id: {{ $item->id }}, cantidad: $event.target.value }); }else{ $event.target.value = '{{ $item->cantidad }}' }"/>
 
-                                        <small class="invalid-tooltip">Excedido</small>
+                                    <small class="invalid-tooltip">Excedido</small>
 
-                                    </div>
                                 </div>
-
                             </div>
 
-
                         </div>
+
+
                     </div>
-                @endforeach
-            </div>
-        </div>
+                </div>
+            @endforeach
+        </ul>
 
         {{--Totales--}}
         <div class="row justify-content-end">
             <div class="col col-lg-5 col-md-6 mt-5 cart-wrap @if($ftco_animate) ftco-animate @endif">
-                <div class="cart-total mb-3">
+                <div class="cart-total mb-3 bg-white">
                     <h3>Totales del Carrito</h3>
                     @include('web.section.totales-carrito')
                 </div>
