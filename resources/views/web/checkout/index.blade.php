@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="ftco-section">
+    <section class="ftco-section bg-light">
         @include('web.layouts.slider-text')
         <livewire:web.checkout-component
             rowquid="{{ $rowquid }}"

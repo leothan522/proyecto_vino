@@ -120,17 +120,30 @@
         {{--Totales--}}
         <div class="row justify-content-end">
             <div class="col col-lg-5 col-md-6 mt-5 cart-wrap @if($ftco_animate) ftco-animate @endif">
-                <div class="cart-total mb-3 bg-white">
-                    <h3>Totales del Carrito</h3>
-                    @include('web.section.totales-carrito')
-                </div>
-                <p class="text-center">
-                    <button id="boton_procesar_pedido" wire:click="checkOut" wire:loading.attr="disabled"
-                            wire:target="removeCart, checkOut" type="button" class="btn btn-primary py-3 px-4"
-                            :disabled="cargando">
-                        Proceder al Pago
-                    </button>
-                </p>
+
+                <ul class="list-group">
+                    <li class="list-group-item p-0">
+
+                        {{--Totales del Carrito--}}
+                        <div class="cart-detail cart-total p-3 p-md-4">
+                            <h3 class="billing-heading mb-4">Totales del Carrito</h3>
+                            @include('web.section.totales-carrito')
+                        </div>
+
+                        <div class="p-3">
+                            <p class="text-center">
+                                <button id="boton_procesar_pedido" wire:click="checkOut" wire:loading.attr="disabled"
+                                        wire:target="removeCart, checkOut" type="button" class="btn btn-primary py-3 px-4"
+                                        :disabled="cargando">
+                                    <span class="spinner-border spinner-border-sm mr-2 d-none" wire:loading.class.remove="d-none" wire:target="checkOut" role="status" aria-hidden="true"></span>
+                                    Proceder al Pago
+                                </button>
+                            </p>
+                        </div>
+
+                    </li>
+                </ul>
+
             </div>
         </div>
 

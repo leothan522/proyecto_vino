@@ -1,11 +1,10 @@
 <div class="container">
     {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
 
-    <div class="row justify-content-center">
-        <div x-data="{ cargando: false }" class="col-xl-10 @if($ftco_animate) ftco-animate @endif">
-            <form id="formCheckout" wire:submit="saveOrder" class="billing-form">
+    <form id="formCheckout" wire:submit="saveOrder" x-data="{ cargando: false }" class="billing-form">
 
-                {{--Detalles de Facturación--}}
+        <ul class="list-group  @if($ftco_animate) ftco-animate @endif">
+            <li class="list-group-item">
                 <h3 class="mb-4 billing-heading">Detalles de Facturación</h3>
                 <div class="row align-items-end">
 
@@ -85,18 +84,30 @@
 
                     {{--END DATOS--}}
                 </div>
+            </li>
+        </ul>
 
-                <div class="row mt-4 pt-3 d-flex">
+        <div class="row mt-3 mt-md-4">
 
-                    <div class="col-md-6 d-flex">
+            <div class="col-md-6 @if($ftco_animate) ftco-animate @endif">
+
+                <ul class="list-group">
+                    <li class="list-group-item p-0">
+
                         {{--Totales del Carrito--}}
                         <div class="cart-detail cart-total p-3 p-md-4">
                             <h3 class="billing-heading mb-4">Totales del Carrito</h3>
                             @include('web.section.totales-carrito')
                         </div>
-                    </div>
 
-                    <div class="col-md-6">
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col-md-6 mt-3 mt-md-auto @if($ftco_animate) ftco-animate @endif">
+                <ul class="list-group">
+                    <li class="list-group-item p-0">
 
                         {{-- Metodo de pago --}}
                         <div class="cart-detail p-3 p-md-4">
@@ -140,28 +151,29 @@
                             </div>
                             <p>
                                 <button type="submit" class="btn btn-primary py-3 px-4" :disabled="cargando">
+                                    <span class="spinner-border spinner-border-sm mr-2 d-none" wire:loading.class.remove="d-none" wire:target="saveOrder" role="status" aria-hidden="true"></span>
                                     Hacer un Pedido
                                 </button>
                             </p>
                         </div>
 
-                    </div>
-                </div>
-
-            </form>
-
-            <!-- Spinner overlay -->
-            <div x-show="cargando" class="spinner-overlay align-content-center text-center">
-                <div class="spinner-border color-active" role="status"></div>
-            </div>
-
-            <!-- Spinner overlay -->
-            <div wire:loading wire:target="saveOrder" class="spinner-overlay align-content-center text-center">
-                <div class="spinner-border color-active" role="status"></div>
+                    </li>
+                </ul>
             </div>
 
         </div>
-    </div>
+
+        <!-- Spinner overlay -->
+        <div x-show="cargando" class="spinner-overlay align-content-center text-center">
+            <div class="spinner-border color-active" role="status"></div>
+        </div>
+
+        <!-- Spinner overlay -->
+        <div wire:loading wire:target="saveOrder" class="spinner-overlay align-content-center text-center">
+            <div class="spinner-border color-active" role="status"></div>
+        </div>
+
+    </form>
 
     <livewire:web.metodos-pagos-component
         total="{{ $total }}"
