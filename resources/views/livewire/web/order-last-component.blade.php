@@ -9,7 +9,7 @@
     </a>
 
     {{--Lista de Productos--}}
-    <div class="dropdown-menu dropdown-menu-right">
+    <div class="dropdown-menu dropdown-menu-right mr-5 mr-md-auto">
         @foreach($items as $item)
 
             <div class="dropdown-item d-flex align-items-start" href="#">
