@@ -94,11 +94,11 @@
                         {{--Botones del Carrito--}}
                         <p class="d-flex">
                             <a href="#" wire:click.prevent="addCartItem({{ $producto->id }})" class="btn btn-primary py-3 px-5 mr-2 mt-2"
-                               wire:loading.class="disabled" wire:target="show">
+                               wire:loading.class="disabled" wire:target="addCartItem({{ $producto->id }})">
                                 Añadir al Carrito
                             </a>
                             <a href="#" wire:click.prevent="showCartItem({{ $producto->id }})" class="btn btn-primary py-3 px-5 mt-2"
-                               wire:loading.class="disabled" wire:target="irCart">
+                               wire:loading.class="disabled" wire:target="showCartItem({{ $producto->id }})">
                                 Comprar Ahora
                             </a>
                         </p>

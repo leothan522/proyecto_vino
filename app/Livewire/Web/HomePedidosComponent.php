@@ -79,7 +79,7 @@ class HomePedidosComponent extends Component
 
     protected function getPedidos(): \LaravelIdea\Helper\App\Models\_IH_Pedido_C|\Illuminate\Pagination\LengthAwarePaginator|array
     {
-        return Pedido::where('users_id', auth()->id())->orderBy('created_at', 'desc')->paginate(12);
+        return Pedido::where('users_id', auth()->id())->orderBy('created_at', 'desc')->paginate(6);
     }
 
 }
