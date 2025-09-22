@@ -84,6 +84,7 @@ class CheckoutComponent extends Component
             $pedido->estatus = 1;
             $pedido->total = $this->total;
             $pedido->is_process = false;
+            $pedido->bodega = $pedido->almacen->nombre;
             $pedido->save();
             incrementarCodigoPedidos();
 
