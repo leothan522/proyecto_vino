@@ -50,6 +50,7 @@ class UserForm
                             ->label('Acceso al panel')
                             ->inline(false),
                         Select::make('roles')
+                            ->multiple()
                             ->label(__('Role'))
                             ->relationship(name: 'roles', titleAttribute: 'name')
                             ->requiredIf('access_panel', true),
