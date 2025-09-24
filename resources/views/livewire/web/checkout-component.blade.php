@@ -14,7 +14,7 @@
                             <input type="number" step="1" min="0"
                                    wire:model="cedula"
                                    @change="if($event.target.value !== '') { cargando = true; setTimeout(() => cargando = false, 2000); Livewire.dispatch('getDatosFacturacion', { cedula: $event.target.value }); }"
-                                   class="form-control" placeholder="Cédula" autofocus/>
+                                   class="form-control" placeholder="Cédula"/>
                             @error('cedula')
                             <small class="text-primary">{{ $message }}</small>
                             @enderror
@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Referencia</label>
+                                <label>Referencia<small class="ml-2 text-danger">Ultimos 06 digitos</small></label>
                                 <input wire:model="referencia" type="text" class="form-control" placeholder="#">
                                 @error('referencia')
                                 <small class="text-primary">{{ $message }}</small>

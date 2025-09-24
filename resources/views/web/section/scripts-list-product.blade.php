@@ -14,8 +14,9 @@
                 <li><a href="{{ route('web.home') }}"><span class="fa fa-chevron-right mr-2"></span>Mis Pedidos</a></li>
             `;
         document.getElementById('cerrarModalLoginFast').click();
-        document.getElementById('headerInformacionLogin').innerHTML = header;
+        //document.getElementById('headerInformacionLogin').innerHTML = header;
         document.getElementById('footerInformacionLogin').innerHTML = footer;
+        document.getElementById('navbarInformacionUser').textContent = name;
     });
 
 </script>
