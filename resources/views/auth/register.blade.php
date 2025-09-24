@@ -19,10 +19,26 @@
         @endif
 
         <div class="form-floating mb-3 has-validation">
-            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nombre Apellido" required autofocus/>
+            <input id="cedula" type="number" step="1" min="1" class="form-control" name="cedula" value="{{ old('cedula') }}" placeholder="Cédula" required autofocus/>
+            <label for="cedula">Cédula</label>
+            <div class="invalid-feedback">
+                Por favor ingrese su Cédula.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3 has-validation">
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nombre Apellido" required/>
             <label for="name">{{ __('Name') }}</label>
             <div class="invalid-feedback">
                 Por favor ingrese su {{ __('Name') }}.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3 has-validation">
+            <input id="telefono" type="number" step="1" min="1" class="form-control" name="telefono" value="{{ old('telefono') }}" placeholder="Teléfono" required/>
+            <label for="telefono">Teléfono</label>
+            <div class="invalid-feedback">
+                Por favor ingrese su Teléfono.
             </div>
         </div>
 
@@ -74,4 +90,19 @@
         </div>
 
     </form>
+@endsection
+
+@section('css')
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Para Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 @endsection
