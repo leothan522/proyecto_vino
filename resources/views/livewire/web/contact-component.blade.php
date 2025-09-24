@@ -1,7 +1,7 @@
 <div class="container">
     {{-- Care about people's approval and you will be their prisoner. --}}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pt-3">
         <div class="col-md-12">
             <div class="wrapper px-md-4">
 

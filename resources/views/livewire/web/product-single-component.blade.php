@@ -1,7 +1,7 @@
 <div class="container">
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
 
-    <div class="row">
+    <div class="row pt-3">
 
         {{--Imagen del producto--}}
         <div class="col-lg-6 mb-5 @if($ftco_animate) ftco-animate @endif">

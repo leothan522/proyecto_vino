@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row ftco-animate">
+    <div class="row ftco-animate pt-3">
         <div class="col-12 d-flex align-items-center justify-content-center mb-3">
             <h2 class="font-italic color-active">
                 @php

@@ -1,6 +1,6 @@
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row pt-3">
             {{--Content home--}}
             <div class="col-md-10 order-last">
 

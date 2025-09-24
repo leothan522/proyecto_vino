@@ -2,7 +2,7 @@
     {{-- In work, do what you enjoy. --}}
 
     @if($almacenes_id)
-        <div class="row">
+        <div class="row pt-3">
 
             {{--Content Productos--}}
             <div class="col-md-9 mb-4 mb-md-auto">

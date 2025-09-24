@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row">
+    <div class="row pt-3">
         <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center"
              style="background-image: url({{ asset('img/web/about.jpg') }});background-size: contain;background-position: center;background-repeat: no-repeat;">
         </div>
