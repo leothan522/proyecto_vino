@@ -46,6 +46,9 @@
                        :class="activo === 4 ? 'active' : ''"
                        class="nav-link">
                         Mi Cuenta
+                        @auth
+                            <small class="color-active float-right font-italic text-uppercase d-md-none">{{ \Illuminate\Support\Str::limit(auth()->user()->name, 25) }}</small>
+                        @endauth
                     </a>
                 </li>
                 <li class="nav-item @if(Route::currentRouteName() == 'web.blog') active @endif">
