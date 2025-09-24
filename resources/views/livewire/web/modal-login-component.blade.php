@@ -25,7 +25,7 @@
                             @if($register)
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" wire:model="cedula" placeholder="Cédula" >
+                                        <input type="number" class="form-control" wire:model="cedula" placeholder="Cédula" >
                                         @error('cedula')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
