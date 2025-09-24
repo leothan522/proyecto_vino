@@ -89,6 +89,13 @@
                                 </div>
 
                             </div>
+                            {{--Separador--}}
+                            <div class="w-100"></div>
+
+                            {{--Stock Disponible--}}
+                            <div class="col-md-12">
+                                <p style="color: #000;">{{ cerosIzquierda(formatoMillares($maxCarrito[$producto->id], 0)) }} piezas disponibles</p>
+                            </div>
                         </div>
 
                         {{--Botones del Carrito--}}
