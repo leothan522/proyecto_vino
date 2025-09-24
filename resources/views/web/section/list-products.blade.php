@@ -2,14 +2,15 @@
 
     @foreach($productos as $producto)
 
-        {{--Normal--}}
-        <div class="col-md-{{ $col }} d-flex">
+        {{--Vista Web--}}
+        <div class="col-md-{{ $col }} d-none d-md-flex">
+
             <div class="product position-relative @if($ftco_animate) ftco-animate @endif">
                 <div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ verImagen($producto->imagen_path) }});">
                     <div class="desc">
                         <p class="meta-prod d-flex">
                             <a href="#" wire:click.prevent="productAddCart({{ $producto->id }})"
-                               class="d-none d-md-flex align-items-center justify-content-center">
+                               class="d-flex align-items-center justify-content-center">
                                 @if($this->productInCart($producto->id))
                                     <span class="fa fa-shopping-bag text-warning"></span>
                                 @else
@@ -52,9 +53,36 @@
                     <div class="spinner-border color-active" role="status"></div>
                 </div>
 
+            </div>
+
+        </div>
+
+        {{--Vista Movil--}}
+        <div class="col-md-{{ $col }} d-flex d-md-none">
+
+            <div x-data class="product no-hover position-relative @if($ftco_animate) ftco-animate @endif">
+                <div @click="$refs.enlace.click()" class="img d-flex align-items-center justify-content-center" style="background-image: url({{ verImagen($producto->imagen_path) }}); :hover{  }">
+                    {{--<div class="desc"></div>--}}
+                </div>
+                <a x-ref="enlace" href="{{ verImagen($producto->imagen_path) }}" class="image-popup-individual prod-img-bg d-none">ver imagen</a>
+                <div class="text text-center" wire:click="productShow({{ $producto->id }})">
+                    <span class="category">{{ $producto->tipo->nombre }}</span>
+                    @if($this->productIsAgotado($producto->id))
+                        <span class="sale">Agotado</span>
+                    @endif
+                    <h2>{{ $producto->nombre }}</h2>
+                    <span class="price">BCV ${{ formatoMillares($producto->precio) }}</span>
+                </div>
+
+                <!-- Spinner overlay -->
+                <div wire:loading wire:target="productShow({{ $producto->id }})"
+                     class="spinner-overlay align-content-center text-center">
+                    <div class="spinner-border color-active" role="status"></div>
+                </div>
+
                 @if(!$this->productIsAgotado($producto->id))
 
-                    <div class="col-12 product-details d-md-none p-0">
+                    <div class="col-12 product-details p-0">
 
                         {{--Botones Cantidad--}}
                         <div class="row">
@@ -115,8 +143,6 @@
                 @endif
 
             </div>
-
-
 
         </div>
 
