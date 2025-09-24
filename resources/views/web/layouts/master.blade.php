@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/liquorstore/css/bootstrap/bootstrap-select.css') }}">
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/js/sweetalert2.js'])
+        @vite(['resources/js/sweetalert2.js', 'resources/js/web-app.js'])
     @endif
 
     <link rel="stylesheet" href="{{ asset('css/web/style.css') }}">
@@ -74,7 +74,6 @@
 <script src="{{ asset('vendor/liquorstore/js/scrollax.min.js') }}"></script>
 <script src="{{ asset('vendor/liquorstore/js/bootstrap-select.js') }}"></script>
 <script src="{{ asset('vendor/liquorstore/js/main.js') }}"></script>
-<script src="{{ asset('js/web/app.js') }}"></script>
 
 @include('layouts.sweetAlert2')
 @livewireScripts
