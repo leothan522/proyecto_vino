@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('pedidos_id')->unsigned();
             $table->string('metodo');
             $table->string('referencia');
-            $table->decimal('monto');
+            $table->decimal('monto', 12, 2);
             $table->string('titular')->nullable();
             $table->string('cuenta')->nullable();
             $table->string('rif')->nullable();

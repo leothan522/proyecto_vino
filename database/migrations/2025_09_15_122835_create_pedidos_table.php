@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->text('direccion')->nullable();
             $table->text('direccion2')->nullable();
-            $table->decimal('subtotal')->nullable();
-            $table->decimal('entrega')->nullable();
-            $table->decimal('total')->nullable();
+            $table->decimal('subtotal', 12, 2)->nullable();
+            $table->decimal('entrega', 12, 2)->nullable();
+            $table->decimal('total', 12, 2)->nullable();
             $table->string('rowquid');
             $table->boolean('is_process')->default(true);
             $table->string('bodega')->nullable();

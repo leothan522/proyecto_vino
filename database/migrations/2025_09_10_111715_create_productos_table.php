@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->bigInteger('tipos_id')->unsigned()->nullable();
-            $table->decimal('precio')->nullable();
+            $table->decimal('precio', 12, 2)->nullable();
             $table->text('descripcion')->nullable();
             $table->text('imagen_path')->nullable();
             $table->boolean('is_active')->default(true);

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('pedidos_id')->unsigned();
             $table->string('producto');
             $table->string('tipo')->nullable();
-            $table->decimal('precio');
+            $table->decimal('precio', 12, 2);
             $table->text('descripcion')->nullable();
             $table->text('imagen_path')->nullable();
             $table->string('almacen');

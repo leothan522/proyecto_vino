@@ -36,6 +36,11 @@ class CheckoutComponent extends Component
     public function mount($rowquid): void
     {
         $this->rowquid = $rowquid;
+        $cliente = Cliente::where('users_id', auth()->id())->first();
+        if ($cliente){
+            $this->cedula = $cliente->cedula;
+            $this->getDatosFacturacion($cliente->cedula);
+        }
     }
 
     public function render()
@@ -56,7 +61,7 @@ class CheckoutComponent extends Component
             'direccion' => 'required',
             'metodoPago' => 'required',
             'referencia' => 'required|min:6|unique:pedidos_pagos,referencia',
-            'monto' => 'required',
+            'monto' => 'required|numeric|min:0|max:999999.99',
         ];
         $messages = [
             'cedula.required' => 'El campo cédula es obligatorio.',
@@ -64,6 +69,7 @@ class CheckoutComponent extends Component
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'direccion.required' => 'El campo dirección es obligatorio.',
             'metodoPago.required' => 'El campo método de pago es obligatorio.',
+            'monto.max' => 'El campo monto no debe ser mayor que 999.999,99',
         ];
         $this->validate($rules, $messages);
 
