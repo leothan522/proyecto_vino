@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Web;
 
+use App\Models\Cliente;
 use App\Models\Favorito;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,12 @@ use Livewire\Component;
 class ModalLoginComponent extends Component
 {
     public int $productos_id;
+    public string $name;
     public string $email;
     public string $password;
+    public string $cedula;
+    public string $telefono;
+    public bool $register = false;
 
     public function render()
     {
@@ -30,13 +35,37 @@ class ModalLoginComponent extends Component
 
     public function login(): void
     {
-        $rules = [
-            'email' => 'required|exists:users',
-            'password' => 'required'
-        ];
-        $this->validate($rules);
+        if ($this->register) {
+            $rules = [
+                'cedula' => 'required|unique:clientes',
+                'name' => 'required',
+                'telefono' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required'
+            ];
+            $this->validate($rules);
+            $user = User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => $this->password,
+                'telefono' => $this->telefono
+            ]);
+            Cliente::create([
+                'cedula' => $this->cedula,
+                'nombre' => $this->name,
+                'telefono' => $this->telefono,
+                'direccion' => '',
+                'users_id' => $user->id,
+            ]);
+        } else {
+            $rules = [
+                'email' => 'required|exists:users',
+                'password' => 'required'
+            ];
+            $this->validate($rules);
+            $user = User::where('email', $this->email)->first();
+        }
 
-        $user = User::where('email', $this->email)->first();
         if ($user) {
             if (password_verify($this->password, $user->password)) {
 
@@ -45,7 +74,7 @@ class ModalLoginComponent extends Component
                 $url = isAdmin() ? route('filament.dashboard.pages.dashboard') : route('web.home');
                 $this->dispatch('cerrarModalLoginFast', url: $url, name: $user->name);
 
-                if ($this->productos_id){
+                if ($this->productos_id) {
                     //Agrega a Favoritos
                     $user = Auth::id();
                     if (!Favorito::where('users_id', $user)->where('productos_id', $this->productos_id)->exists()) {
@@ -62,7 +91,7 @@ class ModalLoginComponent extends Component
                         ->success()
                         ->position('top')
                         ->show();
-                }else{
+                } else {
                     //Proceder al pago
                     $this->dispatch('procesarPedido');
                 }
@@ -77,6 +106,21 @@ class ModalLoginComponent extends Component
                     ->show();
             }
         }
+
+    }
+
+    public function btnRegister(): void
+    {
+        $this->reset(['cedula', 'name', 'telefono', 'email', 'password']);
+        $this->resetErrorBag();
+        $this->register = true;
+    }
+
+    public function btnLogin(): void
+    {
+        $this->reset(['cedula', 'name', 'telefono', 'email', 'password']);
+        $this->resetErrorBag();
+        $this->register = false;
     }
 
     #[On('cerrarModalLoginFast')]

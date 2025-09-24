@@ -51,21 +51,25 @@ class CartComponent extends Component
                 $pedidoPendiente = Pedido::where('users_id', auth()->id())->where('is_process', true)->exists();
 
                 if (!$pedidoPendiente) {
-                    $checkout = $items->transform(function ($item){
-                        unset($item['is_invalid']) ;
-                        return $item;
-                    });
-                    $pedido = Pedido::create([
-                        'total' => $this->total,
-                        'rowquid' => session('rowquid'),
-                        'users_id' => auth()->id(),
-                        'almacenes_id' => session('order_almacenes_id'),
-                    ]);
-                    foreach ($checkout as $item) {
-                        $item->checkout = true;
-                        $item->save();
+                    $rowquid = Str::random();
+                    if (Auth::user()->email_verified_at){
+                        $checkout = $items->transform(function ($item){
+                            unset($item['is_invalid']) ;
+                            return $item;
+                        });
+                        $pedido = Pedido::create([
+                            'total' => $this->total,
+                            'rowquid' => session('rowquid'),
+                            'users_id' => auth()->id(),
+                            'almacenes_id' => session('order_almacenes_id'),
+                        ]);
+                        foreach ($checkout as $item) {
+                            $item->checkout = true;
+                            $item->save();
+                        }
+                        $rowquid = $pedido->rowquid;
                     }
-                    $this->redirectRoute('web.checkout', $pedido->rowquid);
+                    $this->redirectRoute('web.checkout', $rowquid);
                 } else {
                     LivewireAlert::title('¡No se puede Procesar!')
                         ->text("Tienes un pedido anterior incompleto, vaya a su cuenta y verifique.")

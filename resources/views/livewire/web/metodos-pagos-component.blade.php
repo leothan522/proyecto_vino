@@ -17,7 +17,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body position-relative">
+                <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
                     <p class="text-justify">
                         Asegurate de pagar correctamente, recuerda que los datos bancarios son unicos.
                     </p>
@@ -125,7 +125,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body position-relative">
+                <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
                     <p class="text-justify">
                         Asegurate de pagar correctamente, recuerda que los datos bancarios son unicos.
                     </p>
