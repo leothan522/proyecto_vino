@@ -50,7 +50,7 @@
                             @endif
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" wire:model="email" placeholder="{{ __('Email') }}" autocomplete="off">
+                                    <input type="email" class="form-control" wire:model="email" placeholder="{{ __('Email') }}">
                                     @error('email')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" wire:model="password" placeholder="{{ __('Password') }}" autocomplete="new-password">
+                                    <input type="password" class="form-control" wire:model="password" placeholder="{{ __('Password') }}">
                                     @error('password')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
