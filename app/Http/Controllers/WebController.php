@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class WebController extends Controller
@@ -113,6 +114,24 @@ class WebController extends Controller
     public function profile()
     {
         return view('web.profile.index');
+    }
+
+    public function descargar()
+    {
+        $path = 'descargas/Vino-Don-Juan-Espinoza.apk';
+        if (Storage::disk('public')->exists($path)){
+            return Storage::disk('public')->download($path);
+        }
+        return redirect()->route('web.index');
+    }
+
+    public function compartir()
+    {
+        $qrAndroid = qrCodeGenerate(\route('web.compartir'), null, null, 'qr-android-download');
+        $qrIos = qrCodeGenerate(\route('web.index'), null, null, 'qr-ios-download');
+        return view('web.compartir.index')
+            ->with('qrAndroid', $qrAndroid)
+            ->with('qrIos', $qrIos);
     }
 
 }

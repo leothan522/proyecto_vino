@@ -39,10 +39,10 @@
                     <div class="col-md-3">
                         <div class="dbox w-100 text-center">
                             <div class="icon d-none d-md-flex align-items-center justify-content-center">
-                                <span class="fa fa-globe"></span>
+                                <span class="fa fa-cloud-download"></span>
                             </div>
                             <div class="text">
-                                <p class="text-justify text-md-center"><span>Sitio Web:</span> <a href="{{ route('web.index') }}">{{ getParametro('contact_web') }}</a></p>
+                                <p class="text-justify text-md-center"><span>Descargar App:</span> <a href="{{ route('web.compartir') }}">{{ getParametro('contact_web') }}</a></p>
                             </div>
                         </div>
                     </div>

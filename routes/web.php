@@ -12,6 +12,8 @@ Route::get('/products', [WebController::class, 'products'])->name('web.products'
 Route::get('/products/{id}/single', [WebController::class, 'single'])->name('web.single');
 Route::get('/cart', [WebController::class, 'cart'])->name('web.cart');
 Route::get('/profile', [WebController::class, 'profile'])->name('web.profile');
+Route::get('/contact/download', [WebController::class, 'descargar'])->name('web.descargar');
+Route::get('/compartir/app', [WebController::class, 'compartir'])->name('web.compartir');
 
 Route::middleware([
     'auth:sanctum',

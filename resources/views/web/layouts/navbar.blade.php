@@ -2,7 +2,7 @@
      class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light <!--ftco_navbar--> scrolled awake">
     <div x-data="{ activo: null }" class="container">
 
-        <a class="navbar-brand" href="{{ route('web.index') }}"  @click="activo = 1">
+        <a class="navbar-brand" href="{{ route('web.index') }}" @click="activo = 1">
             <small>Vino <span>Don Juan Espinoza</span></small>
         </a>
 
@@ -46,7 +46,8 @@
                        :class="activo === 4 ? 'active' : ''"
                        class="nav-link">
                         Mi Cuenta
-                        <small id="navbarInformacionUser" class="color-active float-right font-italic text-uppercase d-md-none">
+                        <small id="navbarInformacionUser"
+                               class="color-active float-right font-italic text-uppercase d-md-none">
                             @auth
                                 {{ \Illuminate\Support\Str::limit(auth()->user()->name, 25) }}
                             @endauth
@@ -69,10 +70,18 @@
                         Contacto
                     </a>
                 </li>
-                <li class="nav-item d-md-none">
-                    <a href="{{ route('filament.dashboard.pages.dashboard') }}"
+                <li class="nav-item d-md-none @if(Route::currentRouteName() == 'web.compartir') active @endif">
+                    <a href="{{ route('web.compartir') }}"
                        @click="activo = 7"
                        :class="activo === 7 ? 'active' : ''"
+                       class="nav-link">
+                        Compartir QR
+                    </a>
+                </li>
+                <li class="nav-item d-md-none">
+                    <a href="{{ route('filament.dashboard.pages.dashboard') }}"
+                       @click="activo = 8"
+                       :class="activo === 8 ? 'active' : ''"
                        class="nav-link">
                         {{ __('Dashboard') }}
                     </a>

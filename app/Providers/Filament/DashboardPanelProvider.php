@@ -14,6 +14,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -65,7 +66,11 @@ class DashboardPanelProvider extends PanelProvider
             ->userMenuItems([
                 'profile' => fn(Action $action) => $action
                     ->label(auth()->user()->name)
-                    ->url(fn(): string => url('user/profile'))
+                    ->url(fn(): string => url('user/profile')),
+                'web' => fn(Action $action) => $action::make('ir_inicio')
+                    ->label('Ir a Inicio')
+                    ->icon(Heroicon::BuildingStorefront)
+                    ->url(fn(): string => route('web.index'))
             ])
             ->favicon(asset('img/logo.jpg'))
             ->navigationGroups([
