@@ -16,6 +16,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class PedidosTable
@@ -23,6 +24,7 @@ class PedidosTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->query(fn (): Builder => Pedido::query()->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('codigo')
                     ->label('Código')
@@ -50,7 +52,7 @@ class PedidosTable
                     ->trueIcon(Heroicon::OutlinedXCircle)
                     ->trueColor('danger')
                     ->falseIcon(Heroicon::OutlinedCheckCircle)
-                    ->falseColor(function (Pedido $record): string{
+                    ->falseColor(function (Pedido $record): string {
                         return match ($record->estatus) {
                             default => 'gray',
                             2 => 'success',
