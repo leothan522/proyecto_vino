@@ -21,6 +21,17 @@ class OrderLastComponent extends Component
                 ->info()
                 ->show();
         }
+
+        if (session()->has('livewireAlert_pedido_success')) {
+            $codigo = session('livewireAlert_pedido_success.codigo') ?? null;
+            LivewireAlert::title('¡Pedido Realizado!')
+                ->text("Su Pedido #$codigo esta en proceso. Vamos a validar el pago para realizar su entrega.")
+                ->success()
+                ->withConfirmButton('Ok')
+                ->timer(10000)
+                ->show();
+        }
+
     }
 
     public function render()

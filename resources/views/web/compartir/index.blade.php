@@ -47,7 +47,7 @@
                                         <p><span class="color-active">Instalación directa en iPhone desde Safari:</span></p>
                                     </div>
                                     <div class="text">
-                                        <p class="font-weight-bold">1. Abre el enlace del codigo QR para <span class="color-active">IOS</span> en Safari.</p>
+                                        <p class="font-weight-bold">1. Abre el enlace del código QR para <span class="color-active">IOS</span> en Safari.</p>
                                         <p class="font-weight-bold">2. - Toca “Compartir” → “Agregar a pantalla de inicio”.</p>
                                         <p class="font-weight-bold">3. - Se instala la app y listo.</p>
                                     </div>

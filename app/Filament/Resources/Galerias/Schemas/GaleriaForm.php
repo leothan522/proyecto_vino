@@ -17,26 +17,29 @@ class GaleriaForm
             ->components([
                 Section::make('Datos Básicos')
                     ->schema([
-                        DatePicker::make('fecha')
-                            ->default(now())
-                            ->required(),
-                        TextInput::make('titulo')
-                            ->maxLength(100)
-                            ->required(),
                         FileUpload::make('imagen_path')
                             ->label('Imagen')
                             ->image()
                             ->imageEditor()
                             ->disk('public')
                             ->directory('galeria-images')
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->compact(),
+                Section::make('Datos Complementarios')
+                    ->schema([
+                        DatePicker::make('fecha')
+                            ->default(now())
+                            ->required(),
+                        TextInput::make('titulo')
+                            ->maxLength(100)
                             ->required(),
                         Textarea::make('descripcion')
                             ->label('Descripción')
                             ->maxLength(255),
                     ])
-                    ->compact()
-                    ->columns()
-                    ->columnSpanFull(),
+                    ->compact(),
             ]);
     }
 }

@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('promotores', function (Blueprint $table) {
             $table->id();
-            $table->string('cedula')->unique();
+            $table->string('codigo')->unique();
+            $table->date('inicio_comision')->nullable();
+            $table->integer('meses_comision')->nullable();
+            $table->integer('stock_vendidos')->default(0)->nullable();
+            $table->boolean('is_active')->default(true);
             $table->bigInteger('users_id')->unsigned();
-            $table->bigInteger('almacenes_id')->unsigned()->nullable();
             $table->foreign('users_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('almacenes_id')->references('id')->on('almacenes')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

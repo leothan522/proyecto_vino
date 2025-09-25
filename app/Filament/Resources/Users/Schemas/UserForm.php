@@ -53,6 +53,7 @@ class UserForm
                             ->multiple()
                             ->label(__('Role'))
                             ->relationship(name: 'roles', titleAttribute: 'name')
+                            ->preload()
                             ->requiredIf('access_panel', true),
                     ])
                     ->columns()

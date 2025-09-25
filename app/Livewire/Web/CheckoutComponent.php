@@ -25,7 +25,7 @@ class CheckoutComponent extends Component
     public string $telefono;
     public int $parroquias_id;
     public string $direccion;
-    public mixed $direccion2;
+    public string|null $direccion2 = null;
     public int $clientes_id = 0;
     public bool $disableInput = false;
 
@@ -146,6 +146,10 @@ class CheckoutComponent extends Component
             $data['monto'] = $this->monto;
             PedidoPago::create($data);
 
+            session()->forget('menu_home');
+            session()->flash('livewireAlert_pedido_success', [
+                'codigo' => $pedido->codigo
+            ]);
             $this->redirectRoute('web.home');
         }
 

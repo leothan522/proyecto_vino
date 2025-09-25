@@ -36,17 +36,20 @@ class ProductoForm
                             ->prefixIcon(Heroicon::CurrencyDollar)
                             ->numeric()
                             ->required(),
+                    ])
+                    ->compact(),
+                Section::make('Presentación')
+                    ->schema([
                         FileUpload::make('imagen_path')
                             ->label('Imagen')
                             ->image()
                             ->imageEditor()
                             ->disk('public')
                             ->directory('productos-images')
-                            ->required(),
+                            ->required()
+                            ->columnSpanFull(),
                     ])
-                    ->compact()
-                    ->columns()
-                    ->columnSpanFull(),
+                    ->compact(),
                 Toggle::make('is_active')
                     ->label('Acivo')
                     ->default(true)

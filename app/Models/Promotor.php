@@ -12,9 +12,12 @@ class Promotor extends Model
 
     protected $table = 'promotores';
     protected $fillable = [
-        'cedula',
+        'codigo',
+        'inicio_comision',
+        'meses_comision',
+        'stock_vendidos',
+        'is_active',
         'users_id',
-        'almacenes_id',
     ];
 
     public function user(): BelongsTo
