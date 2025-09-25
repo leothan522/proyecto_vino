@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('stock_vendidos')->default(0)->nullable();
             $table->boolean('is_active')->default(true);
             $table->bigInteger('users_id')->unsigned();
+            $table->text('image_qr')->nullable();
             $table->foreign('users_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();

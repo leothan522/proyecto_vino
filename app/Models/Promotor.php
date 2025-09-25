@@ -18,16 +18,12 @@ class Promotor extends Model
         'stock_vendidos',
         'is_active',
         'users_id',
+        'image_qr',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
-    }
-
-    public function almacen(): BelongsTo
-    {
-        return $this->belongsTo(Almacen::class, 'almacenes_id', 'id');
     }
 
 }

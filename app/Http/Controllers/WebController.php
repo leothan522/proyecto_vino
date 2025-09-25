@@ -22,7 +22,7 @@ class WebController extends Controller
         }
     }
 
-    public function index()
+    public function index($codigo = null)
     {
         return view('web.inicio.index');
     }

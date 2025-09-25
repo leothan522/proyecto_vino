@@ -4,7 +4,7 @@ use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 
-Route::get('/', [WebController::class, 'index'])->name('web.index');
+Route::get('/{codigo?}', [WebController::class, 'index'])->name('web.index');
 Route::get('/about', [WebController::class, 'about'])->name('web.about');
 Route::get('/gallery', [WebController::class, 'blog'])->name('web.blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('web.contact');

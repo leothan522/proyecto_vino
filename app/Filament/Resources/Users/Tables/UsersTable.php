@@ -34,7 +34,7 @@ class UsersTable
                 TextColumn::make('email')
                     ->label(__('email'))
                     ->searchable()
-                    ->copyable()
+                    //->copyable()
                     ->visibleFrom('md'),
                 TextColumn::make('telefono')
                     ->label('Teléfono')
@@ -59,7 +59,8 @@ class UsersTable
                     ->toggleable(),
                 TextColumn::make('roles.name')
                     ->label(__('Role'))
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->visibleFrom('md'),
                 TextColumn::make('login_count')
                     ->label('Visitas')
                     ->icon(Heroicon::OutlinedFlag)
