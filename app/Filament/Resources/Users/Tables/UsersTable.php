@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Models\Promotor;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -11,7 +12,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
@@ -20,13 +23,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UsersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->query(fn(): Builder => User::query()->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('name')
                     ->label(__('Name'))
@@ -34,7 +40,6 @@ class UsersTable
                 TextColumn::make('email')
                     ->label(__('email'))
                     ->searchable()
-                    //->copyable()
                     ->visibleFrom('md'),
                 TextColumn::make('telefono')
                     ->label('Teléfono')
@@ -111,6 +116,40 @@ class UsersTable
                         ->requiresConfirmation()
                         ->hidden(fn(User $record): bool => !is_null($record->email_verified_at))
                         ->disabled(fn(User $record): bool => (auth()->id() == $record->id) || !isAdmin() || $record->is_root),
+                    Action::make('is_promotor')
+                        ->label('Convertir en Promotor')
+                        ->icon(Heroicon::OutlinedUsers)
+                        ->schema([
+                            DatePicker::make('inicio_comision')
+                                ->label('Inicio')
+                                ->default(now())
+                                ->required(),
+                            TextInput::make('meses_comision')
+                                ->label('Meses')
+                                ->numeric()
+                                ->minValue(1)
+                                ->maxValue(12)
+                                ->required(),
+                        ])
+                        ->action(function (array $data, User $record): void {
+
+                            $qr = createQRPromotor();
+
+                            Promotor::create([
+                                'codigo' => $qr['codigo'],
+                                'inicio_comision' => $data['inicio_comision'],
+                                'meses_comision' => $data['meses_comision'],
+                                'users_id' => $record->id,
+                                'image_qr' => $qr['image_qr'],
+                            ]);
+
+                            Notification::make()
+                                ->title('Datos Actualizados.')
+                                ->success()
+                                ->send();
+                        })
+                        ->modalWidth(Width::Small)
+                        ->disabled(fn(User $record): bool => $record->promotor()->exists()),
                     EditAction::make(),
                     DeleteAction::make(),
                 ])

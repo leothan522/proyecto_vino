@@ -9,6 +9,7 @@ use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Schemas\Components\Section;
 use Illuminate\Support\Facades\Hash;
@@ -35,21 +36,20 @@ class ManagePromotors extends ManageRecords
                         'access_panel' => 1,
                     ]);
 
-                    do{
-                        $codigo = Str::random(6);
-                        $existe = Promotor::where('codigo', $codigo)->exists();
-                    }while($existe);
-
-                    $image_qr = qrCodeGenerate(route('web.index', $codigo), null, null, 'qr-promotor-'.$codigo);
-                    $path = explode('storage/', $image_qr);
+                    $qr = createQRPromotor();
 
                     Promotor::create([
-                        'codigo' => $codigo,
+                        'codigo' => $qr['codigo'],
                         'inicio_comision' => $data['inicio_comision'],
                         'meses_comision' => $data['meses_comision'],
                         'users_id' => $user->id,
-                        'image_qr' => $path[1]
+                        'image_qr' => $qr['image_qr']
                     ]);
+
+                    Notification::make()
+                        ->title('Promotor Creado.')
+                        ->success()
+                        ->send();
 
                 }),
         ];

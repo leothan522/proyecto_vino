@@ -270,3 +270,19 @@ function incrementarCodigoPedidos(): void
     }
 }
 
+function createQRPromotor(): array
+{
+    do{
+        $codigo = Str::random(6);
+        $existe = \App\Models\Promotor::where('codigo', $codigo)->exists();
+    }while($existe);
+
+    $image_qr = qrCodeGenerate(route('web.index', $codigo), null, null, 'qr-promotor-'.$codigo);
+    $path = explode('storage/', $image_qr);
+    return [
+        'codigo' => $codigo,
+        'image_qr' => $path[1]
+    ];
+}
+
+

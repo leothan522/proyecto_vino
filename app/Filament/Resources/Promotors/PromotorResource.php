@@ -45,7 +45,7 @@ class PromotorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
-    protected static string | UnitEnum | null $navigationGroup = 'Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Web';
 
     protected static ?int $navigationSort = 90;
 
@@ -80,6 +80,7 @@ class PromotorResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(fn (): Builder => Promotor::query()->orderBy('created_at', 'desc'))
             ->recordTitleAttribute('codigo')
             ->columns([
                 TextColumn::make('codigo')
@@ -88,22 +89,25 @@ class PromotorResource extends Resource
                     ->visibleFrom('md'),
                 TextColumn::make('user.name')
                     ->label('Nombre y Teléfono')
-                    ->description(fn(Promotor $record): string => $record->user->telefono)
+                    ->description(fn(Promotor $record): string => $record->user->telefono ?? '')
                     ->searchable(),
                 TextColumn::make('inicio_comision')
                     ->label('Inicio Comisíon')
                     ->date()
                     ->sortable()
                     ->alignCenter()
+                    ->toggleable()
                     ->visibleFrom('md'),
                 TextColumn::make('meses_comision')
                     ->label('Meses')
                     ->numeric()
+                    ->sortable()
                     ->alignCenter()
                     ->visibleFrom('md'),
                 TextColumn::make('stock_vendidos')
                     ->label('Ventas')
                     ->numeric()
+                    ->sortable()
                     ->alignCenter()
                     ->visibleFrom('md'),
                 ToggleColumn::make('is_active')
@@ -207,6 +211,8 @@ class PromotorResource extends Resource
 
     public static function formPromotor($ignoredUser = null): array
     {
+        $user = $ignoredUser ? User::find($ignoredUser) : null;
+
         return [
             Section::make('Datos Básicos')
                 ->schema([
@@ -214,12 +220,14 @@ class PromotorResource extends Resource
                         ->label(__('Name'))
                         ->minLength(3)
                         ->maxLength(255)
-                        ->required(),
+                        ->required()
+                        ->readOnly(fn() => $user?->is_root || $user?->hasRole('admin')),
                     TextInput::make('email')
                         ->label(__('Email'))
                         ->email()
                         ->unique(table: User::class, ignorable: $ignoredUser ? User::find($ignoredUser) : null, ignoreRecord: false)
-                        ->required(),
+                        ->required()
+                        ->readOnly(fn() => $user?->is_root || $user?->hasRole('admin')),
                     TextInput::make('password')
                         ->label(__('Password'))
                         ->minLength(8)
