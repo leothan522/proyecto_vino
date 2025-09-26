@@ -302,4 +302,15 @@ function verificarCodigoPromotor($promotor): bool
     return $response;
 }
 
+function formatearNumeroWidget($valor): string
+{
+    if ($valor >= 1000000) {
+        return number_format($valor / 1000000, 1) . 'M';
+    } elseif ($valor >= 1000) {
+        return number_format($valor / 1000, 1) . 'k';
+    }
+
+    return (string) $valor;
+}
+
 
