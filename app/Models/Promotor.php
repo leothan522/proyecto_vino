@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Promotor extends Model
@@ -24,6 +25,11 @@ class Promotor extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function pedidos(): HasMany
+    {
+        return $this->hasMany(PromotorPedido::class, 'promotores_id', 'id');
     }
 
 }

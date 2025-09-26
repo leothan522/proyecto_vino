@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pedido extends Model
@@ -49,6 +50,11 @@ class Pedido extends Model
     public function pagos(): HasMany
     {
         return $this->hasMany(PedidoPago::class, 'pedidos_id', 'id');
+    }
+
+    public function promotor(): HasOne
+    {
+        return $this->hasOne(PromotorPedido::class, 'pedidos_id', 'id');
     }
 
 }

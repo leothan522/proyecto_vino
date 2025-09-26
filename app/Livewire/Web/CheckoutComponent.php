@@ -9,6 +9,8 @@ use App\Models\Parroquia;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
+use App\Models\Promotor;
+use App\Models\PromotorPedido;
 use App\Traits\WebTrait;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\On;
@@ -94,6 +96,7 @@ class CheckoutComponent extends Component
             $pedido->save();
             incrementarCodigoPedidos();
 
+            /* Cliente */
             if ($this->clientes_id) {
 
                 if (!$this->disableInput) {
@@ -123,8 +126,10 @@ class CheckoutComponent extends Component
                 }
             }
 
+
+            /* Pagos */
+
             if ($this->metodoPago == 'transferencias') {
-                //trasnferencias
                 $metodo = BancosTransferencia::where('is_main', true)->first();
             } else {
                 $metodo = BancosPagoMovil::where('is_main', true)->first();
@@ -146,6 +151,24 @@ class CheckoutComponent extends Component
             $data['monto'] = $this->monto;
             PedidoPago::create($data);
 
+            /* Comision Promotor */
+
+            if (session()->has('promotores_id')){
+                $promotor = Promotor::find(session('promotores_id'));
+                if (verificarCodigoPromotor($promotor)){
+                    $items = PedidoItem::where('pedidos_id', $pedido->id)->sum('cantidad');
+                    PromotorPedido::create([
+                       'promotores_id' => $promotor->id,
+                       'pedidos_id' => $pedido->id,
+                       'cantidad' => $items
+                    ]);
+                    $promotor->stock_vendidos = $promotor->stock_vendidos + $items;
+                    $promotor->save();
+                }
+            }
+
+
+            /* Redireccionar */
             session()->forget('menu_home');
             session()->flash('livewireAlert_pedido_success', [
                 'codigo' => $pedido->codigo
