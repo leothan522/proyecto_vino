@@ -306,7 +306,7 @@ class PromotorResource extends Resource
                             ->alignCenter(),
                         TextEntry::make('codigo')
                             ->label('Link')
-                            ->formatStateUsing(fn(string $state): string => route('web.index', $state))
+                            ->formatStateUsing(fn(string $state): string => route('web.codigo', $state))
                             ->wrap(false)
                             ->color('primary')
                             ->copyable()

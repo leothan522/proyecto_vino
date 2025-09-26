@@ -4,7 +4,7 @@ use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 
-Route::get('/{codigo?}', [WebController::class, 'index'])->name('web.index');
+Route::get('/', [WebController::class, 'index'])->name('web.index');
 Route::get('/about', [WebController::class, 'about'])->name('web.about');
 Route::get('/gallery', [WebController::class, 'blog'])->name('web.blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('web.contact');
@@ -29,4 +29,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     \App\Http\Middleware\UserProfile::class,
 ])->get('user/profile', [UserProfileController::class, 'show'])->name('profile.show');
+
+Route::get('/{codigo?}', [WebController::class, 'index'])->where('codigo', '[A-Za-z0-9]{6}')->name('web.codigo');
 
