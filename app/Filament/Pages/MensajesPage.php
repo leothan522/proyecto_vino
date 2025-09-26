@@ -29,4 +29,9 @@ class MensajesPage extends Page
     {
         return 'Mensajes Nuevos';
     }
+
+    public static function canAccess(): bool
+    {
+        return \Gate::allows('viewAny', Mensaje::class);
+    }
 }

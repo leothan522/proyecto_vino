@@ -32,6 +32,11 @@ class StocksPage extends Page
 
     protected string $view = 'filament.pages.stocks-page';
 
+    public static function canAccess(): bool
+    {
+        return \Gate::allows('viewAny', Stock::class);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

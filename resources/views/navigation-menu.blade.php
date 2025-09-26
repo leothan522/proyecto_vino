@@ -12,7 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ url('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('web.index') }}" :active="request()->routeIs('web.index')">
+                        Inicio
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('filament.dashboard.pages.dashboard') }}" :active="request()->routeIs('dashboard')">
                         Escritorio
                     </x-nav-link>
                 </div>
@@ -139,7 +142,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ url('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="{{ route('web.index') }}" :active="request()->routeIs('web.index')">
+                Inicio
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('filament.dashboard.pages.dashboard') }}" :active="request()->routeIs('dashboard')">
                 Escritorio
             </x-responsive-nav-link>
         </div>

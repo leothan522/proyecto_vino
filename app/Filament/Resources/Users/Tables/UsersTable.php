@@ -143,6 +143,9 @@ class UsersTable
                                 'image_qr' => $qr['image_qr'],
                             ]);
 
+                            $record->access_panel = 1;
+                            $record->save();
+
                             Notification::make()
                                 ->title('Datos Actualizados.')
                                 ->success()
