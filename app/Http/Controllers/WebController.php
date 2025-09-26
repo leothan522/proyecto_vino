@@ -6,7 +6,9 @@ use App\Models\Carrito;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\Producto;
+use App\Models\Promotor;
 use App\Models\Stock;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +26,14 @@ class WebController extends Controller
 
     public function index($codigo = null)
     {
+        if ($codigo){
+            $promotor = Promotor::where('codigo', $codigo)->first();
+            if (verificarCodigoPromotor($promotor)){
+                session(['promotores_id' => $promotor->id]);
+            }else{
+                session()->forget('promotores_id');
+            }
+        }
         return view('web.inicio.index');
     }
 

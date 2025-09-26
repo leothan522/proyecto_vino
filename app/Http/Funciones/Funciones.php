@@ -285,4 +285,21 @@ function createQRPromotor(): array
     ];
 }
 
+function verificarCodigoPromotor($promotor): bool
+{
+    $response = false;
+    if ($promotor){
+
+        $is_active = $promotor->is_active && $promotor->user->is_active;
+
+        $fechaInicio = \Carbon\Carbon::parse($promotor->inicio_comision);
+        $fechaFinal = $fechaInicio->copy()->addMonths($promotor->meses_comision);
+        $hoy = \Carbon\Carbon::today();
+        $vigente = $hoy->between($fechaInicio, $fechaFinal);
+
+        $response = $is_active && $vigente;
+    }
+    return $response;
+}
+
 

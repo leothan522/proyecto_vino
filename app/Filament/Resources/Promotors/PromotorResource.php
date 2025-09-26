@@ -80,7 +80,7 @@ class PromotorResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Promotor::query()->orderBy('created_at', 'desc'))
+            ->query(fn(): Builder => Promotor::query()->orderBy('created_at', 'desc'))
             ->recordTitleAttribute('codigo')
             ->columns([
                 TextColumn::make('codigo')
@@ -89,11 +89,14 @@ class PromotorResource extends Resource
                     ->visibleFrom('md'),
                 TextColumn::make('user.name')
                     ->label('Nombre y Teléfono')
+                    ->formatStateUsing(fn(string $state): string => Str::upper($state))
+                    ->icon(fn(Promotor $record) => verificarCodigoPromotor($record) ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedNoSymbol)
+                    ->iconColor(fn(Promotor $record) => verificarCodigoPromotor($record) ? 'success' : 'danger')
                     ->description(fn(Promotor $record): string => $record->user->telefono ?? '')
                     ->searchable(),
                 TextColumn::make('inicio_comision')
                     ->label('Inicio Comisíon')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable()
                     ->alignCenter()
                     ->toggleable()
@@ -272,6 +275,7 @@ class PromotorResource extends Resource
                     ->schema([
                         TextEntry::make('user.name')
                             ->label('Nombre')
+                            ->formatStateUsing(fn(string $state): string => Str::upper($state))
                             ->color('primary')
                             ->copyable(),
                         TextEntry::make('user.email')
@@ -310,7 +314,14 @@ class PromotorResource extends Resource
                             ->wrap(false)
                             ->color('primary')
                             ->copyable()
-                            ->columnSpanFull(),])
+                            ->columnSpanFull(),
+                        TextEntry::make('is_active')
+                            ->label('Estatus')
+                            ->formatStateUsing(fn(Promotor $record): string => verificarCodigoPromotor($record) ? 'Código Activo' : 'Código Inactivo')
+                            ->color(fn(Promotor $record) => verificarCodigoPromotor($record) ? 'success' : 'danger')
+                            ->icon(fn(Promotor $record) => verificarCodigoPromotor($record) ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedNoSymbol)
+                            ->iconColor(fn(Promotor $record) => verificarCodigoPromotor($record) ? 'success' : 'danger'),
+                    ])
                     ->compact(),
             ]);
     }

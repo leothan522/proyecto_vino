@@ -30,5 +30,5 @@ Route::middleware([
     \App\Http\Middleware\UserProfile::class,
 ])->get('user/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
-Route::get('/{codigo?}', [WebController::class, 'index'])->where('codigo', '[A-Za-z0-9]{6}')->name('web.codigo');
+Route::get('/{codigo?}', [WebController::class, 'index'])/*->where('codigo', '[A-Za-z0-9]{6}')*/->name('web.codigo');
 
