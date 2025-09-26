@@ -130,7 +130,10 @@ class WebController extends Controller
     {
         $path = 'descargas/Vino-Don-Juan-Espinoza.apk';
         if (Storage::disk('public')->exists($path)){
-            return Storage::disk('public')->download($path);
+            $fullPath = Storage::disk('public')->path($path);
+            return response()->download($fullPath, 'Vino-Don-Juan-Espinoza.apk', [
+                'Content-Type' => 'application/vnd.android.package-archive',
+            ]);
         }
         return redirect()->route('web.index');
     }
