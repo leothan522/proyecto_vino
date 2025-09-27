@@ -59,13 +59,13 @@ class PedidosTable
                     ->visibleFrom('md'),
                 IconColumn::make('is_process')
                     ->label('Estatus')
-                    ->icon(fn (Pedido $record): Heroicon => match ($record->estatus) {
+                    ->icon(fn(Pedido $record): Heroicon => match ($record->estatus) {
                         default => Heroicon::OutlinedXCircle,
                         1 => Heroicon::OutlinedClock,
                         2 => Heroicon::OutlinedTruck,
                         3 => Heroicon::OutlinedCheckCircle,
                     })
-                    ->color(fn (Pedido $record): string => match ($record->estatus) {
+                    ->color(fn(Pedido $record): string => match ($record->estatus) {
                         default => 'danger',
                         1 => 'primary',
                         2 => 'gray',
@@ -74,19 +74,19 @@ class PedidosTable
                     ->hiddenFrom('md')
                     ->alignCenter(),
                 TextColumn::make('estatus')
-                    ->formatStateUsing(fn (Pedido $record): string => match ($record->estatus) {
+                    ->formatStateUsing(fn(Pedido $record): string => match ($record->estatus) {
                         default => 'Incompleto',
                         1 => 'Validar Pago',
                         2 => 'Por Despachar',
                         3 => 'Entregado',
                     })
-                    ->icon(fn (Pedido $record): Heroicon => match ($record->estatus) {
+                    ->icon(fn(Pedido $record): Heroicon => match ($record->estatus) {
                         default => Heroicon::OutlinedXCircle,
                         1 => Heroicon::OutlinedClock,
                         2 => Heroicon::OutlinedTruck,
                         3 => Heroicon::OutlinedCheckCircle,
                     })
-                    ->iconColor(fn (Pedido $record): string => match ($record->estatus) {
+                    ->iconColor(fn(Pedido $record): string => match ($record->estatus) {
                         default => 'danger',
                         1 => 'primary',
                         2 => 'gray',
@@ -96,7 +96,8 @@ class PedidosTable
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable()
+                    ->visibleFrom('md'),
             ])
             ->filters([
                 SelectFilter::make('estatus')
@@ -109,7 +110,8 @@ class PedidosTable
             ])
             ->recordActions([
                 ActionGroup::make([
-                    ViewAction::make(),
+                    ViewAction::make()
+                        ->modalHeading(fn(Pedido $record): string => 'Pedido #' . $record->codigo),
                     Action::make('entregado')
                         ->icon(Heroicon::OutlinedTruck)
                         ->color('success')
