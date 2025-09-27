@@ -14,6 +14,7 @@ use Filament\Actions\ViewAction;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,15 +25,25 @@ class PedidosTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Pedido::query()->orderBy('created_at', 'desc'))
+            ->query(fn(): Builder => Pedido::query()
+                ->where('is_process', false)
+                ->orderBy('created_at', 'desc')
+            )
             ->columns([
                 TextColumn::make('codigo')
                     ->label('Código')
-                    ->searchable(),
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('cedula')
                     ->numeric()
                     ->searchable()
                     ->visibleFrom('md'),
+                TextColumn::make('nombre_telefono')
+                    ->label('Cliente')
+                    ->default(fn(Pedido $record): string => Str::upper($record->nombre))
+                    ->description(fn(Pedido $record): string => $record->telefono)
+                    ->searchable()
+                    ->hiddenFrom('md'),
                 TextColumn::make('nombre')
                     ->formatStateUsing(fn(Pedido $record): string => Str::upper($record->nombre))
                     ->searchable()
@@ -47,32 +58,53 @@ class PedidosTable
                     ->alignEnd()
                     ->visibleFrom('md'),
                 IconColumn::make('is_process')
-                    ->label('Completo')
-                    ->boolean()
-                    ->trueIcon(Heroicon::OutlinedXCircle)
-                    ->trueColor('danger')
-                    ->falseIcon(Heroicon::OutlinedCheckCircle)
-                    ->falseColor(function (Pedido $record): string {
-                        return match ($record->estatus) {
-                            default => 'gray',
-                            2 => 'success',
-                        };
+                    ->label('Estatus')
+                    ->icon(fn (Pedido $record): Heroicon => match ($record->estatus) {
+                        default => Heroicon::OutlinedXCircle,
+                        1 => Heroicon::OutlinedClock,
+                        2 => Heroicon::OutlinedTruck,
+                        3 => Heroicon::OutlinedCheckCircle,
                     })
+                    ->color(fn (Pedido $record): string => match ($record->estatus) {
+                        default => 'danger',
+                        1 => 'primary',
+                        2 => 'gray',
+                        3 => 'success',
+                    })
+                    ->hiddenFrom('md')
                     ->alignCenter(),
                 TextColumn::make('estatus')
-                    ->formatStateUsing(function (Pedido $record): string {
-                        return match ($record->estatus) {
-                            default => 'Incompleto',
-                            1 => 'Por Despachar',
-                            2 => 'Entregado',
-                        };
+                    ->formatStateUsing(fn (Pedido $record): string => match ($record->estatus) {
+                        default => 'Incompleto',
+                        1 => 'Validar Pago',
+                        2 => 'Por Despachar',
+                        3 => 'Entregado',
                     })
-                    ->alignEnd(),
+                    ->icon(fn (Pedido $record): Heroicon => match ($record->estatus) {
+                        default => Heroicon::OutlinedXCircle,
+                        1 => Heroicon::OutlinedClock,
+                        2 => Heroicon::OutlinedTruck,
+                        3 => Heroicon::OutlinedCheckCircle,
+                    })
+                    ->iconColor(fn (Pedido $record): string => match ($record->estatus) {
+                        default => 'danger',
+                        1 => 'primary',
+                        2 => 'gray',
+                        3 => 'success',
+                    })
+                    ->visibleFrom('md'),
                 TextColumn::make('created_at')
+                    ->label(__('Created'))
                     ->since()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                SelectFilter::make('estatus')
+                    ->options([
+                        1 => 'Validar Pago',
+                        2 => 'Por Despachar',
+                        3 => 'Entregado',
+                    ]),
                 TrashedFilter::make(),
             ])
             ->recordActions([
@@ -83,10 +115,11 @@ class PedidosTable
                         ->color('success')
                         ->requiresConfirmation()
                         ->action(function (Pedido $record): void {
-                            $record->estatus = 2;
+                            $record->estatus = 3;
                             $record->save();
                         })
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 2 || $record->is_process)
+                        ->modalIcon(Heroicon::OutlinedTruck)
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 3 || $record->is_process)
                 ])
             ])
             ->toolbarActions([

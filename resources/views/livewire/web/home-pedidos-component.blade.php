@@ -20,13 +20,13 @@
                     <p class="mb-1">{{ $pedido->bodega }} <strong class="float-right">${{ formatoMillares($pedido->total) }}</strong></p>
                     @switch($pedido->estatus)
                         @case(1)
-                            <small class="text-muted">En proceso</small>
+                            <small class="text-muted"><i class="fa fa-clock-o mr-2" aria-hidden="true"></i>Validando Pago</small>
                             @break
                         @case(2)
-                            <small class="text-success">Entregado</small>
+                            <small class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</small>
                             @break
                         @case(3)
-                            <small class="text-danger">Pedido incompleto</small>
+                            <small class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</small>
                             @break
                         @default
                             <small class="text-primary">Se require atención</small>
@@ -39,11 +39,6 @@
                     </div>
                 </a>
             @endforeach
-
-            {{-- <!-- Spinner overlay -->
-             <div wire:loading wire:target="show" class="spinner-overlay align-content-center text-center">
-                 <div class="spinner-border color-active" role="status"></div>
-             </div>--}}
 
         </div>
 
@@ -107,16 +102,16 @@
                             <strong class="float-right">
                                 @switch($estatus)
                                     @case(1)
-                                        <span class="text-muted">En proceso</span>
+                                        <span class="text-muted"><i class="fa fa-clock-o mr-2" aria-hidden="true"></i>Validando Pago</span>
                                         @break
                                     @case(2)
-                                        <span class="text-success">Entregado</span>
+                                        <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
                                         @break
                                     @case(3)
-                                        <span class="text-danger">Se require atención</span>
+                                        <span class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</span>
                                         @break
                                     @default
-                                        <span class="text-primary">Pedido incompleto</span>
+                                        <span class="text-primary">Se require atención</span>
                                         @break
                                 @endswitch
                             </strong></p>
