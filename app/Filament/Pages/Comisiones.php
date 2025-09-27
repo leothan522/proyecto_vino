@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Livewire\Dashboard\PromotoresWidget;
+use App\Livewire\Dashboard\PromotorTableWidget;
 use App\Models\Promotor;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -37,7 +38,7 @@ class Comisiones extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            PromotoresWidget::class
+            PromotoresWidget::class,
         ];
     }
 

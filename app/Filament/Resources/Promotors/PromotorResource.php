@@ -180,9 +180,28 @@ class PromotorResource extends Resource
 
                         })
                         ->modalHeading('Editar Promotor'),
-                    DeleteAction::make(),
-                    ForceDeleteAction::make(),
-                    RestoreAction::make(),
+                    DeleteAction::make()
+                        ->before(function (Promotor $record) {
+                            $user = User::find($record->users_id);
+                            if ($user && !$user->hasRole('admin') && !$user->is_root) {
+                                $user->access_panel = 0;
+                                $user->save();
+                            }
+                        }),
+                    ForceDeleteAction::make()
+                        ->before(function (Promotor $record) {
+                            $user = User::find($record->users_id);
+                            if ($user && !$user->hasRole('admin') && !$user->is_root) {
+                                $user->access_panel = 0;
+                                $user->save();
+                            }
+                        }),
+                    RestoreAction::make()
+                        ->before(function (Promotor $record) {
+                            $user = User::find($record->users_id);
+                            $user->access_panel = 1;
+                            $user->save();
+                        }),
                 ])
             ])
             ->toolbarActions([
