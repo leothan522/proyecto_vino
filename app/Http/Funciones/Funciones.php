@@ -313,4 +313,17 @@ function formatearNumeroWidget($valor): string
     return (string) $valor;
 }
 
+function formatearTelefonoParaWhatsapp(string $telefono, string $codigoPais = '58'): string
+{
+    // Elimina todo excepto números
+    $soloNumeros = preg_replace('/\D+/', '', $telefono);
+
+    // Si empieza con 0, lo quitamos
+    if (str_starts_with($soloNumeros, '0')) {
+        $soloNumeros = substr($soloNumeros, 1);
+    }
+
+    return $codigoPais . $soloNumeros;
+}
+
 

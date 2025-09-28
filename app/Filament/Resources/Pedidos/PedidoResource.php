@@ -237,7 +237,11 @@ class PedidoResource extends Resource
                                 $response = '';
                                 $pedido = Pedido::find($record->id);
                                 if ($pedido->repartidor) {
-                                    $response = Text::make(new HtmlString('<a href="https://wa.me/'.$pedido->repartidor->repartidor->telefono.'" target="_blank">'.Str::upper($pedido->repartidor->repartidor->nombre) . ' - ' . $pedido->repartidor->repartidor->telefono.'</a>'));
+                                    $nombre = Str::upper($pedido->repartidor->repartidor->nombre) . ' ' . $pedido->repartidor->repartidor->telefono;
+                                    $telefono = $pedido->repartidor->repartidor->telefono;
+                                    $whatsapp = formatearTelefonoParaWhatsapp($telefono); // 584141234567
+                                    $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, quiero más información.");
+                                    $response = Text::make(new HtmlString('<a href="'.$url.'" target="_blank">'.$nombre.'</a>'));
                                 }
                                 return $response;
                             }),
