@@ -59,68 +59,97 @@
             <div class="modal-content">
                 <form {{--wire:submit="login"--}} class="billing-form">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pedido <span
-                                class="color-active">#{{ $codigo }}</span></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Pedido <span class="color-active">#{{ $codigo }}</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
 
-                        <p class="mb-1">Cliente: <strong>{{ \Illuminate\Support\Str::upper($cliente) }}</strong></p>
-                        <p class="mb-4">Teléfono: <strong>{{ $telefono }}</strong></p>
+                        {{-- Datos del cliente --}}
+                        <div class="mb-4">
+                            <p class="mb-1">Cliente: <strong class="font-weight-bold">{{ \Str::upper($cliente) }}</strong></p>
+                            <p class="mb-0">Teléfono: <strong class="font-weight-bold">{{ $telefono }}</strong></p>
+                        </div>
 
-                        <p class="mb-1">Productos:</p>
+                        {{-- Lista de productos --}}
+                        <p class="mb-2 font-weight-bold text-muted">Productos:</p>
                         <ul class="list-group mb-4">
                             @foreach($productos as $producto)
-                                <li class="list-group-item justify-between">
-                                    <span>{{ \Illuminate\Support\Str::upper($producto->producto )}} ref: {{ formatoMillares($producto->precio) }} x{{ $producto->cantidad }}</span>
-                                    <span class="float-right">${{ formatoMillares($producto->precio * $producto->cantidad) }}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ \Str::upper($producto->producto) }} ref: {{ formatoMillares($producto->precio) }} x{{ $producto->cantidad }}</span>
+                                    <span class="text-dark font-weight-bold">${{ formatoMillares($producto->precio * $producto->cantidad) }}</span>
                                 </li>
                             @endforeach
                         </ul>
+
+                        {{-- Totales --}}
                         <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Subtotal:</span>
-                                <span class="float-right">${{ $verSubtotal }}</span>
+                                <span class="font-weight-bold text-dark">${{ $verSubtotal }}</span>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Entrega:</span>
-                                <span class="float-right">${{ $verEntrega }}</span>
+                                <span class="font-weight-bold text-dark">${{ $verEntrega }}</span>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Total:</span>
-                                <span class="float-right">${{ $verTotal }}</span>
+                                <span class="font-weight-bold text-success">${{ $verTotal }}</span>
                             </li>
                         </ul>
 
-                        <p class="mb-1">Municipio: <strong>{{ $municipio }}</strong></p>
-                        <p class="mb-1">Parroquia: <strong>{{ $parroquia }}</strong></p>
-                        <p class="mb-4">Dirección: <strong>{{ $direccion }}</strong></p>
-                        <p class="mb-1">Método de pago: <strong class="float-right">{{ \Illuminate\Support\Str::upper($metodo) }}</strong></p>
-                        <p class="mb-1">Referencia: <strong class="float-right">{{ $referencia }}</strong></p>
-                        <p class="mb-4">Monto: <strong class="float-right">Bs. {{ $monto }}</strong></p>
-                        <p class="mb-1">
-                            Estatus:
-                            <strong class="float-right">
-                                @switch($estatus)
-                                    @case(1)
-                                        <span class="text-muted"><i class="fa fa-clock-o mr-2" aria-hidden="true"></i>Validando Pago</span>
-                                        @break
-                                    @case(2)
-                                        <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
-                                        @break
-                                    @case(3)
-                                        <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
-                                        @break
-                                    @case(4)
-                                        <span class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</span>
-                                        @break
-                                    @default
-                                        <span class="text-primary">Se require atención</span>
-                                        @break
-                                @endswitch
-                            </strong></p>
+                        {{-- Dirección --}}
+                        <div class="mb-4">
+                            <p class="mb-1"><i class="fa fa-map-marker mr-2"></i> Municipio: <strong>{{ $municipio }}</strong></p>
+                            <p class="mb-1">Parroquia: <strong>{{ $parroquia }}</strong></p>
+                            <p class="mb-0">Dirección: <strong>{{ $direccion }}</strong></p>
+                        </div>
+
+                        {{-- Pago --}}
+                        <div class="mb-4">
+                            <p class="mb-1">Método de pago: <strong class="float-right">{{ \Str::upper($metodo) }}</strong></p>
+                            <p class="mb-1">Referencia: <strong class="float-right">{{ $referencia }}</strong></p>
+                            <p class="mb-0">Monto: <strong class="float-right">Bs. {{ $monto }}</strong></p>
+                        </div>
+
+                        {{-- Estatus --}}
+                        <div class="mb-4">
+                            <p class="mb-1">Estatus:
+                                <strong class="float-right">
+                                    @switch($estatus)
+                                        @case(1)
+                                            <span class="text-muted"><i class="fa fa-clock-o mr-2" aria-hidden="true"></i>Validando Pago</span>
+                                            @break
+                                        @case(2)
+                                            <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
+                                            @break
+                                        @case(3)
+                                            <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
+                                            @break
+                                        @case(4)
+                                            <span class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</span>
+                                            @break
+                                        @default
+                                            <span class="text-primary">Se require atención</span>
+                                            @break
+                                    @endswitch
+                                </strong>
+                            </p>
+                        </div>
+
+                        {{-- Código de entrega --}}
+                        @if($codigoEntrega)
+                            <div class="mb-4 text-center">
+                                <p class="mb-2 text-muted font-weight-bold">
+                                    Código de Entrega
+                                </p>
+                                <div class="h4 font-weight-bold text-dark bg-light border rounded d-inline-block px-4 py-2 shadow-sm">
+                                    {{ $codigoEntrega }}
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                     <div class="modal-footer justify-content-between">
                         <small

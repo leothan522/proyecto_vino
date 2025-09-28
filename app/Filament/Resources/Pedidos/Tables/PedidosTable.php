@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Pedidos\Tables;
 
 use App\Filament\Resources\Pedidos\PedidoResource;
+use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoRepartidor;
 use App\Models\Repartidor;
@@ -139,6 +140,13 @@ class PedidosTable
                             }
                             $record->estatus = 3;
                             $record->save();
+                            //codigo de entrega
+                            $codigo = random_int(100000, 999999);
+                            Parametro::create([
+                                'nombre' => 'pedido_'.$record->rowquid,
+                                'valor_id' => $record->id,
+                                'valor_texto' => $codigo
+                            ]);
                             Notification::make()
                                 ->title('Despacho En Proceso')
                                 ->success()
@@ -153,6 +161,10 @@ class PedidosTable
                         ->action(function (Pedido $record): void {
                             $record->estatus = 4;
                             $record->save();
+                            $parametro = Parametro::where('nombre', 'pedido_'.$record->rowquid)->first();
+                            if ($parametro){
+                                $parametro->delete();
+                            }
                         })
                         //->modalIcon(Heroicon::OutlinedCheckCircle)
                         ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process)

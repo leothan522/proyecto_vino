@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\Producto;
@@ -145,6 +146,12 @@ class WebController extends Controller
         return view('web.compartir.index')
             ->with('qrAndroid', $qrAndroid)
             ->with('qrIos', $qrIos);
+    }
+
+    public function entrega($rowquid)
+    {
+        return view('web.entrega.index')
+            ->with('rowquid', $rowquid);
     }
 
 }

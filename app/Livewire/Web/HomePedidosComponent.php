@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Web;
 
+use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
@@ -33,6 +34,7 @@ class HomePedidosComponent extends Component
     public string $monto = '';
     public mixed $estatus = null;
     public mixed $created_at = '';
+    public ?string $codigoEntrega = null;
 
     public function render()
     {
@@ -67,6 +69,11 @@ class HomePedidosComponent extends Component
                 }
                 $this->estatus = $pedido->estatus;
                 $this->created_at = $pedido->created_at;
+                $this->reset('codigoEntrega');
+                $parametro = Parametro::where('nombre', 'pedido_'.$pedido->rowquid)->first();
+                if ($parametro && $pedido->estatus == 3){
+                    $this->codigoEntrega = $parametro->valor_texto;
+                }
             }
         }
     }

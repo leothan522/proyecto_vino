@@ -14,7 +14,7 @@ Route::get('/cart', [WebController::class, 'cart'])->name('web.cart');
 Route::get('/profile', [WebController::class, 'profile'])->name('web.profile');
 Route::get('/contact/download', [WebController::class, 'descargar'])->name('web.descargar');
 Route::get('/compartir/app', [WebController::class, 'compartir'])->name('web.compartir');
-
+Route::get('/delivery/{rowquid}', [WebController::class, 'entrega'])->name('web.entrega');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

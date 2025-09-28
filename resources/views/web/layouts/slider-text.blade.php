@@ -12,6 +12,7 @@
                         'web.home','web.profile' => 'Mi Cuenta',
                         'web.blog' => 'Galería',
                         'web.contact' => 'Contacto',
+                        'web.entrega' => 'Realizar Entrega',
                         default => 'Inicio',
                     }
                 @endphp

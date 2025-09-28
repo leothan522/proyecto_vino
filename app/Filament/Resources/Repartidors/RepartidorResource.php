@@ -71,12 +71,18 @@ class RepartidorResource extends Resource
             ->recordTitleAttribute('nombre')
             ->query(fn(): Builder => Repartidor::query()->orderBy('created_at', 'desc'))
             ->columns([
+                TextColumn::make('repartidor')
+                    ->default(fn(Repartidor $record): string => Str::upper($record->nombre))
+                    ->description(fn(Repartidor $record): string => $record->telefono)
+                    ->hiddenFrom('md'),
                 TextColumn::make('nombre')
                     ->formatStateUsing(fn(string $state): string => Str::upper($state))
-                    ->searchable(),
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('telefono')
                     ->label('Teléfono')
-                    ->searchable(),
+                    ->searchable()
+                    ->visibleFrom('md'),
                 TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->since()

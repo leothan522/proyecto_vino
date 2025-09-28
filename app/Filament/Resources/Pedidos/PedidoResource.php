@@ -7,6 +7,7 @@ use App\Filament\Resources\Pedidos\Pages\EditPedido;
 use App\Filament\Resources\Pedidos\Pages\ListPedidos;
 use App\Filament\Resources\Pedidos\Schemas\PedidoForm;
 use App\Filament\Resources\Pedidos\Tables\PedidosTable;
+use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
@@ -225,6 +226,15 @@ class PedidoResource extends Resource
                                         }
                                         $record->estatus = 3;
                                         $record->save();
+
+                                        //codigo de entrega
+                                        $codigo = random_int(100000, 999999);
+                                        Parametro::create([
+                                            'nombre' => 'pedido_'.$record->rowquid,
+                                            'valor_id' => $record->id,
+                                            'valor_texto' => $codigo
+                                        ]);
+
                                         Notification::make()
                                             ->title('Despacho En Proceso')
                                             ->success()
@@ -247,17 +257,25 @@ class PedidoResource extends Resource
                             }),
                         TextEntry::make('rowquid')
                             ->label('Link de Entrega')
-                            ->formatStateUsing(fn(string $state): string => route('web.checkout', $state))
+                            ->formatStateUsing(fn(string $state): string => route('web.entrega', $state))
                             ->color('primary')
                             ->copyable()
-                            ->visible(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus == 3),
+                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_'.$record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
                         TextEntry::make('codigo')
                             ->label('Código de Entrega')
+                            ->formatStateUsing(function (Pedido $record): string {
+                                $response ='';
+                                $parametro = Parametro::where('nombre', 'pedido_'.$record->rowquid)->first();
+                                if ($parametro){
+                                    $response = $parametro->valor_texto;
+                                }
+                                return $response;
+                            })
                             ->color('primary')
                             ->alignCenter()
                             ->size(TextSize::Large)
                             ->copyable()
-                            ->visible(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus == 3),
+                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_'.$record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
                     ])
                     ->compact(),
             ]);
