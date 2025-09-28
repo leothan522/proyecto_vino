@@ -10,8 +10,13 @@ use App\Filament\Resources\Pedidos\Tables\PedidosTable;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
+use App\Models\PedidoRepartidor;
+use App\Models\Repartidor;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
@@ -19,10 +24,13 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Text;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\TextSize;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class PedidoResource extends Resource
@@ -177,8 +185,7 @@ class PedidoResource extends Resource
                             ->contained(false)
                     ])
                     ->compact()
-                    ->collapsible()
-                    ->collapsed(),
+                    ->collapsible(),
                 Section::make('Estatus')
                     ->schema([
                         TextEntry::make('estatus')
@@ -186,23 +193,97 @@ class PedidoResource extends Resource
                             ->formatStateUsing(fn(Pedido $record) => match (Pedido::find($record->id)?->estatus) {
                                 1 => 'Validar Pago',
                                 2 => 'Por Despachar',
-                                3 => 'Entregado',
+                                3 => 'En Proceso',
+                                4 => 'Entregado',
                                 default => 'Incompleto',
                             })
                             ->icon(fn(Pedido $record): Heroicon => match (Pedido::find($record->id)?->estatus) {
                                 1 => Heroicon::OutlinedClock,
-                                2 => Heroicon::OutlinedTruck,
-                                3 => Heroicon::OutlinedCheckCircle,
+                                2 => Heroicon::OutlinedInbox,
+                                3 => Heroicon::OutlinedTruck,
+                                4 => Heroicon::OutlinedCheckCircle,
                                 default => Heroicon::OutlinedXCircle,
                             })
                             ->iconColor(fn(Pedido $record): string => match (Pedido::find($record->id)?->estatus) {
                                 1 => 'primary',
-                                2 => 'gray',
-                                3 => 'success',
+                                2 => 'info',
+                                3 => 'gray',
+                                4 => 'success',
                                 default => 'danger',
+                            })
+                            ->afterContent(
+                                Action::make('realizar_despacho')
+                                    ->label('Despachar')
+                                    ->button()
+                                    ->schema(self::formActionDespacho())
+                                    ->action(function (array $data, Pedido $record) {
+                                        if ($data['repartidor']) {
+                                            PedidoRepartidor::create([
+                                                'repartidores_id' => $data['repartidor'],
+                                                'pedidos_id' => $record->id
+                                            ]);
+                                        }
+                                        $record->estatus = 3;
+                                        $record->save();
+                                        Notification::make()
+                                            ->title('Despacho En Proceso')
+                                            ->success()
+                                            ->send();
+                                    })
+                                    ->modalWidth(Width::Small)
+                                    ->hidden(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus != 2)
+                            )
+                            ->belowContent(function (Pedido $record): mixed {
+                                $response = '';
+                                $pedido = Pedido::find($record->id);
+                                if ($pedido->repartidor) {
+                                    $response = Text::make(new HtmlString('<a href="https://wa.me/'.$pedido->repartidor->repartidor->telefono.'" target="_blank">'.Str::upper($pedido->repartidor->repartidor->nombre) . ' - ' . $pedido->repartidor->repartidor->telefono.'</a>'));
+                                }
+                                return $response;
                             }),
+                        TextEntry::make('rowquid')
+                            ->label('Link de Entrega')
+                            ->formatStateUsing(fn(string $state): string => route('web.checkout', $state))
+                            ->color('primary')
+                            ->copyable()
+                            ->visible(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus == 3),
+                        TextEntry::make('codigo')
+                            ->label('Código de Entrega')
+                            ->color('primary')
+                            ->alignCenter()
+                            ->size(TextSize::Large)
+                            ->copyable()
+                            ->visible(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus == 3),
                     ])
                     ->compact(),
             ]);
+    }
+
+    public static function formActionDespacho(): array
+    {
+        return [
+            TextInput::make('codigo')
+                ->label('Pedido')
+                ->default(fn(Pedido $record): string => Str::upper($record->codigo))
+                ->disabled(),
+            TextInput::make('municipio')
+                ->default(fn(Pedido $record): string => Str::upper($record->bodega))
+                ->disabled(),
+            TextInput::make('parroquia')
+                ->default(fn(Pedido $record): string => Str::upper($record->parroquia))
+                ->disabled(),
+            Textarea::make('direccion')
+                ->label('Dirección')
+                ->default(fn(Pedido $record): string => Str::upper($record->direccion . ' ' . $record->direccion2))
+                ->disabled(),
+            Select::make('repartidor')
+                ->label('Repartidor')
+                ->options(Repartidor::query()->pluck('nombre', 'id')
+                    ->map(fn($nombre) => mb_strtoupper($nombre))
+                )
+                ->searchable()
+                ->preload()
+                ->nullable()
+        ];
     }
 }

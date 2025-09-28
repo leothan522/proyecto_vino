@@ -2,7 +2,10 @@
 
 namespace App\Filament\Resources\Pedidos\Tables;
 
+use App\Filament\Resources\Pedidos\PedidoResource;
 use App\Models\Pedido;
+use App\Models\PedidoRepartidor;
+use App\Models\Repartidor;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -11,6 +14,11 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -42,7 +50,6 @@ class PedidosTable
                     ->label('Cliente')
                     ->default(fn(Pedido $record): string => Str::upper($record->nombre))
                     ->description(fn(Pedido $record): string => $record->telefono)
-                    ->searchable()
                     ->hiddenFrom('md'),
                 TextColumn::make('nombre')
                     ->formatStateUsing(fn(Pedido $record): string => Str::upper($record->nombre))
@@ -62,14 +69,16 @@ class PedidosTable
                     ->icon(fn(Pedido $record): Heroicon => match ($record->estatus) {
                         default => Heroicon::OutlinedXCircle,
                         1 => Heroicon::OutlinedClock,
-                        2 => Heroicon::OutlinedTruck,
-                        3 => Heroicon::OutlinedCheckCircle,
+                        2 => Heroicon::OutlinedInbox,
+                        3 => Heroicon::OutlinedTruck,
+                        4 => Heroicon::OutlinedCheckCircle,
                     })
                     ->color(fn(Pedido $record): string => match ($record->estatus) {
                         default => 'danger',
                         1 => 'primary',
-                        2 => 'gray',
-                        3 => 'success',
+                        2 => 'info',
+                        3 => 'gray',
+                        4 => 'success',
                     })
                     ->hiddenFrom('md')
                     ->alignCenter(),
@@ -78,19 +87,22 @@ class PedidosTable
                         default => 'Incompleto',
                         1 => 'Validar Pago',
                         2 => 'Por Despachar',
-                        3 => 'Entregado',
+                        3 => 'En Proceso',
+                        4 => 'Entregado',
                     })
                     ->icon(fn(Pedido $record): Heroicon => match ($record->estatus) {
                         default => Heroicon::OutlinedXCircle,
                         1 => Heroicon::OutlinedClock,
-                        2 => Heroicon::OutlinedTruck,
-                        3 => Heroicon::OutlinedCheckCircle,
+                        2 => Heroicon::OutlinedInbox,
+                        3 => Heroicon::OutlinedTruck,
+                        4 => Heroicon::OutlinedCheckCircle,
                     })
                     ->iconColor(fn(Pedido $record): string => match ($record->estatus) {
                         default => 'danger',
                         1 => 'primary',
-                        2 => 'gray',
-                        3 => 'success',
+                        2 => 'info',
+                        3 => 'gray',
+                        4 => 'success',
                     })
                     ->visibleFrom('md'),
                 TextColumn::make('created_at')
@@ -104,7 +116,8 @@ class PedidosTable
                     ->options([
                         1 => 'Validar Pago',
                         2 => 'Por Despachar',
-                        3 => 'Entregado',
+                        3 => 'En Proceso',
+                        4 => 'Entregado',
                     ]),
                 TrashedFilter::make(),
             ])
@@ -112,16 +125,37 @@ class PedidosTable
                 ActionGroup::make([
                     ViewAction::make()
                         ->modalHeading(fn(Pedido $record): string => 'Pedido #' . $record->codigo),
-                    Action::make('entregado')
+                    Action::make('despachar')
+                        ->label('Despachar')
+                        ->color('primary')
                         ->icon(Heroicon::OutlinedTruck)
+                        ->schema(PedidoResource::formActionDespacho())
+                        ->action(function (array $data, Pedido $record) {
+                            if ($data['repartidor']) {
+                                PedidoRepartidor::create([
+                                    'repartidores_id' => $data['repartidor'],
+                                    'pedidos_id' => $record->id
+                                ]);
+                            }
+                            $record->estatus = 3;
+                            $record->save();
+                            Notification::make()
+                                ->title('Despacho En Proceso')
+                                ->success()
+                                ->send();
+                        })
+                        ->modalWidth(Width::Small)
+                        ->hidden(fn(Pedido $record): bool => Pedido::find($record->id)?->estatus != 2),
+                    Action::make('entregado')
+                        ->icon(Heroicon::OutlinedCheckCircle)
                         ->color('success')
                         ->requiresConfirmation()
                         ->action(function (Pedido $record): void {
-                            $record->estatus = 3;
+                            $record->estatus = 4;
                             $record->save();
                         })
-                        ->modalIcon(Heroicon::OutlinedTruck)
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 3 || $record->is_process)
+                        //->modalIcon(Heroicon::OutlinedCheckCircle)
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process)
                 ])
             ])
             ->toolbarActions([

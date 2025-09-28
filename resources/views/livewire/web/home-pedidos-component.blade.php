@@ -26,6 +26,9 @@
                             <small class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</small>
                             @break
                         @case(3)
+                            <small class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</small>
+                            @break
+                        @case(4)
                             <small class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</small>
                             @break
                         @default
@@ -108,6 +111,9 @@
                                         <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
                                         @break
                                     @case(3)
+                                        <span class="text-muted"><i class="fa fa-truck mr-2" aria-hidden="true"></i>En proceso de entrega</span>
+                                        @break
+                                    @case(4)
                                         <span class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</span>
                                         @break
                                     @default

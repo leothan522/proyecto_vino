@@ -57,4 +57,9 @@ class Pedido extends Model
         return $this->hasOne(PromotorPedido::class, 'pedidos_id', 'id');
     }
 
+    public function repartidor(): HasOne
+    {
+        return $this->hasOne(PedidoRepartidor::class, 'pedidos_id', 'id');
+    }
+
 }

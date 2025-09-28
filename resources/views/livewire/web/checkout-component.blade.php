@@ -137,7 +137,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Referencia<small class="ml-2 text-danger">Ultimos 06 digitos</small></label>
-                                <input wire:model="referencia" type="text" class="form-control" placeholder="#">
+                                <input wire:model="referencia" type="tel" inputmode="numeric" class="form-control" placeholder="#">
                                 @error('referencia')
                                 <small class="text-primary">{{ $message }}</small>
                                 @enderror
