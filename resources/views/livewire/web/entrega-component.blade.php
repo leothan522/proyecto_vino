@@ -105,7 +105,7 @@
 
     <!-- Modal Bootstrap 4 -->
     <div class="modal fade" id="codigoModal" tabindex="-1" role="dialog" aria-labelledby="codigoModalLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog <!--modal-dialog-centered-->" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
