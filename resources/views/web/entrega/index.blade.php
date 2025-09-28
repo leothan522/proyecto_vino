@@ -1,6 +1,6 @@
 @extends('web.layouts.master')
 
-@section('title', 'Contacto')
+@section('title', 'Realizar Entrega')
 
 @section('content')
 
