@@ -47,10 +47,10 @@ class PedidosTable
                     ->numeric()
                     ->searchable()
                     ->visibleFrom('md'),
-                TextColumn::make('nombre_telefono')
-                    ->label('Cliente')
+                TextColumn::make('nombre_codigo')
+                    ->label('Pedidos')
                     ->default(fn(Pedido $record): string => Str::upper($record->nombre))
-                    ->description(fn(Pedido $record): string => $record->telefono)
+                    ->description(fn(Pedido $record): string => Str::upper('#'.$record->codigo), position: 'above')
                     ->hiddenFrom('md'),
                 TextColumn::make('nombre')
                     ->formatStateUsing(fn(Pedido $record): string => Str::upper($record->nombre))
