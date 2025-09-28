@@ -15,6 +15,11 @@ Route::get('/profile', [WebController::class, 'profile'])->name('web.profile');
 Route::get('/contact/download', [WebController::class, 'descargar'])->name('web.descargar');
 Route::get('/compartir/app', [WebController::class, 'compartir'])->name('web.compartir');
 Route::get('/delivery/{rowquid}', [WebController::class, 'entrega'])->name('web.entrega');
+
+Route::get('/pedido/{pedido}/imprimir', [WebController::class, 'vistaTickera'])->name('pedido.imprimir');
+Route::get('/pedido/{pedido}/pdf', [WebController::class, 'verPDFTickera'])->name('pedido.pdf');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -31,4 +36,3 @@ Route::middleware([
 ])->get('user/profile', [UserProfileController::class, 'show'])->name('profile.show');
 
 Route::get('/{codigo?}', [WebController::class, 'index'])/*->where('codigo', '[A-Za-z0-9]{6}')*/->name('web.codigo');
-

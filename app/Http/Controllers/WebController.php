@@ -9,6 +9,7 @@ use App\Models\PedidoItem;
 use App\Models\Producto;
 use App\Models\Promotor;
 use App\Models\Stock;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -153,5 +154,54 @@ class WebController extends Controller
         return view('web.entrega.index')
             ->with('rowquid', $rowquid);
     }
+
+    public function vistaTickera(Pedido $pedido)
+    {
+        $qrUrl = route('web.entrega', ['rowquid' => $pedido->rowquid]);
+        $qrPath = null;
+        $parametro = Parametro::where('nombre', 'pedido_'.$pedido->rowquid)->exists() && $pedido->estatus == 3;
+        if ($parametro){
+            $qrPath = qrCodeGenerate(
+                content: $qrUrl,
+                size: 200,
+                margin: 2,
+                filename: 'qr-' . $pedido->codigo,
+                path: 'images-qr'
+            );
+        }
+
+        return view('reportes.pedido_recibo_tickera', [
+            'pedido' => $pedido,
+            'qr' => $qrPath // esto es una URL pública tipo asset(...)
+        ]);
+    }
+
+    public function verPDFTickera(Pedido $pedido)
+    {
+        $qrUrl = route('web.entrega', ['rowquid' => $pedido->rowquid]);
+        $qrPath = null;
+
+        $parametro = Parametro::where('nombre', 'pedido_'.$pedido->rowquid)->exists() && $pedido->estatus == 3;
+        if ($parametro){
+            qrCodeGenerateFPDF(
+                content: $qrUrl,
+                size: 200,
+                margin: 2,
+                filename: 'qr-' . $pedido->codigo,
+                path: 'images-qr'
+            );
+            $qrPath = verImagenStoragePath('images-qr/qr-' . $pedido->codigo . '.png');
+        }
+
+        return Pdf::loadView('reportes.pedido_recibo_pdf', [
+            'pedido' => $pedido,
+            'qr' => $qrPath
+        ])->stream('pedido_' . $pedido->codigo . '.pdf');
+    }
+
+
+
+
+
 
 }

@@ -50,7 +50,7 @@ class PedidosTable
                 TextColumn::make('nombre_codigo')
                     ->label('Pedidos')
                     ->default(fn(Pedido $record): string => Str::upper($record->nombre))
-                    ->description(fn(Pedido $record): string => Str::upper('#'.$record->codigo), position: 'above')
+                    ->description(fn(Pedido $record): string => Str::upper('#' . $record->codigo), position: 'above')
                     ->hiddenFrom('md'),
                 TextColumn::make('nombre')
                     ->formatStateUsing(fn(Pedido $record): string => Str::upper($record->nombre))
@@ -126,6 +126,20 @@ class PedidosTable
                 ActionGroup::make([
                     ViewAction::make()
                         ->modalHeading(fn(Pedido $record): string => 'Pedido #' . $record->codigo),
+                    Action::make('imprimir_tickera')
+                        ->label('Imprimir Tickera')
+                        ->icon('heroicon-o-printer')
+                        ->url(fn (Pedido $record) => route('pedido.imprimir', $record))
+                        ->openUrlInNewTab()
+                        ->color('gray')
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process),
+                    Action::make('ver_pdf_tickera')
+                        ->label('Generar PDF')
+                        ->icon(Heroicon::OutlinedDocumentText) // ícono tipo PDF
+                        ->color('gray') // color gris
+                        ->url(fn (Pedido $record) => route('pedido.pdf', $record))
+                        ->openUrlInNewTab()
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process),
                     Action::make('despachar')
                         ->label('Despachar')
                         ->color('primary')
@@ -143,7 +157,7 @@ class PedidosTable
                             //codigo de entrega
                             $codigo = random_int(100000, 999999);
                             Parametro::create([
-                                'nombre' => 'pedido_'.$record->rowquid,
+                                'nombre' => 'pedido_' . $record->rowquid,
                                 'valor_id' => $record->id,
                                 'valor_texto' => $codigo
                             ]);
@@ -161,8 +175,8 @@ class PedidosTable
                         ->action(function (Pedido $record): void {
                             $record->estatus = 4;
                             $record->save();
-                            $parametro = Parametro::where('nombre', 'pedido_'.$record->rowquid)->first();
-                            if ($parametro){
+                            $parametro = Parametro::where('nombre', 'pedido_' . $record->rowquid)->first();
+                            if ($parametro) {
                                 $parametro->delete();
                             }
                         })
