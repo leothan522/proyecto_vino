@@ -15,8 +15,8 @@
         @endif
 
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <a href="{{ route('web.products') }}" class="btn btn-primary d-block">Ver Todos los Productos <span class="fa fa-long-arrow-right"></span></a>
+            <div x-data class="col-md-4">
+                <a href="{{ route('web.products') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));" class="btn btn-primary d-block">Ver Todos los Productos <span class="fa fa-long-arrow-right"></span></a>
             </div>
         </div>
 

@@ -34,6 +34,7 @@ class HomeMenuComponent extends Component
     {
         session()->forget('menu_home');
         if ($this->isPerfil){
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.home');
         }else{
             $this->getActive();
@@ -44,6 +45,7 @@ class HomeMenuComponent extends Component
     {
         session(['menu_home' => 'show.datos']);
         if ($this->isPerfil){
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.home');
         }else{
             $this->getActive('show.datos');
@@ -53,6 +55,7 @@ class HomeMenuComponent extends Component
     public function showPerfil(): void
     {
         session()->forget('menu_home');
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.profile');
     }
 
@@ -87,6 +90,7 @@ class HomeMenuComponent extends Component
         $this->disableFtcoAnimate();
         Auth::guard('web')->logout();
         session()->flush();
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.index');
     }
 }

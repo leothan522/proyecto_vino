@@ -69,6 +69,7 @@ class CartComponent extends Component
                         }
                         $rowquid = $pedido->rowquid;
                     }
+                    $this->dispatch('showLoader');
                     $this->redirectRoute('web.checkout', $rowquid);
                 } else {
                     LivewireAlert::title('¡No se puede Procesar!')
@@ -96,6 +97,7 @@ class CartComponent extends Component
             session()->flash('livewireAlert_flast', [
                 'title' => '¡Carrito Vacio!',
             ]);
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.index');
         }
     }
@@ -135,6 +137,7 @@ class CartComponent extends Component
                 'title' => '¡Carrito Vacio!',
             ]);
             session()->forget('order_almacenes_id');
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.index');
         }
         $this->subtotal = $this->items->sum(fn($item) => $item->producto->precio * $item->cantidad);

@@ -142,7 +142,7 @@ class WebController extends Controller
 
     public function compartir()
     {
-        $qrAndroid = qrCodeGenerate(\route('web.compartir'), null, null, 'qr-android-download');
+        $qrAndroid = qrCodeGenerate(\route('web.descargar'), null, null, 'qr-android-download');
         $qrIos = qrCodeGenerate(\route('web.index'), null, null, 'qr-ios-download');
         return view('web.compartir.index')
             ->with('qrAndroid', $qrAndroid)

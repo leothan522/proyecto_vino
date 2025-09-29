@@ -22,6 +22,7 @@ class TiposProductosComponent extends Component
     {
         $this->disableFtcoAnimate();
         session(['tipos_id' => $tipos_id]);
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.products');
     }
 }

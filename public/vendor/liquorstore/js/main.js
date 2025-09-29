@@ -23,14 +23,39 @@
 	fullHeight();
 
 	// loader
-	var loader = function() {
+/*	var loader = function() {
 		setTimeout(function() {
 			if($('#ftco-loader').length > 0) {
 				$('#ftco-loader').removeClass('show');
 			}
 		}, 1);
 	};
-	loader();
+	loader();*/
+
+    /*// Oculta el loader cuando el documento esté suficientemente cargado
+    document.addEventListener('readystatechange', () => {
+        if (document.readyState === 'interactive') {
+            // Aprox. 80% de carga: DOM listo pero recursos como imágenes aún cargando
+            const loader = document.getElementById('ftco-loader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
+        }
+    });*/
+
+    // Fallback: si todo se carga, asegúrate de ocultarlo
+    window.addEventListener('load', () => {
+        if($('#ftco-loader').length > 0) {
+            $('#ftco-loader').removeClass('show');
+        }
+    });
+
+    //mostrar Spinner desde Livewire
+    window.addEventListener('showLoader', () => {
+        if($('#ftco-loader').length > 0) {
+            $('#ftco-loader').addClass('show');
+        }
+    });
 
 	var carousel = function() {
 		$('.carousel-testimony').owlCarousel({

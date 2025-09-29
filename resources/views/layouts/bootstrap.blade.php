@@ -126,6 +126,97 @@
             top: 3%;
         }
 
+        #ftco-loader {
+            position: fixed;
+            width: 96px;
+            height: 96px;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            -webkit-box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.24);
+            box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.24);
+            border-radius: 16px;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: opacity .2s ease-out, visibility 0s linear .2s;
+            -o-transition: opacity .2s ease-out, visibility 0s linear .2s;
+            transition: opacity .2s ease-out, visibility 0s linear .2s;
+            z-index: 1000; }
+
+        #ftco-loader.fullscreen {
+            padding: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+            background-color: #fff;
+            border-radius: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none; }
+
+        #ftco-loader.show {
+            -webkit-transition: opacity .4s ease-out, visibility 0s linear 0s;
+            -o-transition: opacity .4s ease-out, visibility 0s linear 0s;
+            transition: opacity .4s ease-out, visibility 0s linear 0s;
+            visibility: visible;
+            opacity: 1; }
+
+        #ftco-loader .circular {
+            -webkit-animation: loader-rotate 2s linear infinite;
+            animation: loader-rotate 2s linear infinite;
+            position: absolute;
+            left: calc(50% - 24px);
+            top: calc(50% - 24px);
+            display: block;
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg); }
+
+        #ftco-loader .path {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+            -webkit-animation: loader-dash 1.5s ease-in-out infinite;
+            animation: loader-dash 1.5s ease-in-out infinite;
+            stroke-linecap: round; }
+
+        @-webkit-keyframes loader-rotate {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg); } }
+
+        @keyframes loader-rotate {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg); } }
+
+        @-webkit-keyframes loader-dash {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0; }
+            50% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -35px; }
+            100% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -136px; } }
+
+        @keyframes loader-dash {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0; }
+            50% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -35px; }
+            100% {
+                stroke-dasharray: 89, 200;
+                stroke-dashoffset: -136px; } }
+
     </style>
     <script type="application/javascript">
         //Script para ejecurar el preloader
@@ -153,8 +244,8 @@
                         <div class="col-lg-6">
                             <div class="card-body p-md-5 mx-md-4 position-relative" id="card_body">
 
-                                <div class="text-center @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') pt-5 @endif mt-5">
-                                    <a href="{{ route('web.index') }}" onclick="verCargandoAuth(this)">
+                                <div x-data class="text-center @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') pt-5 @endif mt-5">
+                                    <a href="{{ route('web.index') }}" onclick="verCargandoAuth(this)" @click="window.dispatchEvent(new CustomEvent('showLoader'));">
                                         <img class="img-fluid @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') mt-sm-5 @endif"
                                             src="{{ asset('img/logo.jpg') }}" style="width: 200px !important;"  alt="Logo">
                                     </a>
@@ -179,6 +270,14 @@
 
 
     </div>
+</div>
+
+<!-- loader -->
+<div id="ftco-loader" class="fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+    </svg>
 </div>
 
 {{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>--}}
@@ -221,6 +320,14 @@
             window.location.href = enlace.href;
         }, 1000)
     }
+
+    //mostrar Spinner desde Livewire
+    window.addEventListener('showLoader', () => {
+        const loader = document.getElementById('ftco-loader');
+        if (loader) {
+            loader.classList.add('show');
+        }
+    });
 
     console.log('Hi!')
 </script>

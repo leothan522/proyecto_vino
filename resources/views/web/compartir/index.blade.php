@@ -29,7 +29,7 @@
                                             <div x-data="{ cargando: false }" class="col-md-6 justify-content-center text-center mt-5 mt-md-auto">
                                                 <label class="label">IOS</label>
                                                 <img class="img-fluid" src="{{ $qrIos }}" alt="Codigo QR" />
-                                                <a @click="cargando = true" href="{{ route('web.index') }}" class="label" style="text-decoration: underline;">
+                                                <a @click="cargando = true; window.dispatchEvent(new CustomEvent('showLoader'));" href="{{ route('web.index') }}" class="label" style="text-decoration: underline;">
                                                     <i class="fa fa-external-link-square" aria-hidden="true"></i> Abrir
                                                 </a>
                                                 <div x-show="cargando" class="spinner-overlay align-content-center">
@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <div class="dbox w-100">
                                     <div class="text text-center">
-                                        <p><span class="color-active">Instalación directa en iPhone desde Safari:</span></p>
+                                        <p><span class="color-active font-weight-bold">Instalación directa en iPhone desde Safari:</span></p>
                                     </div>
                                     <div class="text">
                                         <p class="font-weight-bold">1. Abre el enlace del código QR para <span class="color-active">IOS</span> en Safari.</p>

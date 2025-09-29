@@ -173,6 +173,7 @@ class CheckoutComponent extends Component
             session()->flash('livewireAlert_pedido_success', [
                 'codigo' => $pedido->codigo
             ]);
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.home');
         }
 
@@ -215,6 +216,7 @@ class CheckoutComponent extends Component
     {
         $pedido = $this->getPedido();
         if (!$pedido) {
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.index');
         }
         $items = PedidoItem::where('pedidos_id', $pedido->id)->get();

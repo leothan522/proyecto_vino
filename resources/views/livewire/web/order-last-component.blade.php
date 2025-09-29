@@ -16,10 +16,10 @@
                 <div class="img"
                      style="background-image: url({{ verImagen($item->producto->imagen_path) }});">
                 </div>
-                <div class="text pl-3">
+                <div x-data class="text pl-3">
                     <h4>{{ $item->producto->nombre }}</h4>
                     <p class="mb-0">
-                        <a href="{{ route('web.single', $item->productos_id) }}"
+                        <a href="{{ route('web.single', $item->productos_id) }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"
                            class="price">${{ formatoMillares($item->producto->precio) }}</a>
                         <span class="quantity ml-3">Cantidad: {{ cerosIzquierda(formatoMillares($item->cantidad, 0)) }}</span>
                     </p>
@@ -28,7 +28,7 @@
 
         @endforeach
         @if($items->isNotEmpty())
-            <a class="dropdown-item text-center btn-link d-block w-100" href="{{ route('web.cart') }}">
+            <a class="dropdown-item text-center btn-link d-block w-100" href="{{ route('web.cart') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));">
                 Ver Todo
                 <span class="ion-ios-arrow-round-forward"></span>
             </a>

@@ -62,6 +62,7 @@ class ProductSingleComponent extends Component
             $response = $this->productAddCart($this->productos_id, $this->cantidad);
         }
         if ($response){
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.cart');
         }
     }
@@ -70,6 +71,7 @@ class ProductSingleComponent extends Component
     {
         $this->disableFtcoAnimate();
         session(['tipos_id' => $this->tipos_id]);
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.products');
     }
 
@@ -77,6 +79,7 @@ class ProductSingleComponent extends Component
     {
         $this->disableFtcoAnimate();
         session()->forget('tipos_id');
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.products');
     }
 
@@ -91,6 +94,7 @@ class ProductSingleComponent extends Component
             $this->almacenes_id = $almacen->id;
             $this->almacen = $almacen->nombre;
         } else {
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.index');
         }
     }
@@ -115,6 +119,7 @@ class ProductSingleComponent extends Component
             $this->vendidos = $vendidos > 0 ? cerosIzquierda(formatoMillares($vendidos, 0)) : 0;
             $this->disponibles = $this->max > 0 ? cerosIzquierda(formatoMillares($this->max, 0)) : 0;
         } else {
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.index');
         }
     }

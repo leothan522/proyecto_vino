@@ -5,9 +5,9 @@
             <div class="col-md-8 ftco-animate d-flex align-items-end">
                 <div class="text w-100 text-center">
                     <h1 class="mb-4">Buena <span>Bebida</span> para buenos <span>Momentos</span>.</h1>
-                    <p>
-                        <a href="{{ route('web.products') }}" class="btn btn-primary py-2 px-4">Comprar Ahora</a>
-                        <a href="{{ route('web.blog') }}" class="btn btn-white btn-outline-white py-2 px-4">Leer más</a>
+                    <p x-data>
+                        <a href="{{ route('web.products') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));" class="btn btn-primary py-2 px-4">Comprar Ahora</a>
+                        <a href="{{ route('web.blog') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"  class="btn btn-white btn-outline-white py-2 px-4">Leer más</a>
                     </p>
                 </div>
             </div>

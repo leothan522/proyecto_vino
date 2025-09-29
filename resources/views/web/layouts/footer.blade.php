@@ -1,9 +1,9 @@
-<footer class="ftco-footer d-none d-md-block">
+<footer x-data class="ftco-footer d-none d-md-block">
     <div class="container">
         <div class="row mb-5">
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2 logo"><a href="{{ route('web.index') }}">Vino <span>Don Juan Espinoza</span></a></h2>
+                    <h2 class="ftco-heading-2 logo"><a href="{{ route('web.index') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));">Vino <span>Don Juan Espinoza</span></a></h2>
                     <p class="d-none">Far far away, behind the word mountains, far from the countries.</p>
                     <ul class="ftco-footer-social list-unstyled mt-2">
                         <li class="ftco-animate"><a href="{{ Str::replace(' ', '', getParametro('social_facebook')) }}" target="_blank"><span class="fa fa-facebook"></span></a></li>
@@ -16,13 +16,13 @@
                     <h2 class="ftco-heading-2">Mi Cuenta</h2>
                     <ul id="footerInformacionLogin" class="list-unstyled">
                         @auth
-                            <li><a href="{{ route('web.profile')  }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Profile') }}</a></li>
-                            <li><a href="{{ route('web.home') }}"><span class="fa fa-chevron-right mr-2"></span>Mis Pedidos</a></li>
+                            <li><a href="{{ route('web.profile')  }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"><span class="fa fa-chevron-right mr-2"></span>{{ __('Profile') }}</a></li>
+                            <li><a href="{{ route('web.home') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"><span class="fa fa-chevron-right mr-2"></span>Mis Pedidos</a></li>
                         @else
-                            <li><a href="{{ route('register') }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Register') }}</a></li>
-                            <li><a href="{{ route('login') }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Log In') }}</a></li>
+                            <li><a href="{{ route('register') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"><span class="fa fa-chevron-right mr-2"></span>{{ __('Register') }}</a></li>
+                            <li><a href="{{ route('login') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"><span class="fa fa-chevron-right mr-2"></span>{{ __('Log In') }}</a></li>
                         @endauth
-                            <li><a href="{{ route('filament.dashboard.pages.dashboard') }}"><span class="fa fa-chevron-right mr-2"></span>{{ __('Dashboard') }}</a></li>
+                            <li><a href="{{ route('filament.dashboard.pages.dashboard') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));"><span class="fa fa-chevron-right mr-2"></span>{{ __('Dashboard') }}</a></li>
 
                     </ul>
                 </div>

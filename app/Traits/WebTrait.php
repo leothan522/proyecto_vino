@@ -30,6 +30,7 @@ trait WebTrait
     {
         $this->disableFtcoAnimate();
         session(['almacenes_id' => $this->almacenes_id]);
+        $this->dispatch('showLoader');
         $this->redirectRoute('web.single', $id);
     }
 
@@ -223,6 +224,7 @@ trait WebTrait
             $response = $this->addCartItem($id);
         }
         if ($response){
+            $this->dispatch('showLoader');
             $this->redirectRoute('web.cart');
         }
     }
