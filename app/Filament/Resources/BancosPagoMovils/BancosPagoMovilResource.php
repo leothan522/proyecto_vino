@@ -46,19 +46,24 @@ class BancosPagoMovilResource extends Resource
         return $schema
             ->components([
                 TextInput::make('banco')
-                    ->columnSpanFull()
-                    ->required(),
+                    ->maxLength(200)
+                    ->required()
+                    ->columnSpanFull(),
                 TextInput::make('codigo')
-                    ->columnSpanFull()
-                    ->required(),
+                    ->numeric()
+                    ->minLength(4)
+                    ->required()
+                    ->columnSpanFull(),
                 TextInput::make('rif')
-                    ->columnSpanFull()
-                    ->required(),
+                    ->numeric()
+                    ->required()
+                    ->columnSpanFull(),
                 TextInput::make('telefono')
                     ->label('Teléfono')
-                    ->columnSpanFull()
                     ->tel()
-                    ->required(),
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 

@@ -52,7 +52,8 @@ class BancosTransferenciaResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('rif')
-                    ->minLength(9)
+                    ->numeric()
+                    ->minLength(7)
                     ->required()
                     ->columnSpanFull(),
                 Select::make('tipo')
