@@ -11,3 +11,22 @@
 @section('css')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 @endsection
+
+@section('js')
+    <script !src="">
+        function verPedidos() {
+            verSpinnerCargando();
+        }
+
+        function verFacturacion() {
+            verSpinnerCargando();
+        }
+
+        function verSpinnerCargando() {
+            const loader = document.getElementById('ftco-loader');
+            if (loader) {
+                loader.classList.add('show');
+            }
+        }
+    </script>
+@endsection

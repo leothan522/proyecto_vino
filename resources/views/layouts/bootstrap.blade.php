@@ -30,7 +30,7 @@
 
     <!--Bootstrap -->
     {{--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">--}}
-    @vite(['resources/js/bootstrap5.js', 'resources/js/sweetalert2.js'])
+    @vite(['resources/js/bootstrap5.js', 'resources/js/sweetalert2.js', 'resources/js/web-app.js'])
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,7 +82,7 @@
             }
         }
 
-        #preloader {
+        /*#preloader {
             position: fixed;
             left: 0;
             top: 0;
@@ -103,7 +103,7 @@
             background-size: contain;
             transform: translate(-50%, -50%);
             animation: pulse 2s infinite;
-        }
+        }*/
 
         @keyframes pulse {
             0% {
@@ -218,20 +218,20 @@
                 stroke-dashoffset: -136px; } }
 
     </style>
-    <script type="application/javascript">
+    {{--<script type="application/javascript">
         //Script para ejecurar el preloader
         window.addEventListener('load', function () {
             document.querySelector('#preloader').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
         });
-    </script>
+    </script>--}}
 
     @livewireStyles
     @yield('css')
 </head>
-<body style="background-color: #eee;">
+<body class="{{ $publicPage ?? false ? 'public-page' : '' }}" style="background-color: #eee;">
 
-<div id="preloader"></div>
+{{--<div id="preloader"></div>--}}
 
 <div class="position-relative gradient-form" style="min-height: 100vh;">
     <div class="position-absolute top-50 start-50 translate-middle container">
@@ -299,6 +299,10 @@
                 } else {
                     form.classList.add('opacity-50');
                     document.querySelector(".verCargando").classList.remove('d-none');
+                    const loader = document.getElementById('ftco-loader');
+                    if (loader) {
+                        loader.classList.add('show');
+                    }
                 }
                 form.classList.add('was-validated');
             }, false);
@@ -321,11 +325,27 @@
         }, 1000)
     }
 
-    //mostrar Spinner desde Livewire
-    window.addEventListener('showLoader', () => {
-        const loader = document.getElementById('ftco-loader');
-        if (loader) {
-            loader.classList.add('show');
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            // Solo ejecutar si estamos en una vista pública
+            if (document.body.classList.contains('public-page')) {
+                fetch('{{ route('auth-check') }}', {
+                    headers: { 'Accept': 'application/json' },
+                    credentials: 'same-origin'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.authenticated) {
+                            window.location.href = "{{ route('web.index') }}";
+                        }else {
+                            // Ocultar el loader si existe
+                            const loader = document.getElementById('ftco-loader');
+                            if (loader) {
+                                loader.classList.remove('show');
+                            }
+                        }
+                    });
+            }
         }
     });
 

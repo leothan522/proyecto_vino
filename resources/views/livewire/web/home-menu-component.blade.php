@@ -21,12 +21,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" wire:click.prevent="showPerfil" class="@if($isPerfil) color-active @endif">
+                    <a href="#" wire:click.prevent="showPerfil" onclick="verSpinnerCargando()" class="@if($isPerfil) color-active @endif">
                         {{ __('Profile') }} <span class="fa fa-chevron-right @if($isPerfil) color-active @endif"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" wire:click.prevent="cerrarSesion">
+                    <a href="#" wire:click.prevent="cerrarSesion" onclick="verSpinnerCargando()">
                         {{ __('Logout') }} <span class="fa fa-chevron-right"></span>
                     </a>
                 </li>

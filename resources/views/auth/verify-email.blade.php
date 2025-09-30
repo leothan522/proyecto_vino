@@ -32,11 +32,11 @@
 
     </form>
 
-    <div class="d-flex align-items-center justify-content-between">
-        <a class="text-muted mb-0 me-2" href="{{ isAdmin() ? route('profile.show') : route('web.profile') }}" onclick="verCargandoAuth(this)">{{ __('Edit Profile') }}</a>
+    <div x-data class="d-flex align-items-center justify-content-between">
+        <a class="text-muted mb-0 me-2" href="{{ isAdmin() ? route('profile.show') : route('web.profile') }}" onclick="verCargandoAuth(this)" @click="window.dispatchEvent(new CustomEvent('showLoader'));">{{ __('Edit Profile') }}</a>
         <form method="POST" action="{{ route('logout') }}" onsubmit="verCargandoForm()">
             @csrf
-            <button type="submit" class="btn btn-link text-muted">{{ __('Log Out') }}</button>
+            <button type="submit" class="btn btn-link text-muted" @click="window.dispatchEvent(new CustomEvent('showLoader'));">{{ __('Log Out') }}</button>
         </form>
     </div>
 

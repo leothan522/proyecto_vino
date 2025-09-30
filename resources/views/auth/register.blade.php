@@ -2,6 +2,8 @@
 
 @section('title', __('Register'))
 
+@php($publicPage = true)
+
 @section('content')
     <form class="needs-validation" method="POST" action="{{ route('register') }}" novalidate>
         @csrf

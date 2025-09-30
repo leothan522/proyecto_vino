@@ -63,6 +63,13 @@
             facturacion.classList.remove('d-none');
         }
 
+        function verSpinnerCargando() {
+            const loader = document.getElementById('ftco-loader');
+            if (loader) {
+                loader.classList.add('show');
+            }
+        }
+
         @if(session()->has('menu_home'))
             verFacturacion();
         @else
