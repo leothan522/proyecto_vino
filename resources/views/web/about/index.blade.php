@@ -12,10 +12,9 @@
         <livewire:web.tipos-productos-component />
     </section>
 
-    <section class="ftco-section testimony-section img" style="background-image: url({{ asset('img/web/bg_promotores.jpg') }});">
-        <div class="overlay"></div>
-       {{-- <livewire:web.testimony-component />--}}
-    </section>
+    <div>
+        @include('web.section.division-section')
+    </div>
 
     @include('web.section.counter-section')
 

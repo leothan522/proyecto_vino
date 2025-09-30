@@ -192,7 +192,7 @@ function cerosIzquierda($cantidad, $cantCeros = 2): int|string
 function getParametro($nombre, $column = 'valor_texto'): string
 {
     $data = [
-        'contact_nombre' => 'UPF Bodega de Vino Artesanal Don Juan Espinoza',
+        'contact_nombre' => 'UPF Bodega de Vinos Artesanal Don Juan Espinoza',
         'contact_rif' => 'J501051437',
         'contact_telefono' => '+58 414-4938140',
         'contact_email' => 'espinozadiazjuliocesar287@gmail.com',

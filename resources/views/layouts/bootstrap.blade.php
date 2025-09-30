@@ -260,7 +260,7 @@
                         </div>
                         <div class="col-lg-6 d-none d-lg-flex align-items-center gradient-custom-2" style="min-height: 70vh">
                             <div class="text-white px-3 py-4 p-md-5 mx-md-4 text-center">
-                                <img class="img-fluid rounded-2" src="{{ asset('img/logo.png') }}" alt="Bodega de vinos artesanal Don juan Espinoza">
+                                <img class="img-fluid rounded-2" src="{{ asset('img/logo-nuevo.png') }}" alt="Bodega de vinos artesanal Don juan Espinoza">
                             </div>
                         </div>
                     </div>
