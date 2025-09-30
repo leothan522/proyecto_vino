@@ -18,7 +18,7 @@
                 <span class="subheading">UPF Bodega de Vinos Artesanal</span>
                 <h2>Don Juan Espinoza</h2>
             </div>
-            <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center"
+            <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center ftco-animate"
                  style="background-image: url({{ asset('img/logo-nuevo.png') }});background-size: contain;background-position: center;background-repeat: no-repeat;">
             </div>
         </div>
