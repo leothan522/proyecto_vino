@@ -42,7 +42,7 @@
                                 <span class="fa fa-cloud-download"></span>
                             </div>
                             <div class="text">
-                                <p class="text-justify text-md-center"><span>Descargar App:</span> <a href="{{ route('web.compartir') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));">{{ getParametro('contact_web') }}</a></p>
+                                <p class="text-left text-md-center"><span>Descargar App:</span> <a href="{{ route('web.compartir') }}" @click="window.dispatchEvent(new CustomEvent('showLoader'));">{{ getParametro('contact_web') }}</a></p>
                             </div>
                         </div>
                     </div>
