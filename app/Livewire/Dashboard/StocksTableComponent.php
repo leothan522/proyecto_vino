@@ -51,6 +51,7 @@ class StocksTableComponent extends Component implements HasActions, HasSchemas, 
             ->columns([
                 TextColumn::make('producto.nombre')
                     ->description(fn(Stock $record): string => $record->almacen->nombre)
+                    ->wrap()
                     ->searchable(),
                 ImageColumn::make('producto.imagen_path')
                     ->label('Imagen')
@@ -84,40 +85,7 @@ class StocksTableComponent extends Component implements HasActions, HasSchemas, 
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make()
-                        ->schema([
-                            Section::make()
-                                ->schema([
-                                    ImageEntry::make('producto.imagen_path')
-                                        ->label('Imagen')
-                                        ->disk('public')
-                                        ->visibility('public')
-                                        ->defaultImageUrl(asset('img/placeholder.jpg')),
-                                    TextEntry::make('producto.nombre')
-                                        ->label('Producto')
-                                        ->color('primary')
-                                        ->icon(fn(Stock $record) => $record->producto->is_active ? Heroicon::CheckCircle : Heroicon::NoSymbol)
-                                        ->iconColor(fn(Stock $record) => $record->producto->is_active ? 'success' : 'gray')
-                                        ->iconPosition(IconPosition::After),
-                                    TextEntry::make('almacen.nombre')
-                                        ->label('Municipio')
-                                        ->color('primary'),
-                                    TextEntry::make('disponibles')
-                                        ->numeric()
-                                        ->default(0)
-                                        ->color('primary'),
-                                    TextEntry::make('comprometidos')
-                                        ->numeric()
-                                        ->default(0)
-                                        ->color('primary'),
-                                    TextEntry::make('vendidos')
-                                        ->numeric()
-                                        ->default(0)
-                                        ->color('primary'),
-                                ])
-                                ->compact()
-                                ->columns(3)
-                                ->columnSpanFull()
-                        ]),
+                        ->schema($this->getViewSchema()),
                     Action::make('entrada')
                         ->icon(Heroicon::OutlinedPlus)
                         ->color('primary')
@@ -174,6 +142,7 @@ class StocksTableComponent extends Component implements HasActions, HasSchemas, 
                         ->disabled(fn(Stock $record): bool => !$record->producto->is_active),
                 ])
             ])
+            ->recordAction('view')
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
@@ -192,4 +161,43 @@ class StocksTableComponent extends Component implements HasActions, HasSchemas, 
         //Refresh
     }
 
-}
+    protected function getViewSchema(): array
+    {
+        return [
+            Section::make()
+                ->schema([
+                    ImageEntry::make('producto.imagen_path')
+                        ->label('Imagen')
+                        ->disk('public')
+                        ->visibility('public')
+                        ->defaultImageUrl(asset('img/placeholder.jpg')),
+                    TextEntry::make('producto.nombre')
+                        ->label('Producto')
+                        ->color('primary')
+                        ->icon(fn(Stock $record) => $record->producto->is_active ? Heroicon::CheckCircle : Heroicon::NoSymbol)
+                        ->iconColor(fn(Stock $record) => $record->producto->is_active ? 'success' : 'gray')
+                        ->iconPosition(IconPosition::After),
+                    TextEntry::make('almacen.nombre')
+                        ->label('Municipio')
+                        ->color('primary'),
+                    TextEntry::make('disponibles')
+                        ->numeric()
+                        ->default(0)
+                        ->color('primary'),
+                    TextEntry::make('comprometidos')
+                        ->numeric()
+                        ->default(0)
+                        ->color('primary'),
+                    TextEntry::make('vendidos')
+                        ->numeric()
+                        ->default(0)
+                        ->color('primary'),
+                ])
+                ->compact()
+                ->columns(3)
+                ->columnSpanFull()
+        ];
+    }
+
+
+    }

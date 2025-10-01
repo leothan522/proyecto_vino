@@ -96,6 +96,7 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                         return $data;
                     }),
             ])
+            ->recordAction('view')
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
