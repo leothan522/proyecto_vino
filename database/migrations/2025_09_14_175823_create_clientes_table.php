@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('telefono');
             $table->bigInteger('parroquias_id')->unsigned()->nullable();
-            $table->text('direccion');
+            $table->text('direccion')->nullable();
             $table->text('direccion2')->nullable();
             $table->bigInteger('users_id')->unsigned()->nullable();
             $table->foreign('parroquias_id')->references('id')->on('parroquias')->nullOnDelete();

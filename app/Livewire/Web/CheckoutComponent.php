@@ -190,9 +190,9 @@ class CheckoutComponent extends Component
             $this->clientes_id = $cliente->id;
             $this->nombre = $cliente->nombre;
             $this->telefono = $cliente->telefono;
-            $this->parroquias_id = $cliente->parroquias_id ?? 0;
-            $this->direccion = $cliente->direccion;
-            $this->direccion2 = $cliente->direccion2;
+            $this->parroquias_id = 0;
+            //$this->direccion = $cliente->direccion;
+            //$this->direccion2 = $cliente->direccion2;
 
             if ($cliente->users_id != auth()->id()) {
                 $this->disableInput = true;
@@ -237,7 +237,7 @@ class CheckoutComponent extends Component
         $pedido = $this->getPedido();
         if ($pedido) {
             $municipio = $pedido->almacen->id_municipio ?? -1;
-            $response = Parroquia::where('id_municipio', $municipio)->get();
+            $response = Parroquia::where('id_municipio', $municipio)->whereNotNull('created_at')->get();
         }
         return $response;
     }

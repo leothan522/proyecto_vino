@@ -38,7 +38,7 @@
                             <label for="country">Parroquia</label>
                             <div class="select-wrap">
                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select wire:model="parroquias_id" class="form-control" @if($disableInput) disabled @endif>
+                                <select wire:model="parroquias_id" class="form-control">
                                     <option value="">Seleccione</option>
                                     @foreach($parroquias as $parroquia)
                                         <option value="{{ $parroquia->id }}">{{ $parroquia->parroquia }}</option>
@@ -65,8 +65,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="streetaddress">Dirección</label>
-                            <input wire:model="direccion" type="text" class="form-control" placeholder="Número de casa y nombre de la calle" @if($disableInput) disabled @endif>
+                            <label for="streetaddress">Dirección de Entrega</label>
+                            <input wire:model="direccion" type="text" class="form-control" placeholder="Número de casa y nombre de la calle">
                             @error('direccion')
                             <small class="text-primary">{{ $message }}</small>
                             @enderror
@@ -75,7 +75,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input wire:model="direccion2" type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)" @if($disableInput) disabled @endif>
+                            <input wire:model="direccion2" type="text" class="form-control" placeholder="Apartamento, suite, unidad, etc.: (opcional)">
                             @error('direccion')
                             <small class="text-primary">&nbsp;</small>
                             @enderror
