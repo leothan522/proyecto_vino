@@ -52,8 +52,8 @@ class BancosTransferenciaResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('rif')
+                    ->label('Cédula')
                     ->numeric()
-                    ->minLength(7)
                     ->required()
                     ->columnSpanFull(),
                 Select::make('tipo')

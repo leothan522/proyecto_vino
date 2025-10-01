@@ -84,5 +84,33 @@
             document.getElementById('buttonModalShowCliente').click();
         });
 
+        document.getElementById('btnDescartarPedido').addEventListener('click', function () {
+            Swal.fire({
+                title: '¿Descartar pedido?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, descartar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí va la lógica para descartar el pedido
+                    // Por ejemplo: enviar solicitud al backend o redirigir
+                    document.getElementById('spinner_eliminar_pedido').classList.remove('d-none');
+                    document.getElementById('cerrarModalLoginFast').click();
+                    Livewire.dispatch('delete');
+                    Swal.fire({
+                        title: 'Pedido descartado',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+
     </script>
 @endsection

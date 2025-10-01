@@ -43,6 +43,11 @@
                 </a>
             @endforeach
 
+            <!-- Spinner overlay -->
+            <div id="spinner_eliminar_pedido" class="spinner-overlay align-content-center text-center d-none">
+                <div class="spinner-border color-active" role="status"></div>
+            </div>
+
         </div>
 
         {{--Section Paginacion--}}
@@ -59,7 +64,7 @@
             <div class="modal-content">
                 <form {{--wire:submit="login"--}} class="billing-form">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pedido <span class="color-active">#{{ $codigo }}</span></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Pedido <span class="color-active">{{ $codigo }}</span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -67,8 +72,8 @@
                     <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
 
                         {{-- Datos del cliente --}}
-                        <div class="mb-4">
-                            <p class="mb-1">Cliente: <strong class="font-weight-bold">{{ \Str::upper($cliente) }}</strong></p>
+                        <div class="mb-4 @if($is_process) d-none @endif">
+                            <p class="mb-1">Cliente: <strong class="font-weight-bold">{{ $cliente }}</strong></p>
                             <p class="mb-0">Teléfono: <strong class="font-weight-bold">{{ $telefono }}</strong></p>
                         </div>
 
@@ -100,14 +105,14 @@
                         </ul>
 
                         {{-- Dirección --}}
-                        <div class="mb-4">
+                        <div class="mb-4 @if($is_process) d-none @endif">
                             <p class="mb-1"><i class="fa fa-map-marker mr-2"></i> Municipio: <strong>{{ $municipio }}</strong></p>
                             <p class="mb-1">Parroquia: <strong>{{ $parroquia }}</strong></p>
                             <p class="mb-0">Dirección: <strong>{{ $direccion }}</strong></p>
                         </div>
 
                         {{-- Pago --}}
-                        <div class="mb-4">
+                        <div class="mb-4 @if($is_process) d-none @endif">
                             <p class="mb-1">Método de pago: <strong class="float-right">{{ \Str::upper($metodo) }}</strong></p>
                             <p class="mb-1">Referencia: <strong class="float-right">{{ $referencia }}</strong></p>
                             <p class="mb-0">Monto: <strong class="float-right">Bs. {{ $monto }}</strong></p>
@@ -152,11 +157,12 @@
 
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <small
-                            class="text-muted">{{ \Carbon\Carbon::parse($created_at)->diffForHumans() }}</small>
-                        <button id="cerrarModalLoginFast" type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ __('Close') }}</button>
-                        {{--<button type="submit" class="btn btn-primary">{{ __('Login') }}</button>--}}
+                        <small class="text-muted">{{ \Carbon\Carbon::parse($created_at)->diffForHumans() }}</small>
+                        <div x-data class="row">
+                            <button type="button" class="btn btn-danger mr-2 @if(!$is_process) d-none @endif" id="btnDescartarPedido"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="button" wire:click="irCheckout" @click="window.dispatchEvent(new CustomEvent('showLoader'));" class="btn btn-primary mr-2 @if(!$is_process) d-none @endif" data-dismiss="modal">Pagar</button>
+                            <button id="cerrarModalLoginFast" type="button" class="btn btn-secondary mr-2" data-dismiss="modal">{{ __('Close') }}</button>
+                        </div>
                     </div>
                 </form>
             </div>

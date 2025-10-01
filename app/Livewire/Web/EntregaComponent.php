@@ -6,6 +6,7 @@ use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
+use App\Models\Stock;
 use App\Traits\WebTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -83,15 +84,24 @@ class EntregaComponent extends Component
             return;
         }
 
-        //proceso la entrega del pedido
-        if (Pedido::where('id', $this->pedidos_id)->exists()) {
-            Pedido::where('id', $this->pedidos_id)->update(['estatus' => 4]);
-        }
-
         // ✅ Cerrar el modal directamente
         $this->js(<<<'JS'
             $('#codigoModal').modal('hide');
         JS);
+
+        //proceso la entrega del pedido
+        if (Pedido::where('id', $this->pedidos_id)->exists()) {
+            Pedido::where('id', $this->pedidos_id)->update(['estatus' => 4]);
+            $items = PedidoItem::where('pedidos_id', $this->pedidos_id)->get();
+            foreach ($items as $item){
+                $stock = Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
+                if ($stock){
+                    $stock->vendidos = $stock->vendidos + $item->cantidad;
+                    $stock->comprometidos = $stock->comprometidos >= $item->cantidad ? $stock->comprometidos - $item->cantidad : 0;
+                    $stock->save();
+                }
+            }
+        }
 
         // Mostrar alerta con botón OK
         $this->dispatch('mostrarAlertaEntrega');

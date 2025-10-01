@@ -55,6 +55,7 @@ class BancosPagoMovilResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('rif')
+                    ->label('Cédula')
                     ->numeric()
                     ->required()
                     ->columnSpanFull(),
@@ -79,6 +80,7 @@ class BancosPagoMovilResource extends Resource
                     ->searchable()
                     ->alignCenter(),
                 TextColumn::make('rif')
+                    ->label('Cédula')
                     ->searchable()
                     ->alignCenter()
                     ->visibleFrom('md'),

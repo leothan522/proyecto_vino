@@ -35,6 +35,7 @@
                 allowEscapeKey: false,
             }).then(() => {
                 document.getElementById('spinner-entrega-pedido').classList.remove('d-none');
+                $('#codigoModal').modal('hide');
                 Livewire.dispatch('confirmarEntrega');
             });
         });

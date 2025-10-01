@@ -23,6 +23,7 @@
                     </p>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Titular:</small>
                         <input wire:model="titularTransferencia" type="text" class="form-control" placeholder="Titular" aria-label="Titular" aria-describedby="button-addon1" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $titularTransferencia }}')"
@@ -34,6 +35,7 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Cuenta:</small>
                         <input wire:model="cuentaTransferencia" type="text" class="form-control" placeholder="Cuenta" aria-label="Cuenta" aria-describedby="button-addon2" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $cuentaTransferencia }}')"
@@ -45,7 +47,8 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input wire:model="rifTransferencia" type="text" class="form-control" placeholder="RIF" aria-label="RIF" aria-describedby="button-addon3" readonly>
+                        <small class="w-100">Cédula:</small>
+                        <input wire:model="rifTransferencia" type="text" class="form-control" placeholder="Cédula" aria-label="RIF" aria-describedby="button-addon3" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $rifTransferencia }}')"
                                     class="btn btn-outline-secondary" type="button" id="button-addon3"
@@ -56,6 +59,7 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Tipo:</small>
                         <input wire:model="tipoTransferencia" type="text" class="form-control" placeholder="Tipo" aria-label="Tipo" aria-describedby="button-addon4" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $tipoTransferencia }}')"
@@ -67,6 +71,7 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Banco:</small>
                         <input wire:model="bancoTransferencia" type="text" class="form-control" placeholder="Banco" aria-label="Banco" aria-describedby="button-addon5" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $bancoTransferencia }}')"
@@ -80,6 +85,7 @@
 
 
                     <div class="input-group mb-3 @if(!$oficial) d-none @endif">
+                        <small class="w-100">Monto:</small>
                         <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto" aria-label="Monto" aria-describedby="button-addon6" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"
@@ -131,6 +137,7 @@
                     </p>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Banco:</small>
                         <input wire:model="bancoPagoMovil" type="text" class="form-control" placeholder="Banco" aria-label="Banco" aria-describedby="button-addon7" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $codigoPagoMovil }}')"
@@ -142,7 +149,8 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input wire:model="rifPagoMovil" type="text" class="form-control" placeholder="RIF" aria-label="RIF" aria-describedby="button-addon8" readonly>
+                        <small class="w-100">Cédula:</small>
+                        <input wire:model="rifPagoMovil" type="text" class="form-control" placeholder="Cédula" aria-label="RIF" aria-describedby="button-addon8" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $rifPagoMovil }}')" class="btn btn-outline-secondary"
                                     type="button" id="button-addon8" data-container="body" data-toggle="popover"
@@ -152,6 +160,7 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <small class="w-100">Teléfono:</small>
                         <input wire:model="telefonoPagoMovil" type="text" class="form-control" placeholder="Teléfono" aria-label="Teléfono" aria-describedby="button-addon9" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $telefonoPagoMovil }}')"
@@ -164,6 +173,7 @@
 
 
                     <div class="input-group mb-3 @if(!$oficial) d-none @endif">
+                        <small class="w-100">Monto:</small>
                         <input wire:model="montoBs" type="number" class="form-control" placeholder="Monto" aria-label="Monto" aria-describedby="button-addon10" readonly>
                         <div class="input-group-append">
                             <button onclick="copiarContenido('{{ $montoBs }}')" class="btn btn-outline-secondary"

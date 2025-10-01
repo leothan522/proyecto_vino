@@ -5,8 +5,10 @@ namespace App\Filament\Resources\Pedidos\Tables;
 use App\Filament\Resources\Pedidos\PedidoResource;
 use App\Models\Parametro;
 use App\Models\Pedido;
+use App\Models\PedidoItem;
 use App\Models\PedidoRepartidor;
 use App\Models\Repartidor;
+use App\Models\Stock;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -173,22 +175,29 @@ class PedidosTable
                         ->color('success')
                         ->requiresConfirmation()
                         ->action(function (Pedido $record): void {
+                            $items = PedidoItem::where('pedidos_id', $record->id)->get();
+                            foreach ($items as $item){
+                                $stock = Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
+                                if ($stock){
+                                    $stock->vendidos = $stock->vendidos + $item->cantidad;
+                                    $stock->comprometidos = $stock->comprometidos >= $item->cantidad ? $stock->comprometidos - $item->cantidad : 0;
+                                    $stock->save();
+                                }
+                            }
                             $record->estatus = 4;
                             $record->save();
                             $parametro = Parametro::where('nombre', 'pedido_' . $record->rowquid)->first();
-                            if ($parametro) {
-                                $parametro->delete();
-                            }
+                            $parametro?->delete();
                         })
                         //->modalIcon(Heroicon::OutlinedCheckCircle)
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process)
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process),
                 ])
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
+                    //DeleteBulkAction::make(),
+                    //ForceDeleteBulkAction::make(),
+                    //RestoreBulkAction::make(),
                 ]),
                 Action::make('actualizar')
                     ->icon(Heroicon::ArrowPath)
