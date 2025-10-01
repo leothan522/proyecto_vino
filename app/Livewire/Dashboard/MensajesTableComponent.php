@@ -47,7 +47,8 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                     ->visibleFrom('md'),
                 TextColumn::make('nombre')
                     //->description(fn(Mensaje $record): string => $record->email)
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap(),
                 TextColumn::make('email')
                     ->searchable()
                     ->visibleFrom('lg'),
