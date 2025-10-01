@@ -20,9 +20,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body position-relative" style="max-height: 70vh; overflow-y: auto;">
-                        <div class="row">
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                        <div class="row position-relative">
                             @if($register)
+                                <div class="col-12">
+                                    <div class="form-group text-center">
+                                        <span class="text-danger font-weight-bold">Para comprar debes ser mayor de edad.</span>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <input type="number" class="form-control" wire:model="cedula" placeholder="Cédula" >
@@ -64,10 +69,22 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <!-- Spinner overlay -->
-                        <div wire:loading wire:target="login, btnRegister, btnLogin" class="spinner-overlay align-content-center text-center">
-                            <div class="spinner-border color-active" role="status"></div>
+                            @if($register)
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label class="text-justify"><input type="checkbox" wire:model="esMayor" class="mr-2">Confirmo que tengo al menos 18 años de edad.</label>
+                                        </div>
+                                        @error('esMayor')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                                <!-- Spinner overlay -->
+                                <div wire:loading wire:target="login, btnRegister, btnLogin" class="spinner-overlay align-content-center text-center">
+                                    <div class="spinner-border color-active" role="status"></div>
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">

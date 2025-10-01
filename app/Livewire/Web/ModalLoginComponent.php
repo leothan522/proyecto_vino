@@ -19,6 +19,7 @@ class ModalLoginComponent extends Component
     public string $cedula;
     public string $telefono;
     public bool $register = false;
+    public bool $esMayor = false;
 
     public function render()
     {
@@ -41,9 +42,14 @@ class ModalLoginComponent extends Component
                 'name' => 'required',
                 'telefono' => 'required',
                 'email' => 'required|unique:users',
-                'password' => 'required'
+                'password' => 'required',
+                'esMayor' => 'accepted'
             ];
-            $this->validate($rules);
+            $messages = [
+                'esMayor.accepted' => 'Debes confirmar que tienes al menos 18 años.'
+            ];
+            $this->validate($rules, $messages);
+
             $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
@@ -111,7 +117,7 @@ class ModalLoginComponent extends Component
 
     public function btnRegister(): void
     {
-        $this->reset(['cedula', 'name', 'telefono', 'email', 'password']);
+        $this->reset(['cedula', 'name', 'telefono', 'email', 'password', 'esMayor']);
         $this->resetErrorBag();
         $this->register = true;
     }

@@ -52,6 +52,7 @@
         .text_title {
             color: rgba(8, 23, 44, 1);
             font-weight: bold;
+            cursor: pointer;
         }
 
 
@@ -245,11 +246,11 @@
                             <div class="card-body p-md-5 mx-md-4 position-relative" id="card_body">
 
                                 <div x-data class="text-center @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') pt-5 @endif mt-5">
-                                    <a href="{{ route('web.index') }}" onclick="verCargandoAuth(this)" @click="window.dispatchEvent(new CustomEvent('showLoader'));">
-                                        <img class="img-fluid @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') mt-sm-5 @endif"
+                                    <a id="enlace_hacia_index" href="{{ route('web.index') }}" onclick="verCargandoAuth(this)" @click="window.dispatchEvent(new CustomEvent('showLoader'));">
+                                        <img class="img-fluid @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'web.index') mt-sm-5 @endif @if(\Illuminate\Support\Facades\Route::currentRouteName() == 'register') d-none @endif"
                                             src="{{ asset('img/logo.jpg') }}" style="width: 200px !important;"  alt="Logo">
                                     </a>
-                                    <h5 class="mt-5 mb-5 pb-1 text_title">
+                                    <h5 class="mt-5 mb-5 pb-1 text_title" onclick="document.getElementById('enlace_hacia_index').click()">
                                         <strong>{{ mb_strtoupper(env('APP_NAME', 'Laravel')) }}</strong>
                                     </h5>
                                 </div>
@@ -260,7 +261,9 @@
                         </div>
                         <div class="col-lg-6 d-none d-lg-flex align-items-center gradient-custom-2" style="min-height: 70vh">
                             <div class="text-white px-3 py-4 p-md-5 mx-md-4 text-center">
-                                <img class="img-fluid rounded-2" src="{{ asset('img/logo-nuevo.png') }}" alt="Bodega de vinos artesanal Don juan Espinoza">
+                                <a href="{{ route('web.index') }}">
+                                    <img class="img-fluid rounded-2" src="{{ asset('img/logo-nuevo.png') }}" alt="Bodega de vinos artesanal Don juan Espinoza">
+                                </a>
                             </div>
                         </div>
                     </div>
