@@ -8,23 +8,24 @@
         <title>@yield('title', 'Bienvenido') - {{ config('app.name', 'Laravel') }}</title>
 
         <!-- Favicons -->
-        <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicons/apple-icon-57x57.png') }}">
-        <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('favicons/apple-icon-60x60.png') }}">
-        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('favicons/apple-icon-72x72.png') }}">
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicons/apple-icon-76x76.png') }}">
-        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('favicons/apple-icon-114x114.png') }}">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('favicons/apple-icon-120x120.png') }}">
-        <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('favicons/apple-icon-144x144.png') }}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('favicons/apple-icon-152x152.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicons/apple-icon-180x180.png') }}">
-        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicons/android-icon-192x192.png') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/appicon-16x16.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/appicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('favicons/appicon-48x48.png') }}">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicons/appicon-64x64.png') }}">
+        <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('favicons/appicon-128x128.png') }}">
+        <link rel="icon" type="image/png" sizes="256x256" href="{{ asset('favicons/appicon-256x256.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('favicons/appicon-256x256.png') }}">
         <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="{{ asset('favicons/ms-icon-144x144.png') }}">
         <meta name="theme-color" content="#ffffff">
+
+        <!-- Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <!-- iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="apple-mobile-web-app-title" content="Juan Espinoza">
+        <link rel="apple-touch-icon" href="{{ asset('favicons/appicon-256x256.png') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -61,5 +62,14 @@
 
         @livewireScripts
         @include('layouts.sweetAlert2')
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('{{ asset('pwabuilder-sw.js') }}')
+                        .then(reg => console.log('SW registrado:', reg.scope))
+                        .catch(err => console.error('Error al registrar SW:', err));
+                });
+            }
+        </script>
     </body>
 </html>
