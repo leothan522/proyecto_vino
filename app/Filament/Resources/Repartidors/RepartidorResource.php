@@ -35,6 +35,8 @@ class RepartidorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTruck;
 
+    protected static ?int $navigationSort = 81;
+
     protected static ?string $pluralModelLabel = 'Repartidores';
 
     protected static ?string $slug = 'repartidores';
