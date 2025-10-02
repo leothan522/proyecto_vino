@@ -124,9 +124,42 @@ class PedidoResource extends Resource
                                 TextEntry::make('is_validated')
                                     ->hiddenLabel()
                                     ->badge()
-                                    ->formatStateUsing(fn(bool $state): string => $state ? 'Pago Validado' : 'Esperando Validación')
-                                    ->icon(fn(bool $state): Heroicon => $state ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedClock)
-                                    ->color(fn(bool $state): string => $state ? 'success' : 'gray')
+                                    //->formatStateUsing(fn(bool $state): string => $state ? 'Pago Validado' : 'Esperando Validación')
+                                    ->formatStateUsing(function (PedidoPago $record): string{
+                                        $response = 'Esperando Validación';
+                                        if ($record->is_validated){
+                                            $response = 'Pago Validado';
+                                        }else{
+                                            if ($record->validated){
+                                                $response = 'Pago Rechazado';
+                                            }
+                                        }
+                                        return $response;
+                                    })
+                                    //->icon(fn(bool $state): Heroicon => $state ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedClock)
+                                    ->icon(function (PedidoPago $record): Heroicon{
+                                        $response = Heroicon::OutlinedClock;
+                                        if ($record->is_validated){
+                                            $response = Heroicon::OutlinedCheckCircle;
+                                        }else{
+                                            if ($record->validated){
+                                                $response = Heroicon::XMark;
+                                            }
+                                        }
+                                        return $response;
+                                    })
+                                    //->color(fn(bool $state): string => $state ? 'success' : 'gray')
+                                    ->color(function (PedidoPago $record): string{
+                                        $response = 'gray';
+                                        if ($record->is_validated){
+                                            $response = 'success';
+                                        }else{
+                                            if ($record->validated){
+                                                $response = 'danger';
+                                            }
+                                        }
+                                        return $response;
+                                    })
                                     ->afterContent(
                                         Action::make('validar_pago')
                                             ->label('Validar')
@@ -154,7 +187,7 @@ class PedidoResource extends Resource
                                                     ->success()
                                                     ->send();
                                             })
-                                            ->hidden(fn(PedidoPago $record): bool => $record->is_validated)
+                                            ->hidden(fn(PedidoPago $record): bool => $record->is_validated || $record->validated)
                                     ),
                                 TextEntry::make('metodo')
                                     ->formatStateUsing(fn(string $state): string => Str::upper($state == 'transferencias' ? 'Tranferencia' : 'Pago Móvil'))

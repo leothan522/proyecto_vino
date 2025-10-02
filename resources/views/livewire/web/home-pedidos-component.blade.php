@@ -31,6 +31,9 @@
                         @case(4)
                             <small class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</small>
                             @break
+                        @case(6)
+                            <small class="text-danger"><i class="fa fa-times-circle mr-2" aria-hidden="true"></i>Pago Rechazado</small>
+                            @break
                         @default
                             <small class="text-primary">Se require atención</small>
                             @break
@@ -135,6 +138,9 @@
                                         @case(4)
                                             <span class="text-success"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i>Entregado</span>
                                             @break
+                                        @case(6)
+                                            <span class="text-danger"><i class="fa fa-times-circle mr-2" aria-hidden="true"></i>Pago Rechazado</span>
+                                            @break
                                         @default
                                             <span class="text-primary">Se require atención</span>
                                             @break
@@ -159,8 +165,8 @@
                     <div class="modal-footer justify-content-between">
                         <small class="text-muted">{{ \Carbon\Carbon::parse($created_at)->diffForHumans() }}</small>
                         <div x-data class="row">
-                            <button type="button" class="btn btn-danger mr-2 @if(!$is_process) d-none @endif" id="btnDescartarPedido"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            <button type="button" wire:click="irCheckout" @click="window.dispatchEvent(new CustomEvent('showLoader'));" class="btn btn-primary mr-2 @if(!$is_process) d-none @endif" data-dismiss="modal">Pagar</button>
+                            <button type="button" class="btn btn-danger mr-2 @if(!$is_process && $estatus != 6) d-none @endif" id="btnDescartarPedido"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="button" wire:click="irCheckout" @click="window.dispatchEvent(new CustomEvent('showLoader'));" class="btn btn-primary mr-2 @if(!$is_process && $estatus!= 6) d-none @endif" data-dismiss="modal">Pagar</button>
                             <button id="cerrarModalLoginFast" type="button" class="btn btn-secondary mr-2" data-dismiss="modal">{{ __('Close') }}</button>
                         </div>
                     </div>

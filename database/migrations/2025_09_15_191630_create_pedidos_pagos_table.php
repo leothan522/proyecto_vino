@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('user_email')->nullable();
             $table->string('user_telefono')->nullable();
             $table->bigInteger('users_id')->unsigned()->nullable();
+            $table->foreign('pedidos_id')->references('id')->on('pedidos')->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

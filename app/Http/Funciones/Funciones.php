@@ -250,7 +250,7 @@ function codigoPedidos(): string
     do {
         $num = $num + $i;
         $codigo = $formato . cerosIzquierda($num, numSizeCodigo());
-        $existe = \App\Models\Pedido::where('codigo', $codigo)->exists();
+        $existe = \App\Models\Pedido::withTrashed()->where('codigo', $codigo)->exists();
         $i++;
     } while ($existe);
     return $codigo;

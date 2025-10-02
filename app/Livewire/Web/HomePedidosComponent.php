@@ -63,7 +63,7 @@ class HomePedidosComponent extends Component
             $this->municipio = Str::upper($pedido->bodega);
             $this->parroquia = Str::upper($pedido->parroquia);
             $this->direccion = Str::upper($pedido->direccion.' '.$pedido->direccion2);
-            $pago = PedidoPago::where('pedidos_id', $pedido->id)->first();
+            $pago = PedidoPago::where('pedidos_id', $pedido->id)->orderBy('created_at', 'desc')->first();
             if ($pago){
                 $this->metodo = $pago->metodo == "tranferencias" ? $pago->metodo : 'Pago Móvil';
                 $this->referencia = $pago->referencia;
@@ -88,7 +88,7 @@ class HomePedidosComponent extends Component
 
     public function irCheckout(): void
     {
-        if ($this->is_process){
+        if ($this->is_process || $this->estatus == 6){
             $this->dispatch('showLoader');
             $this->redirectRoute('web.checkout', $this->rowquid);
         }
@@ -98,7 +98,7 @@ class HomePedidosComponent extends Component
     public function delete(): void
     {
         $pedido = Pedido::find($this->pedidos_id);
-        if ($pedido && $this->is_process){
+        if ($pedido){
             $items = $pedido->items;
             foreach ($items as $item){
                 $stock = Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();

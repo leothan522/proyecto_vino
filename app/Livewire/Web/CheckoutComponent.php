@@ -80,7 +80,10 @@ class CheckoutComponent extends Component
         $pedido = $this->getPedido();
         if ($pedido) {
 
-            $pedido->codigo = $codigo;
+            if (!$pedido->codigo){
+                $pedido->codigo = $codigo;
+                incrementarCodigoPedidos();
+            }
             $pedido->cedula = $this->cedula;
             $pedido->nombre = $this->nombre;
             $pedido->parroquia = $parroquia->parroquia;
@@ -94,7 +97,6 @@ class CheckoutComponent extends Component
             $pedido->is_process = false;
             $pedido->bodega = $pedido->almacen->nombre;
             $pedido->save();
-            incrementarCodigoPedidos();
 
             /* Cliente */
             if ($this->clientes_id) {

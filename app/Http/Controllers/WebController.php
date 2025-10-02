@@ -86,9 +86,8 @@ class WebController extends Controller
     {
         $pedido = Pedido::where('rowquid', $rowquid)
             ->where('users_id', auth()->id())
-            ->where('is_process', true)
             ->first();
-        if (!$pedido) {
+        if (!$pedido || (!$pedido->is_process && $pedido->estatus != 6)) {
             return redirect()->route('web.index');
         }
 

@@ -6,6 +6,7 @@ use App\Filament\Resources\Pedidos\PedidoResource;
 use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
+use App\Models\PedidoPago;
 use App\Models\PedidoRepartidor;
 use App\Models\Repartidor;
 use App\Models\Stock;
@@ -134,14 +135,14 @@ class PedidosTable
                         ->url(fn (Pedido $record) => route('pedido.imprimir', $record))
                         ->openUrlInNewTab()
                         ->color('gray')
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process),
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process || $record->estatus == 6),
                     Action::make('ver_pdf_tickera')
                         ->label('Generar PDF')
                         ->icon(Heroicon::OutlinedDocumentText) // ícono tipo PDF
                         ->color('gray') // color gris
                         ->url(fn (Pedido $record) => route('pedido.pdf', $record))
                         ->openUrlInNewTab()
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process),
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->is_process || $record->estatus == 6),
                     Action::make('despachar')
                         ->label('Despachar')
                         ->color('primary')
@@ -190,7 +191,27 @@ class PedidosTable
                             $parametro?->delete();
                         })
                         //->modalIcon(Heroicon::OutlinedCheckCircle)
-                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process),
+                        ->hidden(fn(Pedido $record): bool => $record->estatus == 1 || $record->estatus == 4 || $record->is_process || $record->estatus == 6),
+                    Action::make('pagoRechazado')
+                        ->icon(Heroicon::XMark)
+                        ->color('danger')
+                        ->requiresConfirmation()
+                        ->action(function (Pedido $record): void {
+                            $items = PedidoPago::where('pedidos_id', $record->id)->get();
+                            foreach ($items as $pago){
+                                $pago->is_validated = 0;
+                                $pago->validated = now();
+                                $pago->user_name = auth()->user()->name;
+                                $pago->user_email = auth()->user()->email;
+                                $pago->user_telefono = auth()->user()->telefono;
+                                $pago->users_id = auth()->id();
+                                $pago->save();
+                            }
+                            $record->estatus = 6;
+                            $record->save();
+                        })
+                        //->modalIcon(Heroicon::OutlinedCheckCircle)
+                        ->hidden(fn(Pedido $record): bool => $record->estatus != 1 || $record->is_process),
                 ])
             ])
             ->toolbarActions([
