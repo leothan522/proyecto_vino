@@ -2,10 +2,63 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sin conexión</title>
+    <title>Sin conexión - Vino Don Juan Espinoza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 480px;
+            padding: 2rem;
+        }
+        .logo {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: rgb(183, 71, 42);
+            margin-bottom: 0.5rem;
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        .btn-retry {
+            background-color: rgb(183, 71, 42);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-retry:hover {
+            background-color: #a63f28;
+        }
+    </style>
 </head>
 <body>
-<h1>Estás sin conexión</h1>
-<p>Por favor, verifica tu conexión a internet.</p>
+<div class="container">
+    <img src="appicon-128x128.png" alt="Vino Don Juan Espinoza" class="logo">
+    <h1>Estás sin conexión</h1>
+    <p>No pudimos cargar la <strong>aplicación</strong>. Por favor verifica tu conexión a internet y vuelve a intentarlo.</p>
+    <a href="/" class="btn-retry">Reintentar</a>
+</div>
 </body>
 </html>
