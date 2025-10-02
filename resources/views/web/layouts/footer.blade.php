@@ -30,9 +30,14 @@
             <div class="col-sm-12 col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-4">
                     <h2 class="ftco-heading-2">Información</h2>
+                    @php
+                        $telefono = getParametro('contact_telefono');
+                        $whatsapp = formatearTelefonoParaWhatsapp($telefono); // 584141234567
+                        $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, quiero más información.");
+                    @endphp
                     <ul class="list-unstyled">
-                        <li><a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}"><span class="icon fa fa-phone pr-4"></span><span class="text">{{ getParametro('contact_telefono') }}</span></a></li>
-                        <li><a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">{{ Str::lower(getParametro('contact_email')) }}</span></a></li>
+                        <li><a href="{{ $url }}" target="_blank"><span class="icon fa fa-phone pr-4"></span><span class="text">{{ $telefono }}</span></a></li>
+                        <li><a href="mailto:{{ Str::replace(' ', '', Str::lower(getParametro('contact_email'))) }}" target="_blank"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">{{ Str::lower(getParametro('contact_email')) }}</span></a></li>
                     </ul>
                 </div>
             </div>

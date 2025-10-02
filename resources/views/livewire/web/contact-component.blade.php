@@ -22,7 +22,12 @@
                                 <span class="fa fa-phone"></span>
                             </div>
                             <div class="text">
-                                <p class="text-justify text-md-center"><span>Teléfono:</span> <a href="tel:{{ Str::replace([' ', '-'], '', getParametro('contact_telefono')) }}">{{ getParametro('contact_telefono') }}</a></p>
+                                @php
+                                    $telefono = getParametro('contact_telefono');
+                                    $whatsapp = formatearTelefonoParaWhatsapp($telefono); // 584141234567
+                                    $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, quiero más información.");
+                                @endphp
+                                <p class="text-justify text-md-center"><span>Teléfono:</span> <a href="{{ $url }}" target="_blank">{{ getParametro('contact_telefono') }}</a></p>
                             </div>
                         </div>
                     </div>

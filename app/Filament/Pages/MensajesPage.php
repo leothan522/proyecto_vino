@@ -16,6 +16,8 @@ class MensajesPage extends Page
 
     protected static ?string $title = 'Mensajes';
 
+    protected static ?string $slug = 'mensajes';
+
     protected static ?int $navigationSort = 89;
 
     protected string $view = 'filament.pages.mensajes-page';

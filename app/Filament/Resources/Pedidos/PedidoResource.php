@@ -285,7 +285,7 @@ class PedidoResource extends Resource
                                     $nombre = Str::upper($pedido->repartidor->repartidor->nombre) . ' ' . $pedido->repartidor->repartidor->telefono;
                                     $telefono = $pedido->repartidor->repartidor->telefono;
                                     $whatsapp = formatearTelefonoParaWhatsapp($telefono); // 584141234567
-                                    $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, quiero más información.");
+                                    $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, por favor realizar este despacho.");
                                     $response = Text::make(new HtmlString('<a href="' . $url . '" target="_blank">' . $nombre . '</a>'));
                                 }
                                 return $response;
