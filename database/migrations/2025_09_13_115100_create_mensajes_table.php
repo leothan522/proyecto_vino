@@ -16,6 +16,7 @@ return new class extends Migration
             $table->dateTime('fecha');
             $table->string('nombre');
             $table->string('email');
+            $table->string('telefono');
             $table->string('asunto');
             $table->text('mensaje');
             $table->bigInteger('users_id')->unsigned()->nullable();

@@ -46,12 +46,9 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                     ->sortable()
                     ->visibleFrom('md'),
                 TextColumn::make('nombre')
-                    //->description(fn(Mensaje $record): string => $record->email)
+                    ->description(fn(Mensaje $record): string => $record->telefono)
                     ->searchable()
                     ->wrap(),
-                TextColumn::make('email')
-                    ->searchable()
-                    ->visibleFrom('lg'),
                 TextColumn::make('asunto')
                     ->searchable()
                     ->visibleFrom('md'),
@@ -75,11 +72,16 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                                     ->color('primary'),
                                 TextEntry::make('asunto')
                                     ->copyable()
-                                    ->color('primary'),
+                                    ->color('primary')
+                                ->columnSpan(2),
                                 TextEntry::make('nombre')
                                     ->copyable()
                                     ->color('primary'),
                                 TextEntry::make('email')
+                                    ->copyable()
+                                    ->color('primary'),
+                                TextEntry::make('telefono')
+                                    ->label('Teléfono')
                                     ->copyable()
                                     ->color('primary'),
                                 TextEntry::make('mensaje')
@@ -88,7 +90,7 @@ class MensajesTableComponent extends Component implements HasActions, HasSchemas
                                     ->columnSpanFull(),
                             ])
                             ->compact()
-                            ->columns()
+                            ->columns(3)
                             ->columnSpanFull()
                     ])
                     ->mutateRecordDataUsing(function (array $data, Mensaje $record): array {

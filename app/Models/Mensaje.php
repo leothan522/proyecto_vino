@@ -12,6 +12,7 @@ class Mensaje extends Model
         'fecha',
         'nombre',
         'email',
+        'telefono',
         'asunto',
         'mensaje',
         'users_id'

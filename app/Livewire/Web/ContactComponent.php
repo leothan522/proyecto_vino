@@ -10,6 +10,7 @@ class ContactComponent extends Component
 {
     public string $nombre;
     public string $email;
+    public ?string $telefono;
     public string $asunto;
     public string $mensaje;
 
@@ -17,6 +18,7 @@ class ContactComponent extends Component
     {
         $this->nombre = auth()->check() ? auth()->user()->name : '';
         $this->email = auth()->check() ? auth()->user()->email : '';
+        $this->telefono = auth()->check() ? auth()->user()->telefono : '';
     }
 
     public function render()
@@ -29,6 +31,7 @@ class ContactComponent extends Component
         $rules = [
             'nombre' => 'required',
             'email' => 'required',
+            'telefono' => 'required',
             'asunto' => 'required',
             'mensaje' => 'required',
         ];
@@ -40,6 +43,7 @@ class ContactComponent extends Component
             'fecha' => $fecha,
             'nombre' => $this->nombre,
             'email' => $this->email,
+            'telefono' => $this->telefono,
             'asunto' => $this->asunto,
             'mensaje' => $this->mensaje,
             'users_id' => $users_id,

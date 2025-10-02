@@ -50,12 +50,12 @@
 
                 <div class="row no-gutters justify-content-center">
 
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <div class="contact-wrap w-100 p-md-5 p-4">
                             <h3 class="mb-4">Contáctenos</h3>
                             <form wire:submit="sendMessage" id="contactForm" name="contactForm" class="contactForm">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="label" for="name">Nombre Completo</label>
                                             <input type="text" wire:model="nombre" class="form-control" id="name" placeholder="Nombre">
@@ -64,11 +64,20 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="label" for="email">{{ __('Email') }}</label>
                                             <input type="email" wire:model="email" class="form-control" id="email" placeholder="{{ __('Email') }}">
                                             @error('email')
+                                            <small class="text-primary">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="label" for="telefono">Teléfono</label>
+                                            <input type="tel" wire:model="telefono" class="form-control" id="telefono" placeholder="Teléfono">
+                                            @error('telefono')
                                             <small class="text-primary">{{ $message }}</small>
                                             @enderror
                                         </div>
