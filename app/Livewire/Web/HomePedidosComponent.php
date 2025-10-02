@@ -6,6 +6,7 @@ use App\Models\Parametro;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
+use App\Models\PromotorPedido;
 use App\Models\Stock;
 use App\Traits\WebTrait;
 use Carbon\Carbon;
@@ -108,6 +109,10 @@ class HomePedidosComponent extends Component
                     $stock->save();
                 }
             }
+
+            $promotor = PromotorPedido::where('pedidos_id', $pedido->id)->first();
+            $promotor?->delete();
+
             $pedido->delete();
         }
     }

@@ -8,11 +8,14 @@ use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\PedidoPago;
 use App\Models\PedidoRepartidor;
+use App\Models\PromotorPedido;
 use App\Models\Repartidor;
 use App\Models\Stock;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
@@ -122,8 +125,9 @@ class PedidosTable
                         2 => 'Por Despachar',
                         3 => 'En Proceso',
                         4 => 'Entregado',
+                        6 => 'Incompleto',
                     ]),
-                TrashedFilter::make(),
+                //TrashedFilter::make(),
             ])
             ->recordActions([
                 ActionGroup::make([
@@ -212,6 +216,21 @@ class PedidosTable
                         })
                         //->modalIcon(Heroicon::OutlinedCheckCircle)
                         ->hidden(fn(Pedido $record): bool => $record->estatus != 1 || $record->is_process),
+                    DeleteAction::make()
+                        ->visible(fn(Pedido $record): bool => $record->estatus == 6 && Carbon::parse($record->updated_at)->diffInHours(now()) >= 24)
+                    ->before(function (Pedido $record): void{
+                        $items = PedidoItem::where('pedidos_id', $record->id)->get();
+                        foreach ($items as $item){
+                            $stock = Stock::where('almacenes_id', $item->almacenes_id)->where('productos_id', $item->productos_id)->first();
+                            if ($stock){
+                                $stock->disponibles = $stock->disponibles + $item->cantidad;
+                                $stock->comprometidos = $stock->comprometidos >= $item->cantidad ? $stock->comprometidos - $item->cantidad : 0;
+                                $stock->save();
+                            }
+                        }
+                        $promotor = PromotorPedido::where('pedidos_id', $record->id)->first();
+                        $promotor?->delete();
+                    }),
                 ])
             ])
             ->toolbarActions([

@@ -14,7 +14,9 @@ use App\Models\PedidoPago;
 use App\Models\PedidoRepartidor;
 use App\Models\Repartidor;
 use BackedEnum;
+use Carbon\Carbon;
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -125,36 +127,36 @@ class PedidoResource extends Resource
                                     ->hiddenLabel()
                                     ->badge()
                                     //->formatStateUsing(fn(bool $state): string => $state ? 'Pago Validado' : 'Esperando Validación')
-                                    ->formatStateUsing(function (PedidoPago $record): string{
+                                    ->formatStateUsing(function (PedidoPago $record): string {
                                         $response = 'Esperando Validación';
-                                        if ($record->is_validated){
+                                        if ($record->is_validated) {
                                             $response = 'Pago Validado';
-                                        }else{
-                                            if ($record->validated){
+                                        } else {
+                                            if ($record->validated) {
                                                 $response = 'Pago Rechazado';
                                             }
                                         }
                                         return $response;
                                     })
                                     //->icon(fn(bool $state): Heroicon => $state ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedClock)
-                                    ->icon(function (PedidoPago $record): Heroicon{
+                                    ->icon(function (PedidoPago $record): Heroicon {
                                         $response = Heroicon::OutlinedClock;
-                                        if ($record->is_validated){
+                                        if ($record->is_validated) {
                                             $response = Heroicon::OutlinedCheckCircle;
-                                        }else{
-                                            if ($record->validated){
+                                        } else {
+                                            if ($record->validated) {
                                                 $response = Heroicon::XMark;
                                             }
                                         }
                                         return $response;
                                     })
                                     //->color(fn(bool $state): string => $state ? 'success' : 'gray')
-                                    ->color(function (PedidoPago $record): string{
+                                    ->color(function (PedidoPago $record): string {
                                         $response = 'gray';
-                                        if ($record->is_validated){
+                                        if ($record->is_validated) {
                                             $response = 'success';
-                                        }else{
-                                            if ($record->validated){
+                                        } else {
+                                            if ($record->validated) {
                                                 $response = 'danger';
                                             }
                                         }
@@ -263,7 +265,7 @@ class PedidoResource extends Resource
                                         //codigo de entrega
                                         $codigo = random_int(100000, 999999);
                                         Parametro::create([
-                                            'nombre' => 'pedido_'.$record->rowquid,
+                                            'nombre' => 'pedido_' . $record->rowquid,
                                             'valor_id' => $record->id,
                                             'valor_texto' => $codigo
                                         ]);
@@ -284,7 +286,7 @@ class PedidoResource extends Resource
                                     $telefono = $pedido->repartidor->repartidor->telefono;
                                     $whatsapp = formatearTelefonoParaWhatsapp($telefono); // 584141234567
                                     $url = "https://wa.me/{$whatsapp}?text=" . urlencode("Hola, quiero más información.");
-                                    $response = Text::make(new HtmlString('<a href="'.$url.'" target="_blank">'.$nombre.'</a>'));
+                                    $response = Text::make(new HtmlString('<a href="' . $url . '" target="_blank">' . $nombre . '</a>'));
                                 }
                                 return $response;
                             }),
@@ -293,13 +295,13 @@ class PedidoResource extends Resource
                             ->formatStateUsing(fn(string $state): string => route('web.entrega', $state))
                             ->color('primary')
                             ->copyable()
-                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_'.$record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
+                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_' . $record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
                         TextEntry::make('codigo')
                             ->label('Código de Entrega')
                             ->formatStateUsing(function (Pedido $record): string {
-                                $response ='';
-                                $parametro = Parametro::where('nombre', 'pedido_'.$record->rowquid)->first();
-                                if ($parametro){
+                                $response = '';
+                                $parametro = Parametro::where('nombre', 'pedido_' . $record->rowquid)->first();
+                                if ($parametro) {
                                     $response = $parametro->valor_texto;
                                 }
                                 return $response;
@@ -308,7 +310,7 @@ class PedidoResource extends Resource
                             ->alignCenter()
                             ->size(TextSize::Large)
                             ->copyable()
-                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_'.$record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
+                            ->visible(fn(Pedido $record): bool => Parametro::where('nombre', 'pedido_' . $record->rowquid)->exists() && Pedido::find($record->id)?->estatus == 3),
                     ])
                     ->compact(),
             ]);

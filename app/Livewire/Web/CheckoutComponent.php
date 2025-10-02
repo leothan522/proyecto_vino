@@ -158,7 +158,8 @@ class CheckoutComponent extends Component
             if (session()->has('promotores_id')){
                 $promotor = Promotor::find(session('promotores_id'));
                 if (verificarCodigoPromotor($promotor)){
-                    $items = PedidoItem::where('pedidos_id', $pedido->id)->sum('cantidad');
+                    //$items = PedidoItem::where('pedidos_id', $pedido->id)->sum('cantidad');
+                    $items = 1;
                     PromotorPedido::create([
                        'promotores_id' => $promotor->id,
                        'pedidos_id' => $pedido->id,
