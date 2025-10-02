@@ -1,6 +1,6 @@
 {
     "name": "Vino Don Juan Espinoza",
-    "short_name": "Juan Espinoza",
+    "short_name": "Vino Don Juan",
     "description": "UPF Bodega de Vinos Artesanal Don Juan Espinoza",
     "icons": [
         {
@@ -41,7 +41,7 @@
         }
     ],
     "theme_color": "#000000",
-    "background_color": "#000000",
+    "background_color": "#ffffff",
     "display": "standalone",
     "orientation": "portrait",
     "scope": ".",
