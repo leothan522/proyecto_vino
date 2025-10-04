@@ -30,6 +30,24 @@
         @include('web.section.division-section')
     </div>
 
+    <section class="ftco-intro ftco-animate mt-5 d-md-none">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="intro color-2 d-lg-flex w-100 ftco-animate">
+                        <div class="icon">
+                            <span class="flaticon-free-delivery"></span>
+                        </div>
+                        <div class="text">
+                            <h2>Envío Gratis</h2>
+                            <p>Los envios dentro del municipio no tienen consto adicional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="ftco-section ftco-no-pb d-none d-md-block">
         <livewire:web.tipos-productos-component/>
     </section>
