@@ -30,7 +30,7 @@
                     </div>
                     <div class="text">
                         <h2>Envío Gratis</h2>
-                        <p>Los envios dentro del municipio no tienen consto adicional.</p>
+                        <p>Los envios dentro del municipio son gratis de 9 am a 10 pm.</p>
                     </div>
                 </div>
             </div>
